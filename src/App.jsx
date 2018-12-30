@@ -43,9 +43,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <Counter countdown={this.state.countdown} />
         <Controls
+          state={this.state.start}
           start={this.start}
           pause={this.pause}
           reset={this.reset}
