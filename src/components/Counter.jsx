@@ -20,7 +20,7 @@ export default ({
         <h1 className="mono">{percentage}%</h1>
       }
       { (!isCounting && !isPause) &&
-        <h1 class="mono">25m</h1>
+        <h1 className="mono">25m</h1>
       }
     </div>
   )
