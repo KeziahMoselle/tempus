@@ -55,13 +55,17 @@ body {
   align-items: center;
 }
 
+p {
+  font-size: 1.3em;
+}
+
 .counter {
   position: relative;
-  height: 64px;
-  width: 64px;
+  height: 128px;
+  width: 128px;
   border: 2px solid white;
   border-radius: 50%;
-  margin-right: 64px;
+  margin: 0 64px;
 }
 
 .counter h1 {

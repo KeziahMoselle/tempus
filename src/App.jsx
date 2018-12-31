@@ -6,47 +6,84 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      start: false,
-      countdown: 0
+      isCounting: false,
+      isPause: false,
+      total: 1500,
+      count: 0,
+      totalPause: 300,
+      countPause: 0 
     }
   }
 
   start = () => {
-    if (this.state.start) return
+    if (this.state.isCounting) return
     this.countInterval = setInterval(this.increment, 1000)
     this.setState({
-      start: true
+      isCounting: true
     })
   }
 
   pause = () => {
-    if (!this.state.start) return
+    if (!this.state.isCounting) return
     clearInterval(this.countInterval)
     this.setState({
-      start: false
+      isCounting: false
     })
   }
 
   reset = () => {
     clearInterval(this.countInterval)
+    clearInterval(this.pauseInterval)
     this.setState({
-      start: false,
-      countdown: 0
+      isCounting: false,
+      isPause: false,
+      count: 0,
+      countPause: 0
     })
   }
   
   increment = () => {
+    if (this.state.count >= this.state.total) {
+      this.reset()
+      this.setState({
+        isPause: true
+      })
+      return this.pauseInterval = setInterval(this.incrementPause, 1000)
+    }
     this.setState(prevState => ({
-      countdown: prevState.countdown + 1
+      count: prevState.count + 1
+    }))
+  }
+
+  incrementPause = () => {
+    if (this.state.countPause >= this.state.totalPause) {
+      this.reset()
+      return this.start()
+    }
+    this.setState(prevState => ({
+      countPause: prevState.countPause + 1
     }))
   }
 
   render() {
     return (
       <div className="container">
-        <Counter countdown={this.state.countdown} />
+        { (this.state.isCounting || !this.state.isPause) &&
+          <p className="mono">{this.state.total / 60} minutes</p>
+        }
+        { this.state.isPause &&
+          <p className="mono">{this.state.totalPause / 60} minutes</p>
+        }
+        <Counter
+          isCounting={this.state.isCounting}
+          isPause={this.state.isPause}
+          total={this.state.total}
+          count={this.state.count}
+          totalPause={this.state.totalPause}
+          countPause={this.state.countPause}
+        />
         <Controls
-          state={this.state.start}
+          isCounting={this.state.isCounting}
           start={this.start}
           pause={this.pause}
           reset={this.reset}
