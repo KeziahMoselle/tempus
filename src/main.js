@@ -59,7 +59,13 @@ function createTray () {
   ])
   tray.setContextMenu(contextMenu)
 
-  tray.on('double-click', createWindow)
+  tray.on('double-click', () => {
+    if (trayWindow.isVisible()) {
+      trayWindow.hide()
+    } else {
+      trayWindow.show()
+    }
+  })
 }
 
 function start () {
