@@ -1,3 +1,4 @@
+const url = require('url')
 const path = require('path')
 const { app, BrowserWindow, Tray, Menu } = require('electron')
 
@@ -12,19 +13,15 @@ function createWindow () {
     height: 350,
     icon: path.join('src', 'icons', 'idle.png')
   })
-  let windowUrl
-  let localFile = require('url').format({
-    protocol: 'file',
-    slashes: true,
-    pathname: path.join('build', 'index.html')
-  })
   NODE_ENV === 'development'
     // DEVELOPMENT Load the CRA server
-    ? windowUrl = 'http://localhost:3000/'
+    ? trayWindow.loadURL('http://localhost:3000/')
     // PRODUCTION Load the React build
-    : windowUrl = localFile
-  console.log(windowUrl)
-  trayWindow.loadURL(windowUrl)
+    : trayWindow.loadURL(url.format({
+      protocol: 'file',
+      slashes: true,
+      pathname: path.join('build', 'index.html')
+    }))
 
   trayWindow.on('closed', () => trayWindow = null)
 }
