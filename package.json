@@ -7,9 +7,18 @@
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.2"
   },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "electron": "^4.0.0"
+  },
+  "homepage": "./",
+  "main": "./src/main.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "serve": "react-scripts start",
+    "start": "cross-env NODE_ENV=development electron .",
+    "build": "react-scripts build && cross-env NODE_ENV=production npm run package",
+    "static": "react-scripts build && cross-env NODE_ENV=production electron .",
+    "package": "echo In development... && exit 1",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
