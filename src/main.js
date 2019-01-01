@@ -11,7 +11,11 @@ function createWindow () {
   trayWindow = new BrowserWindow({
     width: 800,
     height: 350,
-    icon: path.join('src', 'icons', 'idle.png')
+    icon: path.join('src', 'icons', 'idle.png'),
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
   })
   NODE_ENV === 'development'
     // DEVELOPMENT Load the CRA server
@@ -31,13 +35,26 @@ function createTray () {
   tray.setToolTip('Double click to start the pomodoro.')
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Start'
+      label: 'Start',
+      click () {
+        if (!trayWindow.isVisible()) trayWindow.show()
+        trayWindow.webContents.send('start')
+        tray.setImage(path.join('src', 'icons', 'counting.png'))
+      }
     },
     {
-      label: 'Reset'
+      label: 'Reset',
+      click () {
+        if (!trayWindow.isVisible()) trayWindow.show()
+        trayWindow.webContents.send('reset')
+        tray.setImage(path.join('src', 'icons', 'idle.png'))
+      }
     },
     {
-      label: 'Quit'
+      label: 'Quit',
+      click () {
+        app.quit()
+      }
     }
   ])
   tray.setContextMenu(contextMenu)
@@ -45,4 +62,9 @@ function createTray () {
   tray.on('double-click', createWindow)
 }
 
-app.on('ready', createTray)
+function start () {
+  createWindow()
+  createTray()
+}
+
+app.on('ready', start)

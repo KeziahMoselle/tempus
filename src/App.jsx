@@ -13,6 +13,10 @@ class App extends Component {
       totalPause: 300,
       countPause: 0 
     }
+
+    window.ipcRenderer.on('start', this.start)
+
+    window.ipcRenderer.on('reset', this.reset)
   }
 
   start = () => {
