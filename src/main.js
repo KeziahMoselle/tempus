@@ -2,6 +2,8 @@ const url = require('url')
 const path = require('path')
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
 
+const icons = require('./icons/icons')
+
 const NODE_ENV = process.env.NODE_ENV
 
 let tray
@@ -11,7 +13,7 @@ function createWindow () {
   trayWindow = new BrowserWindow({
     width: 800,
     height: 350,
-    icon: path.join('src', 'icons', 'idle.png'),
+    icon: icons.idle,
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
@@ -31,7 +33,7 @@ function createWindow () {
 }
 
 function createTray () {
-  tray = new Tray(path.join('src', 'icons', 'idle.png'))
+  tray = new Tray(icons.idle)
   tray.setToolTip('Double click to start the pomodoro.')
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -73,14 +75,14 @@ function start () {
 
 app.on('ready', start)
 
-ipcMain.on('pausing', () => {
-  tray.setImage(path.join('src', 'icons', 'pausing.png'))
+ipcMain.on('idle', () => {
+  tray.setImage(icons.idle)
 })
 
 ipcMain.on('counting', () => {
-  tray.setImage(path.join('src', 'icons', 'counting.png'))
+  tray.setImage(icons.counting)
 })
 
-ipcMain.on('idle', () => {
-  tray.setImage(path.join('src', 'icons', 'idle.png'))
+ipcMain.on('pausing', () => {
+  tray.setImage(icons.pausing)
 })
