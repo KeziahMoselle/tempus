@@ -111,10 +111,10 @@ class App extends Component {
     return (
       <div className="container">
         { (this.state.isCounting || !this.state.isPause) &&
-          <p className="mono">{this.state.total / 60} minutes</p>
+          <p className="mono">{Math.floor(this.state.total / 60)} minutes</p>
         }
         { this.state.isPause &&
-          <p className="mono">{this.state.totalPause / 60} minutes</p>
+          <p className="mono">{Math.floor(this.state.totalPause / 60)} minutes</p>
         }
         <Counter
           isCounting={this.state.isCounting}
