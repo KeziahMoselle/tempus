@@ -14,10 +14,17 @@ class App extends Component {
       countPause: 0 
     }
 
+    // Listeners for the Tray menu
     window.ipcRenderer.on('start', this.start)
     window.ipcRenderer.on('reset', this.reset)
   }
 
+
+  /**
+   * Launch the counter
+   * Creates the `countInterval` variable
+   * Send `counting` event to the main process
+   */
   start = () => {
     if (this.state.isCounting) return
     this.countInterval = setInterval(this.increment, 1000)
@@ -27,6 +34,11 @@ class App extends Component {
     window.ipcRenderer.send('counting')
   }
 
+
+  /**
+   * Clear the `countInterval`
+   * Send `idle` event to the main process
+   */
   pause = () => {
     if (!this.state.isCounting) return
     clearInterval(this.countInterval)
@@ -36,6 +48,12 @@ class App extends Component {
     window.ipcRenderer.send('idle')
   }
 
+
+  /**
+   * Clear all intervals
+   * Clear the state
+   * Send `idle` event to the main process
+   */
   reset = () => {
     clearInterval(this.countInterval)
     clearInterval(this.pauseInterval)
@@ -48,8 +66,16 @@ class App extends Component {
     window.ipcRenderer.send('idle')
   }
   
+
+  /**
+   * Triggered every 1s when `state.isCounting` = true
+   * Increment the `state.count`
+   * Create the `pauseInterval` when `state.count` > `state.total`
+   */
   increment = () => {
     if (this.state.count >= this.state.total) {
+      // Max value for `this.state`
+      // Switch into the `pauseInterval`
       this.reset()
       this.setState({
         isPause: true
@@ -62,8 +88,16 @@ class App extends Component {
     }))
   }
 
+
+  /**
+   * Triggered every 1s when `state.isPause` = true
+   * Increment the `state.countPause`
+   * Switch to the `countInterval`
+   */
   incrementPause = () => {
     if (this.state.countPause >= this.state.totalPause) {
+      // Max value for `state.countPause`
+      // Switch into the `countInterval`
       this.reset()
       window.ipcRenderer.send('counting')
       return this.start()
