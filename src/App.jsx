@@ -15,7 +15,6 @@ class App extends Component {
     }
 
     window.ipcRenderer.on('start', this.start)
-
     window.ipcRenderer.on('reset', this.reset)
   }
 
@@ -25,6 +24,7 @@ class App extends Component {
     this.setState({
       isCounting: true
     })
+    window.ipcRenderer.send('counting')
   }
 
   pause = () => {
@@ -33,6 +33,7 @@ class App extends Component {
     this.setState({
       isCounting: false
     })
+    window.ipcRenderer.send('idle')
   }
 
   reset = () => {
@@ -44,6 +45,7 @@ class App extends Component {
       count: 0,
       countPause: 0
     })
+    window.ipcRenderer.send('idle')
   }
   
   increment = () => {
@@ -52,6 +54,7 @@ class App extends Component {
       this.setState({
         isPause: true
       })
+      window.ipcRenderer.send('pausing')
       return this.pauseInterval = setInterval(this.incrementPause, 1000)
     }
     this.setState(prevState => ({
@@ -62,6 +65,7 @@ class App extends Component {
   incrementPause = () => {
     if (this.state.countPause >= this.state.totalPause) {
       this.reset()
+      window.ipcRenderer.send('counting')
       return this.start()
     }
     this.setState(prevState => ({

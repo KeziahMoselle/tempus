@@ -1,6 +1,6 @@
 const url = require('url')
 const path = require('path')
-const { app, BrowserWindow, Tray, Menu } = require('electron')
+const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
 
 const NODE_ENV = process.env.NODE_ENV
 
@@ -39,7 +39,6 @@ function createTray () {
       click () {
         if (!trayWindow.isVisible()) trayWindow.show()
         trayWindow.webContents.send('start')
-        tray.setImage(path.join('src', 'icons', 'counting.png'))
       }
     },
     {
@@ -47,7 +46,6 @@ function createTray () {
       click () {
         if (!trayWindow.isVisible()) trayWindow.show()
         trayWindow.webContents.send('reset')
-        tray.setImage(path.join('src', 'icons', 'idle.png'))
       }
     },
     {
@@ -74,3 +72,15 @@ function start () {
 }
 
 app.on('ready', start)
+
+ipcMain.on('pausing', () => {
+  tray.setImage(path.join('src', 'icons', 'pausing.png'))
+})
+
+ipcMain.on('counting', () => {
+  tray.setImage(path.join('src', 'icons', 'counting.png'))
+})
+
+ipcMain.on('idle', () => {
+  tray.setImage(path.join('src', 'icons', 'idle.png'))
+})
