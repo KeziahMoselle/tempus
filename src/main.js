@@ -1,6 +1,7 @@
 const url = require('url')
 const path = require('path')
 const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron')
+const Positioner = require('electron-positioner')
 
 const icons = require('./icons/icons')
 
@@ -13,6 +14,9 @@ function createWindow () {
   trayWindow = new BrowserWindow({
     width: 450,
     height: 800,
+    resizable: false,
+    movable: false,
+    fullscreenable: false,
     icon: icons.idle,
     show: false,
     titleBarStyle: 'hiddenInset',
@@ -30,6 +34,9 @@ function createWindow () {
       pathname: path.join('build', 'index.html')
     }))
 
+  let positioner = new Positioner(trayWindow)
+  positioner.move('trayBottomCenter', tray.getBounds())
+
   trayWindow.on('closed', () => trayWindow = null)
 }
 
@@ -41,13 +48,13 @@ function createTray () {
       label: 'Start',
       click () {
         if (!trayWindow.isVisible()) trayWindow.show()
+        if (!trayWindow.isFocused()) trayWindow.focus()
         trayWindow.webContents.send('start')
       }
     },
     {
       label: 'Reset',
       click () {
-        if (!trayWindow.isVisible()) trayWindow.show()
         trayWindow.webContents.send('reset')
       }
     },
@@ -70,8 +77,8 @@ function createTray () {
 }
 
 function start () {
-  createWindow()
   createTray()
+  createWindow()
 }
 
 app.on('ready', start)
