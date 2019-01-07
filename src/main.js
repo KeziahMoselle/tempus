@@ -3,7 +3,6 @@ const path = require('path')
 const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron')
 
 const icons = require('./icons/icons')
-console.log(icons)
 
 const NODE_ENV = process.env.NODE_ENV
 
@@ -12,8 +11,8 @@ let trayWindow
 
 function createWindow () {
   trayWindow = new BrowserWindow({
-    width: 800,
-    height: 350,
+    width: 450,
+    height: 800,
     icon: icons.idle,
     show: false,
     titleBarStyle: 'hiddenInset',

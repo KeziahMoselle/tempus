@@ -107,15 +107,18 @@ class App extends Component {
     }))
   }
 
+
+  /**
+   * Utility method
+   */
+  convertToMinutes = (state) => {
+    return Math.floor(state / 60)
+  }
+
   render() {
+
     return (
       <div className="container">
-        { (this.state.isCounting || !this.state.isPause) &&
-          <p className="mono">{Math.floor(this.state.total / 60)} minutes</p>
-        }
-        { this.state.isPause &&
-          <p className="mono">{Math.floor(this.state.totalPause / 60)} minutes</p>
-        }
         <Counter
           isCounting={this.state.isCounting}
           isPause={this.state.isPause}
@@ -124,6 +127,14 @@ class App extends Component {
           totalPause={this.state.totalPause}
           countPause={this.state.countPause}
         />
+
+        { (this.state.isCounting || !this.state.isPause) &&
+          <p className="mono">{this.convertToMinutes(this.state.total)} minutes</p>
+        }
+        { this.state.isPause &&
+          <p className="mono">{this.convertToMinutes(this.state.totalPause)} minutes</p>
+        }
+
         <Controls
           isCounting={this.state.isCounting}
           start={this.start}

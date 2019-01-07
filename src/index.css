@@ -40,30 +40,38 @@
   font-family: 'Major Mono Display';
 }
 
+html, body, #root, .container {
+  height: 100%;
+}
+
 body {
-  margin: 64px;
+  margin: 0;
   padding: 0;
   background-color: black;
   color: white;
+  font-size: 2em;
 }
 
 .container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-p {
-  font-size: 1.3em;
-}
+
+/**
+ *
+ * COUNTER
+ *
+ */
+
 
 .counter {
   position: relative;
-  height: 128px;
-  width: 128px;
-  border: 2px solid white;
+  height: 256px;
+  width: 256px;
+  border: 6px solid white;
   border-radius: 50%;
   margin: 0 64px;
 }
@@ -76,15 +84,40 @@ p {
   margin: 0;
 }
 
-.controls button {
-  height: 36px;
-  width: 48px;
 
-  background-color: white;
+/**
+ *
+ * BUTTONS
+ *
+ */
+
+.controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.controls button {
   border: none;
   transition: background-color, color;
   transition-duration: 0.2s;
   cursor: pointer;
+}
+
+.controls button.btn-primary {
+  height: 56px;
+  width: 100%;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+}
+
+.controls button.btn-danger {
+  position: absolute;
+  height: 56px;
+  width: 56px;
+  font-size: 30px;
+  background-color: #FF5F56;
+  border-radius: 50%;
 }
 
 .controls button:hover {
