@@ -16,6 +16,7 @@ function createWindow () {
     height: 350,
     icon: icons.idle,
     show: false,
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
