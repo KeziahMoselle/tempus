@@ -1,8 +1,9 @@
 const url = require('url')
 const path = require('path')
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron')
 
 const icons = require('./icons/icons')
+console.log(icons)
 
 const NODE_ENV = process.env.NODE_ENV
 
@@ -81,8 +82,16 @@ ipcMain.on('idle', () => {
 
 ipcMain.on('counting', () => {
   tray.setImage(icons.counting)
+  new Notification({
+    title: 'Pomodoro',
+    body: 'You must work during 25 minutes.'
+  }).show()
 })
 
 ipcMain.on('pausing', () => {
   tray.setImage(icons.pausing)
+  new Notification({
+    title: 'Pomodoro',
+    body: 'You have a break of 5 minutes.'
+  }).show()
 })

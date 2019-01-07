@@ -8,9 +8,9 @@ class App extends Component {
     this.state = {
       isCounting: false,
       isPause: false,
-      total: 1500,
+      total: 10,
       count: 0,
-      totalPause: 300,
+      totalPause: 10,
       countPause: 0 
     }
 
