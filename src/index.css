@@ -50,6 +50,8 @@ body {
   background-color: black;
   color: white;
   font-size: 2em;
+  user-select: none;
+  overflow: hidden;
 }
 
 .container {
@@ -60,9 +62,11 @@ body {
 }
 
 footer {
+  height: 56px;
   width: 100%;
   position: absolute;
   bottom: 0;
+  transition: height 0.2s;
 }
 
 
@@ -106,6 +110,24 @@ footer {
   background-color: white;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+  transition: height 0.2s;
+}
+
+
+
+/**
+ *
+ * MENU
+ *
+ */
+
+
+.menu {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
 }
 
 
