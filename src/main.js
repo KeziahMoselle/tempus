@@ -34,7 +34,7 @@ function createWindow () {
       pathname: path.join('build', 'index.html')
     }))
 
-  let positioner = new Positioner(trayWindow)
+  const positioner = new Positioner(trayWindow)
   positioner.move('trayBottomCenter', tray.getBounds())
 
   trayWindow.on('closed', () => trayWindow = null)
