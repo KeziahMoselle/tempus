@@ -35,7 +35,7 @@ export default ({ isCounting, total, totalPause, start, pause, reset, setWork, s
           <li>
             <label htmlFor="work">Work</label>
             <input
-              onInput={(event) => setWork(event.target.value)}
+              onChange={(event) => setWork(event.target.value)}
               id="work"
               type="number"
               min="1"
@@ -45,7 +45,7 @@ export default ({ isCounting, total, totalPause, start, pause, reset, setWork, s
           <li>
             <label htmlFor="pause">Pause</label>
             <input
-              onInput={(event) => setPause(event.target.value)}
+              onChange={(event) => setPause(event.target.value)}
               id="pause"
               type="number"
               min="1"
