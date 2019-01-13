@@ -17,6 +17,16 @@ class App extends Component {
     // Listeners for the Tray menu
     window.ipcRenderer.on('start', this.start)
     window.ipcRenderer.on('reset', this.reset)
+    window.ipcRenderer.send('handshake')
+  }
+
+  componentDidMount () {
+    window.ipcRenderer.on('updateValues', (event, data) => {
+      this.setState({
+        total: data.work,
+        totalPause: data.pause
+      })
+    })
   }
 
 
@@ -112,9 +122,13 @@ class App extends Component {
    *  Set a new value for work time
    */
   setWork = (minutes) => {
-    const ms = parseInt(minutes) === 0 ? 1500 : minutes*60
+    const seconds = parseInt(minutes) === 0 ? 1500 : minutes*60
     this.setState({
-      total: ms
+      total: seconds
+    })
+    window.ipcRenderer.send('updateStore', {
+      work: seconds,
+      pause: this.state.totalPause
     })
   }
 
@@ -122,9 +136,13 @@ class App extends Component {
    *  Set a new value for pause time
    */
   setPause = (minutes) => {
-    const ms = parseInt(minutes) === 0 ? 300 : minutes*60
+    const seconds = parseInt(minutes) === 0 ? 300 : minutes*60
     this.setState({
-      totalPause: ms
+      totalPause: seconds
+    })
+    window.ipcRenderer.send('updateStore', {
+      work: this.state.total,
+      pause: seconds
     })
   }
 

@@ -83,7 +83,7 @@ footer {
   width: 256px;
   border: 6px solid white;
   border-radius: 50%;
-  margin: 0 64px;
+  margin-bottom: 56px;
 }
 
 .counter :first-child {

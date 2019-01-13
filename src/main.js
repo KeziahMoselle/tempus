@@ -1,14 +1,83 @@
+/**
+ *
+ * MODULES
+ *
+ */
+
 const url = require('url')
 const path = require('path')
+
 const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron')
 const Positioner = require('electron-positioner')
 
+const store = require('./store')
 const icons = require('./icons/icons')
 
 const NODE_ENV = process.env.NODE_ENV
 
 let tray
 let trayWindow
+
+
+/* Create the application */
+
+app.on('ready', () => {
+  createTray()
+  createWindow()
+})
+
+
+/* Change icon on idle */
+
+ipcMain.on('idle', () => {
+  tray.setImage(icons.idle)
+})
+
+/* Change icon on counting + notification */
+
+ipcMain.on('counting', () => {
+  tray.setImage(icons.counting)
+  new Notification({
+    title: 'Pomodoro',
+    body: `You must work during ${store.get('work')} minutes.`
+  }).show()
+})
+
+/* Change icon on pausing + notification */
+
+ipcMain.on('pausing', () => {
+  tray.setImage(icons.pausing)
+  new Notification({
+    title: 'Pomodoro',
+    body: `You have a break of ${store.get('pause')} minutes.`
+  }).show()
+})
+
+/* 
+* When the React App is loaded
+* Update the default state of the React App with the store
+*/
+
+ipcMain.on('handshake', () => {
+  trayWindow.webContents.send('updateValues', {
+    work: store.get('work'),
+    pause: store.get('pause')
+  })
+})
+
+/* Set new values in the store */
+
+ipcMain.on('updateStore', (event, data) => {
+  store.set('work', data.work)
+  store.set('pause', data.pause)
+})
+
+
+/**
+ *
+ * FUNCTIONS
+ *
+ */
 
 function createWindow () {
   trayWindow = new BrowserWindow({
@@ -75,30 +144,3 @@ function createTray () {
     }
   })
 }
-
-function start () {
-  createTray()
-  createWindow()
-}
-
-app.on('ready', start)
-
-ipcMain.on('idle', () => {
-  tray.setImage(icons.idle)
-})
-
-ipcMain.on('counting', () => {
-  tray.setImage(icons.counting)
-  new Notification({
-    title: 'Pomodoro',
-    body: 'You must work during 25 minutes.'
-  }).show()
-})
-
-ipcMain.on('pausing', () => {
-  tray.setImage(icons.pausing)
-  new Notification({
-    title: 'Pomodoro',
-    body: 'You have a break of 5 minutes.'
-  }).show()
-})
