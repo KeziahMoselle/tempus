@@ -37,9 +37,10 @@ ipcMain.on('idle', () => {
 
 ipcMain.on('counting', () => {
   tray.setImage(icons.counting)
+  const workTime = store.get('work') / 60
   new Notification({
     title: 'Pomodoro',
-    body: `You must work during ${store.get('work')} minutes.`
+    body: `You must work during ${workTime} minutes.`
   }).show()
 })
 
@@ -47,9 +48,10 @@ ipcMain.on('counting', () => {
 
 ipcMain.on('pausing', () => {
   tray.setImage(icons.pausing)
+  const pauseTime = store.get('pause') / 60
   new Notification({
     title: 'Pomodoro',
-    body: `You have a break of ${store.get('pause')} minutes.`
+    body: `You have a break of ${pauseTime} minutes.`
   }).show()
 })
 
