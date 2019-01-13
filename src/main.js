@@ -114,10 +114,14 @@ function createTray () {
   tray.setToolTip('Double click to start the pomodoro.')
   const contextMenu = Menu.buildFromTemplate([
     {
+      label: 'Show/Hide...',
+      click () {
+        trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show()
+      }
+    },
+    {
       label: 'Start',
       click () {
-        if (!trayWindow.isVisible()) trayWindow.show()
-        if (!trayWindow.isFocused()) trayWindow.focus()
         trayWindow.webContents.send('start')
       }
     },
@@ -137,10 +141,6 @@ function createTray () {
   tray.setContextMenu(contextMenu)
 
   tray.on('double-click', () => {
-    if (trayWindow.isVisible()) {
-      trayWindow.hide()
-    } else {
-      trayWindow.show()
-    }
+    trayWindow.webContents.send('start')
   })
 }
