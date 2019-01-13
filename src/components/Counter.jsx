@@ -10,8 +10,6 @@ export default ({
     percentage = (count / total * 100).toFixed(1)
   } else if (isPause) {
     percentage = (countPause / totalPause * 100).toFixed(1)
-  } else {
-    percentage = null
   }
 
   return (
@@ -20,7 +18,7 @@ export default ({
         <h1 className="mono">{percentage}%</h1>
       }
       { (!isCounting && !isPause) &&
-        <h1 className="mono">25m</h1>
+        <h1 className="mono">{ Math.floor(total / 60) }m</h1>
       }
     </div>
   )

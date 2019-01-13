@@ -86,7 +86,7 @@ footer {
   margin: 0 64px;
 }
 
-.counter h1 {
+.counter :first-child {
   position: absolute;
   top: 50%;
   left: 50%;
