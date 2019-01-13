@@ -130,6 +130,39 @@ footer {
   box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
 }
 
+.menu ul {
+  width: 100%;
+  margin: 0;
+  padding: 26px;
+}
+
+.menu ul li {
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+}
+
+.menu label {
+  font-size: 0.9em;
+  font-family: sans-serif;
+  color: rgb(51, 51, 51);
+}
+
+.menu input {
+  height: 36px;
+  width: 100px;
+  text-align: center;
+  font-size: 0.8em;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.menu input:focus {
+  outline: none;
+}
+
 
 /**
  *
