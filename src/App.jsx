@@ -107,6 +107,27 @@ class App extends Component {
     }))
   }
 
+  
+  /**
+   *  Set a new value for work time
+   */
+  setWork = (minutes) => {
+    const ms = minutes*60
+    this.setState({
+      total: ms
+    })
+  }
+
+  /**
+   *  Set a new value for pause time
+   */
+  setPause = (minutes) => {
+    const ms = minutes*60
+    this.setState({
+      totalPause: ms
+    })
+  }
+
   render() {
 
     return (
@@ -115,9 +136,13 @@ class App extends Component {
 
         <Controls
           isCounting={this.state.isCounting}
+          total={this.state.total}
+          totalPause={this.state.totalPause}
           start={this.start}
           pause={this.pause}
           reset={this.reset}
+          setWork={this.setWork}
+          setPause={this.setPause}
         />
       </div>
     )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-export default ({ isCounting, start, pause, reset }) => {
+export default ({ isCounting, total, totalPause, start, pause, reset, setWork, setPause }) => {
 
   const [menu, setMenu] = useState(false)
   useEffect(() => {
@@ -33,12 +33,24 @@ export default ({ isCounting, start, pause, reset }) => {
       <div className="menu">
         <ul>
           <li>
-            <label for="work">Work</label>
-            <input id="work" type="number" placeholder="25" />
+            <label htmlFor="work">Work</label>
+            <input
+              onInput={(event) => setWork(event.target.value)}
+              id="work"
+              type="number"
+              min="1"
+              value={total / 60}
+            />
           </li>
           <li>
-            <label for="pause">Pause</label>
-            <input id="pause" type="number" placeholder="5" />
+            <label htmlFor="pause">Pause</label>
+            <input
+              onInput={(event) => setPause(event.target.value)}
+              id="pause"
+              type="number"
+              min="1"
+              value={totalPause / 60}
+            />
           </li>
         </ul>
       </div>
