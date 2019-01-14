@@ -10,7 +10,8 @@ class App extends Component {
       total: 1500,
       count: 0,
       totalPause: 300,
-      countPause: 0 
+      countPause: 0,
+      cardsClass: undefined
     }
 
     // Listeners for the Tray menu
@@ -131,10 +132,34 @@ class App extends Component {
     })
   }
 
+  toggleCards = () => {
+    if (!this.state.cardsClass) {
+      this.setState({
+        cardsClass: 'show'
+      })
+    } else {
+      this.setState({
+        cardsClass: undefined
+      })
+    }
+  }
+
   render() {
 
     return (
       <div className="container">
+
+        <div onClick={this.toggleCards} className={`cards ${this.state.cardsClass}`}>
+          <div onClick={(e) => e.stopPropagation()} className="card green">
+            <h2>Streak</h2>
+            <i className="material-icons">keyboard_arrow_right</i>
+          </div>
+          <div onClick={(e) => e.stopPropagation()} className="card blue">
+            <h2>Statistics</h2>
+            <i className="material-icons">keyboard_arrow_right</i>
+          </div>
+        </div>
+
         <Counter {...this.state} />
 
         <Controls
@@ -145,6 +170,7 @@ class App extends Component {
           stop={this.stop}
           setWork={this.setWork}
           setPause={this.setPause}
+          toggleCards={this.toggleCards}
         />
       </div>
     )

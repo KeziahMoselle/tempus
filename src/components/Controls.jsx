@@ -4,7 +4,8 @@ export default ({
   state,
   total, totalPause,
   start, stop,
-  setWork, setPause
+  setWork, setPause,
+  toggleCards
 }) => {
   const [menu, setMenu] = useState(false)
   useEffect(() => {
@@ -20,8 +21,8 @@ export default ({
 
       <div className="navbar">
 
-        <button>
-          <i className="material-icons">menu</i>
+        <button onClick={toggleCards}>
+          <i className="material-icons">view_agenda</i>
         </button>
 
         <button
