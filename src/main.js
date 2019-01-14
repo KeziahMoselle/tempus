@@ -121,7 +121,7 @@ function createWindow () {
 
 function createTray () {
   tray = new Tray(icons.idle)
-  tray.setToolTip('Double click to start the pomodoro.')
+  tray.setToolTip('Click to start the pomodoro.')
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show/Hide...',
