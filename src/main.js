@@ -7,7 +7,15 @@
 const url = require('url')
 const path = require('path')
 
-const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron')
+const { 
+  BrowserWindow,
+  Menu,
+  Notification,
+  Tray,
+  app,
+  ipcMain,
+  shell
+ } = require('electron')
 const Positioner = require('electron-positioner')
 
 const store = require('./store')
@@ -119,8 +127,10 @@ function createTray () {
       label: 'Show/Hide...',
       click () {
         trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show()
-      }
+      },
+      accelerator: 'CmdOrCtrl+o'
     },
+    { type: 'separator' },
     {
       label: 'Start',
       click () {
@@ -133,11 +143,19 @@ function createTray () {
         trayWindow.webContents.send('stop')
       }
     },
+    { type: 'separator' },
+    {
+      label: 'Feedback && Support...',
+      click () {
+        shell.openExternal('https://github.com/KeziahMoselle/pomodoro/issues/new')
+      }
+    },
     {
       label: 'Quit',
       click () {
         app.quit()
-      }
+      },
+      accelerator: 'CmdOrCtrl+q'
     }
   ])
   tray.setContextMenu(contextMenu)

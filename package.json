@@ -1,7 +1,12 @@
 {
   "name": "pomodoro",
+  "description": "A simple pomodoro in the tray",
   "version": "0.1.0",
+  "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
+  "main": "./src/main.js",
+  "homepage": "./",
+  "license": "MIT",
   "dependencies": {
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",
@@ -13,8 +18,6 @@
     "cross-env": "^5.2.0",
     "electron": "^4.0.0"
   },
-  "homepage": "./",
-  "main": "./src/main.js",
   "scripts": {
     "serve": "react-scripts start",
     "start": "cross-env NODE_ENV=development electron .",
@@ -31,5 +34,14 @@
   },
   "browserslist": [
     "last 2 Chrome versions"
-  ]
+  ],
+  "keywords": [
+    "pomodoro",
+    "tray",
+    "electron"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keziahmoselle/pomodoro.git"
+  }
 }
