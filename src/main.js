@@ -128,7 +128,7 @@ function createTray () {
       click () {
         trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show()
       },
-      accelerator: 'CmdOrCtrl+o'
+      accelerator: 'CmdOrCtrl+O'
     },
     { type: 'separator' },
     {
@@ -155,12 +155,16 @@ function createTray () {
       click () {
         app.quit()
       },
-      accelerator: 'CmdOrCtrl+q'
+      accelerator: 'CmdOrCtrl+Q'
     }
   ])
   tray.setContextMenu(contextMenu)
 
-  tray.on('double-click', () => {
+  tray.on('click', () => {
     trayWindow.webContents.send('start')
+  })
+
+  tray.on('double-click', () => {
+    trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show()
   })
 }
