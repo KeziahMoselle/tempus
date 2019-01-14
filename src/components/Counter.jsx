@@ -13,7 +13,7 @@ export default ({
   }
 
   return (
-    <div className="counter">
+    <div className={`counter ${state}`}>
       { state &&
         <h1 className="mono">{ percentage }%</h1>
       }

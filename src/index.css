@@ -82,8 +82,18 @@ footer {
   height: 256px;
   width: 256px;
   border: 6px solid white;
+  padding: 20px;
   border-radius: 50%;
   margin-bottom: 56px;
+  transition: border 0.4s;
+}
+
+.counter.counting {
+  border: 132px solid #2F88FF;
+}
+
+.counter.pausing {
+  border: 16px solid #14B07B;
 }
 
 .counter :first-child {
@@ -204,12 +214,12 @@ button:focus {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.counting {
+button.counting {
   background-color: #2F88FF;
   color: white;
 }
 
-.pausing {
+button.pausing {
   background-color: #14B07B;
   color: white;
 }
