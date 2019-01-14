@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
+import Menu from './components/Menu'
 
 class App extends Component {
   constructor () {
@@ -149,18 +150,12 @@ class App extends Component {
     return (
       <div className="container">
 
-        <div onClick={this.toggleCards} className={`cards ${this.state.cardsClass}`}>
-          <div onClick={(e) => e.stopPropagation()} className="card green">
-            <h2>Streak</h2>
-            <i className="material-icons">keyboard_arrow_right</i>
-          </div>
-          <div onClick={(e) => e.stopPropagation()} className="card blue">
-            <h2>Statistics</h2>
-            <i className="material-icons">keyboard_arrow_right</i>
-          </div>
-        </div>
-
         <Counter {...this.state} />
+
+        <Menu
+          cardsClass={this.state.cardsClass}
+          toggleCards={this.toggleCards}
+        />
 
         <Controls
           state={this.state.state}
@@ -172,6 +167,7 @@ class App extends Component {
           setPause={this.setPause}
           toggleCards={this.toggleCards}
         />
+        
       </div>
     )
   }
