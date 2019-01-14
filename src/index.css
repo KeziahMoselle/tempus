@@ -50,6 +50,7 @@ body {
   background-color: black;
   color: white;
   font-size: 2em;
+  font-family: sans-serif;
   user-select: none;
   overflow: hidden;
 }
@@ -93,30 +94,61 @@ footer {
 }
 
 .card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 30px;
-  padding: 0 40px;
   border-radius: 4px;
   background-color: white;
   cursor: pointer;
 }
 
-.card h2 {
-  font-family: sans-serif;
-  font-size: 1em;
+
+/* CARD HEADER */
+
+.card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
-.card .material-icons {
+.card header h2 {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.card header .material-icons {
   font-size: 1.5em;
 }
 
-.card.green {
+
+/* CARD BODY */
+
+.card main {
+  overflow: hidden;
+  height: 0;
+  font-size: 0.7em;
+  color: black;
+  transition: height 0.2s ease-in-out;
+}
+
+.card main.extended {
+  padding: 16px;
+  height: 200px;
+}
+
+.card main p {
+  margin: 0;
+}
+
+
+/* COLORS VARIANTS */
+
+.green {
   background: linear-gradient(to left, #76b852, #8dc26f);
 }
 
-.card.blue {
+.blue {
   background: linear-gradient(to left, #56ccf2, #2f80ed);
 }
 
