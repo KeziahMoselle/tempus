@@ -55,7 +55,7 @@ class App extends Component {
     if (this.state.count >= this.state.total) {
       // Max value for `this.state`
       // Switch into the `pauseInterval`
-      this.reset()
+      this.stop()
       this.setState({
         state: 'pausing'
       })
@@ -77,7 +77,6 @@ class App extends Component {
     if (this.state.countPause >= this.state.totalPause) {
       // Max value for `state.countPause`
       // Switch into the `countInterval`
-      this.reset()
       window.ipcRenderer.send('counting')
       return this.start()
     }
