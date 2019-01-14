@@ -128,9 +128,9 @@ function createTray () {
       }
     },
     {
-      label: 'Reset',
+      label: 'Stop',
       click () {
-        trayWindow.webContents.send('reset')
+        trayWindow.webContents.send('stop')
       }
     },
     {

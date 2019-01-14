@@ -6,8 +6,7 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      isCounting: false,
-      isPause: false,
+      state: null,
       total: 1500,
       count: 0,
       totalPause: 300,
@@ -16,11 +15,13 @@ class App extends Component {
 
     // Listeners for the Tray menu
     window.ipcRenderer.on('start', this.start)
-    window.ipcRenderer.on('reset', this.reset)
+    window.ipcRenderer.on('stop', this.stop)
+    // Send `handshake` event to receive new value from the store
     window.ipcRenderer.send('handshake')
   }
 
   componentDidMount () {
+    // Receive new values from the store
     window.ipcRenderer.on('updateValues', (event, data) => {
       this.setState({
         total: data.work,
@@ -36,35 +37,17 @@ class App extends Component {
    * Send `counting` event to the main process
    */
   start = () => {
-    if (this.state.isCounting) return
+    if (this.state.state === 'counting') return // If already counting return
     this.countInterval = setInterval(this.increment, 1000)
     this.setState({
-      isCounting: true
+      state: 'counting'
     })
     window.ipcRenderer.send('counting')
-  }
-
-
-  /**
-   * Clear all intervals
-   * Clear the state
-   * Send `idle` event to the main process
-   */
-  reset = () => {
-    clearInterval(this.countInterval)
-    clearInterval(this.pauseInterval)
-    this.setState({
-      isCounting: false,
-      isPause: false,
-      count: 0,
-      countPause: 0
-    })
-    window.ipcRenderer.send('idle')
   }
   
 
   /**
-   * Triggered every 1s when `state.isCounting` = true
+   * Triggered every 1s when `state.state` = counting
    * Increment the `state.count`
    * Create the `pauseInterval` when `state.count` > `state.total`
    */
@@ -74,7 +57,7 @@ class App extends Component {
       // Switch into the `pauseInterval`
       this.reset()
       this.setState({
-        isPause: true
+        state: 'pausing'
       })
       window.ipcRenderer.send('pausing')
       return this.pauseInterval = setInterval(this.incrementPause, 1000)
@@ -101,6 +84,22 @@ class App extends Component {
     this.setState(prevState => ({
       countPause: prevState.countPause + 1
     }))
+  }
+
+  /**
+   * Clear all intervals
+   * Clear the state
+   * Send `idle` event to the main process
+   */
+  stop = () => {
+    clearInterval(this.countInterval)
+    clearInterval(this.pauseInterval)
+    this.setState({
+      state: null,
+      count: 0,
+      countPause: 0
+    })
+    window.ipcRenderer.send('idle')
   }
 
   
@@ -139,11 +138,11 @@ class App extends Component {
         <Counter {...this.state} />
 
         <Controls
-          isCounting={this.state.isCounting}
+          state={this.state.state}
           total={this.state.total}
           totalPause={this.state.totalPause}
           start={this.start}
-          reset={this.reset}
+          stop={this.stop}
           setWork={this.setWork}
           setPause={this.setPause}
         />
