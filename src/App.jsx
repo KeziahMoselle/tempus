@@ -46,20 +46,6 @@ class App extends Component {
 
 
   /**
-   * Clear the `countInterval`
-   * Send `idle` event to the main process
-   */
-  pause = () => {
-    if (!this.state.isCounting) return
-    clearInterval(this.countInterval)
-    this.setState({
-      isCounting: false
-    })
-    window.ipcRenderer.send('idle')
-  }
-
-
-  /**
    * Clear all intervals
    * Clear the state
    * Send `idle` event to the main process
@@ -157,7 +143,6 @@ class App extends Component {
           total={this.state.total}
           totalPause={this.state.totalPause}
           start={this.start}
-          pause={this.pause}
           reset={this.reset}
           setWork={this.setWork}
           setPause={this.setPause}

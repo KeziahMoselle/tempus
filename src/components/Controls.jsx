@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-export default ({ isCounting, total, totalPause, start, pause, reset, setWork, setPause }) => {
+export default ({ isCounting, total, totalPause, start, reset, setWork, setPause }) => {
 
   const [menu, setMenu] = useState(false)
   useEffect(() => {
@@ -17,15 +17,15 @@ export default ({ isCounting, total, totalPause, start, pause, reset, setWork, s
       <div className="navbar">
 
         <button onClick={reset}>
-          <i className="material-icons">stop</i>
+          <i className="material-icons">menu</i>
         </button>
 
-        <button onClick={() => !isCounting ? start() : pause()} className="overlap">
-          <i className="material-icons">{ !isCounting ? 'play_arrow' : 'pause' }</i>
+        <button onClick={() => !isCounting ? start() : reset()} className="overlap">
+          <i className="material-icons">{ !isCounting ? 'play_arrow' : 'stop' }</i>
         </button>
 
         <button onClick={() => setMenu(!menu)}>
-          <i className="material-icons">{ !menu ? 'menu' : 'close' }</i>
+          <i className="material-icons">{ !menu ? 'timer' : 'close' }</i>
         </button>
 
       </div>
