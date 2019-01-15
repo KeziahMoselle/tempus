@@ -7,6 +7,7 @@ export default ({ toggleCards, cardsClass }) => (
     <Card
       title="Streak"
       icon="check_circle"
+      color="green"
     />
 
     <Card
