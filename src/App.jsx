@@ -4,25 +4,22 @@ import Controls from './components/Controls'
 import Menu from './components/Menu/Menu'
 
 class App extends Component {
-  constructor () {
-    super()
-    this.state = {
-      state: null,
-      total: 1500,
-      count: 0,
-      totalPause: 300,
-      countPause: 0,
-      cardsClass: undefined
-    }
 
+  state = {
+    state: null,
+    total: 1500,
+    count: 0,
+    totalPause: 300,
+    countPause: 0,
+    cardsClass: undefined
+  }
+
+  componentDidMount () {
     // Listeners for the Tray menu
     window.ipcRenderer.on('start', this.start)
     window.ipcRenderer.on('stop', this.stop)
     // Send `handshake` event to receive new value from the store
     window.ipcRenderer.send('handshake')
-  }
-
-  componentDidMount () {
     // Receive new values from the store
     window.ipcRenderer.on('updateValues', (event, data) => {
       this.setState({
