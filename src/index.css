@@ -98,7 +98,6 @@ footer {
   margin: 30px;
   border-radius: 4px;
   background-color: white;
-  cursor: pointer;
 }
 
 
@@ -112,6 +111,7 @@ footer {
   border-radius: 4px;
   transition: border-bottom-left-radius 0.2s ease-in-out,
               border-bottom-right-radius 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .card header h2 {

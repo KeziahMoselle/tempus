@@ -17,12 +17,12 @@ export default ({ title, icon, color, component }) => {
   const LazyComponent = React.lazy(() => import(`./${component}`))
 
   return (
-    <div onClick={ toggleCard } className={`card ${isExtended}`}>
-      <header className={ color }>
+    <div className={`card ${isExtended}`}>
+      <header onClick={ toggleCard } className={ color }>
         <h2>{ title }</h2>
         <i className="material-icons">{ icon }</i>
       </header>
-      <main>
+      <main onClick={(e) => e.stopPropagation()}>
         <Suspense fallback={<p>Loading...</p>}>
           <LazyComponent />
         </Suspense>
