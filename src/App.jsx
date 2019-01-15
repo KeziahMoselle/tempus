@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
+import Menu from './components/Menu/Menu'
 
 class App extends Component {
   constructor () {
@@ -10,7 +11,8 @@ class App extends Component {
       total: 1500,
       count: 0,
       totalPause: 300,
-      countPause: 0 
+      countPause: 0,
+      cardsClass: undefined
     }
 
     // Listeners for the Tray menu
@@ -131,11 +133,29 @@ class App extends Component {
     })
   }
 
+  toggleCards = () => {
+    if (!this.state.cardsClass) {
+      this.setState({
+        cardsClass: 'show'
+      })
+    } else {
+      this.setState({
+        cardsClass: undefined
+      })
+    }
+  }
+
   render() {
 
     return (
       <div className="container">
+
         <Counter {...this.state} />
+
+        <Menu
+          cardsClass={this.state.cardsClass}
+          toggleCards={this.toggleCards}
+        />
 
         <Controls
           state={this.state.state}
@@ -145,7 +165,9 @@ class App extends Component {
           stop={this.stop}
           setWork={this.setWork}
           setPause={this.setPause}
+          toggleCards={this.toggleCards}
         />
+        
       </div>
     )
   }

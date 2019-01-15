@@ -50,6 +50,7 @@ body {
   background-color: black;
   color: white;
   font-size: 2em;
+  font-family: sans-serif;
   user-select: none;
   overflow: hidden;
 }
@@ -69,6 +70,95 @@ footer {
   transition: height 0.2s;
 }
 
+
+/**
+ *
+ * CARDS
+ *
+ */
+
+.cards {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding-top: 50px;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.cards.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.card {
+  margin: 30px;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+
+/* CARD HEADER */
+
+.card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 4px;
+  transition: border-bottom-left-radius 0.2s ease-in-out,
+              border-bottom-right-radius 0.2s ease-in-out;
+}
+
+.card header h2 {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.card header .material-icons {
+  font-size: 1.5em;
+}
+
+.card.extended header {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+/* CARD BODY */
+
+.card main {
+  overflow: hidden;
+  max-height: 0;
+  font-size: 0.7em;
+  color: black;
+  box-shadow: inset 0px 4px 6px 0px rgba(0, 0, 0, 0.10);
+  transition: max-height 0.2s ease-in-out, padding 0.2s ease-in-out;
+}
+
+.card main p {
+  margin: 0;
+}
+
+.card.extended main {
+  padding: 16px;
+  max-height: 200px;
+}
+
+
+/* COLORS VARIANTS */
+
+.green {
+  background: linear-gradient(to left, #76b852, #8dc26f);
+}
+
+.blue {
+  background: linear-gradient(to left, #56ccf2, #2f80ed);
+}
 
 /**
  *
