@@ -8,12 +8,14 @@ export default ({ toggleCards, cardsClass }) => (
       title="Streak"
       icon="check_circle"
       color="green"
+      component="Streak"
     />
 
     <Card
       title="Statistics"
       icon="trending_up"
       color="blue"
+      component="Statistics"
     />
 
   </div>
