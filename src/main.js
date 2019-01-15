@@ -96,6 +96,7 @@ function createWindow () {
     resizable: false,
     movable: false,
     fullscreenable: false,
+    alwaysOnTop: true,
     icon: icons.idle,
     show: false,
     titleBarStyle: 'hiddenInset',
