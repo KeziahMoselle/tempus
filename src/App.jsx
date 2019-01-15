@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
-import Menu from './components/Menu'
+import Menu from './components/Menu/Menu'
 
 class App extends Component {
   constructor () {

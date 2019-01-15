@@ -83,6 +83,7 @@ footer {
   position: absolute;
   height: 100%;
   width: 100%;
+  padding-top: 50px;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.8);
   transition: opacity 0.2s, visibility 0.2s;
@@ -108,8 +109,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius: 4px;
 }
 
 .card header h2 {
@@ -126,15 +126,16 @@ footer {
 
 .card main {
   overflow: hidden;
-  height: 0;
+  max-height: 0;
   font-size: 0.7em;
   color: black;
-  transition: height 0.2s ease-in-out;
+  box-shadow: inset 0px 4px 6px 0px rgba(0, 0, 0, 0.10);
+  transition: max-height 0.2s ease-in-out, padding 0.2s ease-in-out;
 }
 
-.card main.extended {
+.card.extended main {
   padding: 16px;
-  height: 200px;
+  max-height: 200px;
 }
 
 .card main p {
