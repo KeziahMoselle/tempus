@@ -117,6 +117,11 @@ function createWindow () {
   const positioner = new Positioner(trayWindow)
   positioner.move('trayBottomCenter', tray.getBounds())
 
+  if (NODE_ENV === 'development') {
+    trayWindow.webContents.openDevTools()
+    trayWindow.show()
+  }
+
   trayWindow.on('closed', () => trayWindow = null)
 }
 
