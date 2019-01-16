@@ -106,7 +106,8 @@ class App extends Component {
    *  Set a new value for work time
    */
   setWork = (minutes) => {
-    const seconds = parseInt(minutes) === 0 ? 1500 : minutes*60
+    const seconds = parseInt(minutes)*60
+    if (!seconds) return
     this.setState({
       total: seconds
     })
@@ -120,7 +121,8 @@ class App extends Component {
    *  Set a new value for pause time
    */
   setPause = (minutes) => {
-    const seconds = parseInt(minutes) === 0 ? 300 : minutes*60
+    const seconds = parseInt(minutes)*60
+    if (!seconds) return
     this.setState({
       totalPause: seconds
     })
