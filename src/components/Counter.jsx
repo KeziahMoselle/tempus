@@ -11,10 +11,10 @@ export default ({
   } else if (state === 'pausing') {
     percentage = toPercentage(countPause, totalPause)
   } else {
-    percentage = 10
+    percentage = 0
   }
 
-  const borderWidth = percentage * 3.34
+  const borderWidth = (percentage * 2.78) + 56 // 334px to fill (2.78 + 0.56)
 
   return (
     <>
