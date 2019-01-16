@@ -31,11 +31,13 @@
 - [Window focus](https://github.com/KeziahMoselle/pomodoro/issues/11)
 - [Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
 
+> See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects) for more informations
+
 ## Want to contribute ?
 
 ### Prerequisites
 * Install [NodeJS](https://nodejs.org/en/)
-* (*Optional*) Use [Yarn](https://yarnpkg.com/)
+* Use [Yarn](https://yarnpkg.com/) (*Optional*)
 
 ### Steps
 
@@ -61,7 +63,7 @@ The binaries will be created in the `dist` folder.
 
 ## Built With
 
-* [Electron](https://electronjs.org/) - framework for creating native applications with web technologies
+* [ElectronJS](https://electronjs.org/) - framework for creating native applications with web technologies
 * [ReactJS](https://reactjs.org) - A JavaScript library for building user interfaces
 
 
