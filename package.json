@@ -1,7 +1,7 @@
 {
   "name": "pomodoro",
   "description": "A simple pomodoro in the tray",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
   "main": "./public/electron.js",
