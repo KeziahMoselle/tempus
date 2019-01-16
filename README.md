@@ -7,7 +7,7 @@
 </h2>
 
 <p align="center">
-  Simple pomodoro in the tray
+  A simple yet featureful pomodoro in the tray
 </p>
 
 <p align="center">
