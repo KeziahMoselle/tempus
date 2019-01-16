@@ -131,7 +131,7 @@ function createWindow () {
 
 function createTray () {
   tray = new Tray(icons.idle)
-  tray.setToolTip('Click to start the pomodoro.')
+  tray.setToolTip('Pomodoro')
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show/Hide...',
@@ -142,13 +142,13 @@ function createTray () {
     },
     { type: 'separator' },
     {
-      label: 'Start',
+      label: '▶ Start',
       click () {
         trayWindow.webContents.send('start')
       }
     },
     {
-      label: 'Stop',
+      label: '■ Stop',
       click () {
         trayWindow.webContents.send('stop')
       }
@@ -170,9 +170,8 @@ function createTray () {
   ])
   tray.setContextMenu(contextMenu)
 
-  tray.on('click', () => trayWindow.webContents.send('start'))
-
-  tray.on('double-click', () => toggleWindow())
+  tray.on('click', () => toggleWindow())
+  tray.on('right-click', () => tray.popUpContextMenu())
 }
 
 
