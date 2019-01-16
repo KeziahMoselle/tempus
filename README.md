@@ -10,7 +10,9 @@
   Simple pomodoro in the tray
 </p>
 
-![Preview](./preview.gif)
+<p align="center">
+  <img src="./preview.gif" height="600" />
+</p>
 
 ## [Click to download](https://github.com/KeziahMoselle/pomodoro/releases/latest)
 
