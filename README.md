@@ -31,7 +31,7 @@
 - [Window focus](https://github.com/KeziahMoselle/pomodoro/issues/11)
 - [Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
 
-> See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects) for more informations
+> See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects/1) for more informations
 
 ## Want to contribute ?
 
