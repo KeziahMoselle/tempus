@@ -104,7 +104,6 @@ function createWindow () {
     icon: icons.idle,
     show: false,
     frame: false,
-    titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -122,7 +121,7 @@ function createWindow () {
   }
 
   const positioner = new Positioner(trayWindow)
-  positioner.move('trayBottomCenter', tray.getBounds())
+  positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
 
   if (isDev) {
     trayWindow.webContents.openDevTools()
