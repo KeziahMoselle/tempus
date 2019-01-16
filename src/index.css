@@ -101,7 +101,7 @@ footer {
 }
 
 .titlebar i:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .titlebar i.danger:hover {
@@ -205,29 +205,31 @@ footer {
 
 
 .counter {
-  position: relative;
-  height: 256px;
-  width: 256px;
-  border: 6px solid white;
-  padding: 20px;
+  position: absolute;
+  bottom: -107px;
+  height: 0;
+  width: 0;
+  border: 0 solid #2F88FF;
   border-radius: 50%;
   margin-bottom: 56px;
-  transition: border 0.4s;
+  transition: border 0.2s ease;
 }
 
 .counter.counting {
-  border: 132px solid #2F88FF;
+  border-color: #2F88FF;
 }
 
 .counter.pausing {
-  border: 16px solid #14B07B;
+  border-color: #14B07B;
 }
 
-.counter :first-child {
+.percentage {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: 'Major Mono Display';
+  font-size: 1.8em;
   margin: 0;
 }
 

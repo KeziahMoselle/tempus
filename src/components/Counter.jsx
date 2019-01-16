@@ -10,20 +10,25 @@ export default ({
     percentage = toPercentage(count, total)
   } else if (state === 'pausing') {
     percentage = toPercentage(countPause, totalPause)
+  } else {
+    percentage = 10
   }
 
+  const borderWidth = percentage * 3.34
+
   return (
-    <div className={`counter ${state}`}>
+    <>
+      <div className={`counter ${state}`} style={{borderWidth: borderWidth + 'px'}}></div>
       { state &&
-        <h1 className="mono">{ percentage }%</h1>
+        <h1 className="percentage">{ percentage }%</h1>
       }
       { !state &&
-        <h1 className="mono">{ Math.floor(total / 60) }m</h1>
+        <h1 className="percentage">{ Math.floor(total / 60) }m</h1>
       }
-    </div>
+    </>
   )
 }
 
 const toPercentage = (seconds, total) => {
-  return (seconds / total * 100).toFixed(1)
+  return Math.round((seconds / total * 100).toFixed(1))
 }
