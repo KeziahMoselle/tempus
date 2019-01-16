@@ -83,7 +83,7 @@ ipcMain.on('updateStore', (event, data) => {
 
 /* Window events */
 
-ipcMain.on('win-minimize', () => trayWindow.minimize())
+ipcMain.on('win-minimize', () => trayWindow.hide())
 
 ipcMain.on('win-close', () => app.quit())
 
@@ -137,7 +137,7 @@ function createTray () {
     {
       label: 'Show/Hide...',
       click () {
-        trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show()
+        toggleWindow()
       },
       accelerator: 'CmdOrCtrl+O'
     },
@@ -171,11 +171,16 @@ function createTray () {
   ])
   tray.setContextMenu(contextMenu)
 
-  tray.on('click', () => {
-    trayWindow.webContents.send('start')
-  })
+  tray.on('click', () => trayWindow.webContents.send('start'))
 
-  tray.on('double-click', () => {
-    trayWindow.isVisible() ? trayWindow.hide() : trayWindow.show()
-  })
+  tray.on('double-click', () => toggleWindow())
+}
+
+
+function toggleWindow () {
+  if (trayWindow.isVisible()) {
+    trayWindow.hide()
+  } else {
+    trayWindow.show()
+  }
 }
