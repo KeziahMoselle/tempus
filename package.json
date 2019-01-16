@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "npm run react-build && build -c.extraMetadata.main=build/electron.js",
+    "release": "npm run react-build && build -c.extraMetadata.main=build/electron.js --publish always",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
@@ -32,6 +33,14 @@
   },
   "build": {
     "appId": "com.electron.pomodoro",
+    "productName": "Pomodoro",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "KeziahMoselle",
+        "repo": "pomodoro"
+      }
+    ],
     "files": [
       "build/**/*"
     ],
