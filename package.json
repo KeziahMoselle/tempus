@@ -4,30 +4,40 @@
   "version": "0.1.0",
   "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
-  "main": "./src/main.js",
+  "main": "./public/electron.js",
   "homepage": "./",
   "license": "MIT",
   "dependencies": {
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",
+    "electron-is-dev": "^1.0.1",
     "react": "^16.8.0-alpha.0",
     "react-dom": "^16.8.0-alpha.0",
     "react-scripts": "2.1.2"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
-    "electron": "^4.0.0"
+    "electron": "^4.0.0",
+    "electron-builder": "^20.38.5",
+    "wait-on": "^3.2.0"
   },
   "scripts": {
-    "serve": "react-scripts start",
-    "start": "cross-env NODE_ENV=development electron .",
-    "static": "react-scripts build && electron .",
-
-    "build": "react-scripts build && npm run package",
-    "package": "echo In development... && exit 1",
-
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "npm run react-build && build -c.extraMetadata.main=build/electron.js",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject"
+  },
+  "build": {
+    "appId": "com.electron.pomodoro",
+    "files": [
+      "build/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"

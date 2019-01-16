@@ -17,11 +17,10 @@ const {
   shell
  } = require('electron')
 const Positioner = require('electron-positioner')
+const isDev = require('electron-is-dev')
 
 const store = require('./store')
-const icons = require('./icons/icons')
-
-const NODE_ENV = process.env.NODE_ENV
+const icons = require('./icons')
 
 let tray
 let trayWindow
@@ -104,20 +103,22 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-  NODE_ENV === 'development'
+  if (isDev) {
     // DEVELOPMENT Load the CRA server
-    ? trayWindow.loadURL('http://localhost:3000/')
+    trayWindow.loadURL('http://localhost:3000/')
+  } else {
     // PRODUCTION Load the React build
-    : trayWindow.loadURL(url.format({
+    trayWindow.loadURL(url.format({
       protocol: 'file',
       slashes: true,
-      pathname: path.join('build', 'index.html')
+      pathname: path.join(__dirname, 'index.html')
     }))
+  }
 
   const positioner = new Positioner(trayWindow)
   positioner.move('trayBottomCenter', tray.getBounds())
 
-  if (NODE_ENV === 'development') {
+  if (isDev) {
     trayWindow.webContents.openDevTools()
     trayWindow.show()
   }
