@@ -95,8 +95,8 @@ ipcMain.on('win-close', () => app.quit())
 
 function createWindow () {
   trayWindow = new BrowserWindow({
-    width: 450,
-    height: 700,
+    width: 400,
+    height: 550,
     resizable: false,
     movable: false,
     fullscreenable: false,
