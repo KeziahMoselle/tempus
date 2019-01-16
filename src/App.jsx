@@ -142,10 +142,23 @@ class App extends Component {
     }
   }
 
+  quit = () => {
+    if (window.confirm('Do you really want to quit ?')) {
+      window.ipcRenderer.send('win-close')
+    }
+  }
+
   render() {
 
     return (
       <div className="container">
+
+        <div className="titlebar">
+          <div className="controls">
+            <i onClick={() => window.ipcRenderer.send('win-minimize')} className="material-icons">remove</i>
+            <i onClick={this.quit} className="material-icons danger">close</i>
+          </div>
+        </div>
 
         <Counter {...this.state} />
 

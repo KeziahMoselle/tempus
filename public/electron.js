@@ -33,7 +33,6 @@ app.on('ready', () => {
   createWindow()
 })
 
-
 /* Change icon on idle */
 
 ipcMain.on('idle', () => {
@@ -82,6 +81,12 @@ ipcMain.on('updateStore', (event, data) => {
 })
 
 
+/* Window events */
+
+ipcMain.on('win-minimize', () => trayWindow.minimize())
+
+ipcMain.on('win-close', () => app.quit())
+
 /**
  *
  * FUNCTIONS
@@ -91,13 +96,14 @@ ipcMain.on('updateStore', (event, data) => {
 function createWindow () {
   trayWindow = new BrowserWindow({
     width: 450,
-    height: 800,
+    height: 700,
     resizable: false,
     movable: false,
     fullscreenable: false,
     alwaysOnTop: true,
     icon: icons.idle,
     show: false,
+    frame: false,
     titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
@@ -122,8 +128,6 @@ function createWindow () {
     trayWindow.webContents.openDevTools()
     trayWindow.show()
   }
-
-  trayWindow.on('closed', () => trayWindow = null)
 }
 
 function createTray () {
