@@ -105,6 +105,8 @@ function createWindow () {
     show: false,
     frame: false,
     webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: false,
       preload: path.join(__dirname, 'preload.js')
     }
   })
