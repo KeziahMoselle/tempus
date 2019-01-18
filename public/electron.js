@@ -26,6 +26,14 @@ let tray
 let trayWindow
 
 
+/* Temporary fix for Windows 10 notification in dev mode
+ * Doesn't work in production  (https://github.com/electron/electron/issues/10864)
+ */
+
+if (isDev) {
+  app.setAppUserModelId('com.electron.app')
+}
+
 /* Create the application */
 
 app.on('ready', () => {
