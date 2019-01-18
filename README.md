@@ -54,6 +54,23 @@
 > yarn dev
 ```
 
+### Project tree
+
+```
+|-- pomodoro
+    |-- assets              <-- Assets for the app
+    |-- build               <-- The React build
+    |-- dist                <-- Binaries will be generated here
+    |-- public
+    |   |-- app.js          <-- Electron main process
+    |   |-- icons.js
+    |   |-- index.html
+    |   |-- preload.js      <-- Inject Node modules to the renderer process
+    |   |-- store.js        <-- Store
+    |   |-- icons
+    |-- src                 <-- React App
+```
+
 ## How to build ?
 
 ```sh
