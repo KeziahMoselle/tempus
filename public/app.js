@@ -31,7 +31,7 @@ let trayWindow
  */
 
 if (isDev) {
-  app.setAppUserModelId('com.electron.app')
+  app.setAppUserModelId('com.electron.pomodoro')
 }
 
 /* Create the application */

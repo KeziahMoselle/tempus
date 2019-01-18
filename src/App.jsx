@@ -11,6 +11,7 @@ class App extends Component {
     count: 0,
     totalPause: 300,
     countPause: 0,
+    sessionStreak: 0,
     cardsClass: undefined
   }
 
@@ -52,8 +53,8 @@ class App extends Component {
    */
   increment = () => {
     if (this.state.count >= this.state.total) {
-      // Max value for `this.state`
-      // Switch into the `pauseInterval`
+      window.ipcRenderer.send('', )
+      // The work interval is finished
       this.stop()
       this.setState({
         state: 'pausing'
@@ -132,6 +133,9 @@ class App extends Component {
     })
   }
 
+  /**
+   *  Toggle the menu cards
+   */
   toggleCards = () => {
     if (!this.state.cardsClass) {
       this.setState({
@@ -144,6 +148,9 @@ class App extends Component {
     }
   }
 
+  /**
+   *  Show a confirmation dialog before quit the app
+   */
   quit = () => {
     if (window.confirm('Do you really want to quit ?')) {
       window.ipcRenderer.send('win-close')
