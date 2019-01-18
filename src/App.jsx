@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    // Listeners for the Tray menu
+    // Listeners from the Tray menu
     window.ipcRenderer.on('start', this.start)
     window.ipcRenderer.on('stop', this.stop)
     // Send `handshake` event to receive new value from the store
@@ -53,12 +53,13 @@ class App extends Component {
    */
   increment = () => {
     if (this.state.count >= this.state.total) {
-      window.ipcRenderer.send('', )
       // The work interval is finished
       this.stop()
-      this.setState({
-        state: 'pausing'
-      })
+      this.setState(prevState => ({
+        state: 'pausing',
+        sessionStreak: prevState.sessionStreak + 1
+      }))
+      window.ipcRenderer.send('updateStreak', this.state.sessionStreak)
       window.ipcRenderer.send('pausing')
       return this.pauseInterval = setInterval(this.incrementPause, 1000)
     }
@@ -174,6 +175,7 @@ class App extends Component {
         <Menu
           cardsClass={this.state.cardsClass}
           toggleCards={this.toggleCards}
+          sessionStreak={this.state.sessionStreak}
         />
 
         <Controls

@@ -1,6 +1,6 @@
-import React, { useState, Suspense } from 'react'
+import React, { useState } from 'react'
 
-export default ({ title, icon, color, component }) => {
+export default ({ title, icon, color, children }) => {
 
   const [isExtended, setIsExtended] = useState(false)
 
@@ -14,8 +14,6 @@ export default ({ title, icon, color, component }) => {
     }
   }
 
-  const LazyComponent = React.lazy(() => import(`./${component}`))
-
   return (
     <div className={`card ${isExtended}`}>
       <header onClick={ toggleCard } className={ color }>
@@ -23,9 +21,7 @@ export default ({ title, icon, color, component }) => {
         <i className="material-icons">{ icon }</i>
       </header>
       <main onClick={(e) => e.stopPropagation()}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <LazyComponent />
-        </Suspense>
+        {children}
       </main>
     </div>
   )

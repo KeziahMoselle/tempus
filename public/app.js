@@ -89,6 +89,13 @@ ipcMain.on('updateStore', (event, data) => {
 })
 
 
+/* STREAK */
+
+ipcMain.on('updateStreak', (event, data) => {
+  // TODO
+})
+
+
 /* Window events */
 
 ipcMain.on('win-minimize', () => trayWindow.hide())

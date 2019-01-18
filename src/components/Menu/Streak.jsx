@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default () => {
-  return <p>Coming soon...</p>
+export default ({ sessionStreak }) => {
+  return <p>{ sessionStreak }</p>
 }
