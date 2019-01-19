@@ -139,13 +139,11 @@ class App extends Component {
    */
   toggleCards = () => {
     if (!this.state.cardsClass) {
-      this.setState({
-        cardsClass: 'show'
-      })
+      window.ipcRenderer.send('win-resize', true)
+      this.setState({ cardsClass: 'show' })
     } else {
-      this.setState({
-        cardsClass: ''
-      })
+      window.ipcRenderer.send('win-resize', false)
+      this.setState({ cardsClass: '' })
     }
   }
 

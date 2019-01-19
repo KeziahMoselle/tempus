@@ -24,6 +24,7 @@ const icons = require('./icons')
 
 let tray
 let trayWindow
+let positioner
 
 
 /* Temporary fix for Windows 10 notification in dev mode
@@ -102,6 +103,12 @@ ipcMain.on('win-minimize', () => trayWindow.hide())
 
 ipcMain.on('win-close', () => app.quit())
 
+ipcMain.on('win-resize', (event, wantToResize) => {
+  wantToResize ? trayWindow.setSize(800, 1000) : trayWindow.setSize(400, 550)
+  positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
+})
+
+
 /**
  *
  * FUNCTIONS
@@ -138,7 +145,7 @@ function createWindow () {
     }))
   }
 
-  const positioner = new Positioner(trayWindow)
+  positioner = new Positioner(trayWindow)
   positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
 
   if (isDev) {
