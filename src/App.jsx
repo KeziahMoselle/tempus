@@ -59,7 +59,7 @@ class App extends Component {
         state: 'pausing',
         sessionStreak: prevState.sessionStreak + 1
       }))
-      window.ipcRenderer.send('updateStreak', this.state.sessionStreak)
+      window.ipcRenderer.send('updateStreak', this.state.total / 60)
       window.ipcRenderer.send('pausing')
       return this.pauseInterval = setInterval(this.incrementPause, 1000)
     }
@@ -113,7 +113,7 @@ class App extends Component {
     this.setState({
       total: seconds
     })
-    window.ipcRenderer.send('updateStore', {
+    window.ipcRenderer.send('updateConfig', {
       work: seconds,
       pause: this.state.totalPause
     })
@@ -128,7 +128,7 @@ class App extends Component {
     this.setState({
       totalPause: seconds
     })
-    window.ipcRenderer.send('updateStore', {
+    window.ipcRenderer.send('updateConfig', {
       work: this.state.total,
       pause: seconds
     })

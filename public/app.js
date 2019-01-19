@@ -19,7 +19,7 @@ const {
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 
-const store = require('./store')
+const { config, data } = require('./store')
 const icons = require('./icons')
 
 let tray
@@ -52,7 +52,7 @@ ipcMain.on('idle', () => {
 
 ipcMain.on('counting', () => {
   tray.setImage(icons.counting)
-  const workTime = store.get('work') / 60
+  const workTime = config.get('work') / 60
   new Notification({
     title: 'Pomodoro',
     body: `You must work during ${workTime} minutes.`
@@ -63,7 +63,7 @@ ipcMain.on('counting', () => {
 
 ipcMain.on('pausing', () => {
   tray.setImage(icons.pausing)
-  const pauseTime = store.get('pause') / 60
+  const pauseTime = config.get('pause') / 60
   new Notification({
     title: 'Pomodoro',
     body: `You have a break of ${pauseTime} minutes.`
@@ -72,28 +72,45 @@ ipcMain.on('pausing', () => {
 
 /* 
 * When the React App is loaded
-* Update the default state of the React App with the store
+* Update the default state of the React App with the config
 */
 
 ipcMain.on('handshake', () => {
   trayWindow.webContents.send('updateValues', {
-    work: store.get('work'),
-    pause: store.get('pause')
+    work: config.get('work'),
+    pause: config.get('pause')
   })
 })
 
-/* Set new values in the store */
+/* Set new values in the config */
 
-ipcMain.on('updateStore', (event, data) => {
-  store.set('work', data.work)
-  store.set('pause', data.pause)
+ipcMain.on('updateConfig', (event, data) => {
+  config.set('work', data.work)
+  config.set('pause', data.pause)
 })
 
 
 /* STREAK */
 
-ipcMain.on('updateStreak', (event, data) => {
-  // TODO
+ipcMain.on('updateStreak', (event, timePassed) => {
+  const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
+  
+  // If it's the same day
+  if (data.has(ISODate)) {
+    const { time, streak } = data.get(ISODate)
+    data.set(ISODate, {
+      day: ISODate,
+      time: time + timePassed,
+      streak: streak + 1
+    })
+  } else { // It's a new day
+    // Set a new key
+    data.set(ISODate, {
+      day: ISODate,
+      time: timePassed,
+      streak: 1
+    })
+  }
 })
 
 
