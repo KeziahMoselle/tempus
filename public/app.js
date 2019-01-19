@@ -119,6 +119,7 @@ function createWindow () {
     icon: icons.idle,
     show: false,
     frame: false,
+    backgroundColor: '#000000',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: false,
@@ -141,8 +142,15 @@ function createWindow () {
   positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
 
   if (isDev) {
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS
+    } = require('electron-devtools-installer')
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => console.log('Added extension : ', name))
+      .catch(error => console.log(error))
     trayWindow.webContents.openDevTools()
-    trayWindow.show()
+    trayWindow.on('ready-to-show', () => trayWindow.show())
   }
 }
 

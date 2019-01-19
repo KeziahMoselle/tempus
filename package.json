@@ -8,9 +8,9 @@
   "homepage": "./",
   "license": "MIT",
   "dependencies": {
+    "electron-is-dev": "^1.0.1",
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",
-    "electron-is-dev": "^1.0.1",
     "react": "^16.8.0-alpha.0",
     "react-dom": "^16.8.0-alpha.0",
     "react-scripts": "2.1.2"
@@ -20,6 +20,7 @@
     "cross-env": "^5.2.0",
     "electron": "^4.0.0",
     "electron-builder": "^20.38.5",
+    "electron-devtools-installer": "^2.2.4",
     "wait-on": "^3.2.0"
   },
   "scripts": {
