@@ -6,13 +6,13 @@ import Menu from './components/Menu/Menu'
 class App extends Component {
 
   state = {
-    state: null,
+    state: '',
     total: 1500,
     count: 0,
     totalPause: 300,
     countPause: 0,
     sessionStreak: 0,
-    cardsClass: undefined
+    cardsClass: ''
   }
 
   componentDidMount () {
@@ -96,7 +96,7 @@ class App extends Component {
     clearInterval(this.countInterval)
     clearInterval(this.pauseInterval)
     this.setState({
-      state: null,
+      state: '',
       count: 0,
       countPause: 0
     })
@@ -144,7 +144,7 @@ class App extends Component {
       })
     } else {
       this.setState({
-        cardsClass: undefined
+        cardsClass: ''
       })
     }
   }

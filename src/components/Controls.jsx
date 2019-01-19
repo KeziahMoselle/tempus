@@ -33,7 +33,7 @@ export default ({
 
         <button
           onClick={() => setMenu(!menu)}
-          className={menu ? 'active' : null}>
+          className={menu ? 'active' : ''}>
           <i className="material-icons">{ !menu ? 'timer' : 'close' }</i>
         </button>
 

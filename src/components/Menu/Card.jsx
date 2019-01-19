@@ -8,7 +8,7 @@ export default ({ title, icon, color, children }) => {
     event.stopPropagation()
 
     if (isExtended) {
-      setIsExtended(false)
+      setIsExtended('')
     } else {
       setIsExtended('extended')
     }
@@ -16,12 +16,12 @@ export default ({ title, icon, color, children }) => {
 
   return (
     <div className={`card ${isExtended}`}>
-      <header onClick={ toggleCard } className={ color }>
+      <header onClick={toggleCard} className={color}>
         <h2>{ title }</h2>
         <i className="material-icons">{ icon }</i>
       </header>
       <main onClick={(e) => e.stopPropagation()}>
-        {children}
+        { children }
       </main>
     </div>
   )
