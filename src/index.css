@@ -36,10 +36,6 @@
   font-feature-settings: 'liga';
 }
 
-.mono {
-  font-family: 'Major Mono Display';
-}
-
 html, body, #root, .container {
   height: 100%;
 }
@@ -73,6 +69,23 @@ footer {
 
 /**
  *
+ * TYPOGRAPHY
+ *
+ */
+
+.mono {
+  font-family: 'Major Mono Display';
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/**
+ *
  * TITLEBAR
  *
  */
@@ -84,8 +97,21 @@ footer {
   right: 0;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+
+.titlebar .streak {
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 0.6em;
+  background-color: #ff694f;
+  color: white;
+  border-bottom-right-radius: 6px;
+}
+
+.titlebar .streak span {
+  margin-right: 5px;
 }
 
 .titlebar .controls {

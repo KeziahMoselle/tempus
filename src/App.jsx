@@ -160,6 +160,13 @@ class App extends Component {
       <div className="container">
 
         <div className="titlebar">
+          <div className="streak">
+            <p>
+              <span role="img" aria-label="fire streak">🔥</span>
+              { this.state.sessionStreak }
+            </p>
+          </div>
+
           <div className="controls">
             <i onClick={() => window.ipcRenderer.send('win-minimize')} className="material-icons">remove</i>
             <i onClick={this.quit} className="material-icons danger">close</i>
