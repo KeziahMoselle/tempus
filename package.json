@@ -8,7 +8,6 @@
   "homepage": "./",
   "license": "MIT",
   "dependencies": {
-    "@nivo/calendar": "^0.52.0",
     "electron-is-dev": "^1.0.1",
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",

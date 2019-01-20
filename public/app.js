@@ -129,11 +129,6 @@ ipcMain.on('win-minimize', () => trayWindow.hide())
 
 ipcMain.on('win-close', () => app.quit())
 
-ipcMain.on('win-resize', (event, wantToResize) => {
-  wantToResize ? trayWindow.setSize(800, 1000) : trayWindow.setSize(400, 550)
-  positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
-})
-
 
 /**
  *

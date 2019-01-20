@@ -1,7 +1,5 @@
 import React from 'react'
 import Card from './Card'
-import Streak from './Streak'
-import Statistics from './Statistics'
 
 export default ({ toggleCards, cardsClass, sessionStreak }) => (
   <div onClick={toggleCards} className={`cards ${cardsClass}`}>
@@ -12,7 +10,6 @@ export default ({ toggleCards, cardsClass, sessionStreak }) => (
       color="green"
       sessionStreak={sessionStreak}
     >
-      <Streak sessionStreak={sessionStreak} />
     </Card>
 
     <Card
@@ -20,7 +17,6 @@ export default ({ toggleCards, cardsClass, sessionStreak }) => (
       icon="trending_up"
       color="blue"
     >
-      <Statistics />
     </Card>
 
   </div>
