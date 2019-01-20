@@ -19,11 +19,12 @@ const {
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 
-const store = require('./store')
+const { config, data } = require('./store')
 const icons = require('./icons')
 
 let tray
 let trayWindow
+let positioner
 
 
 /* Temporary fix for Windows 10 notification in dev mode
@@ -51,7 +52,7 @@ ipcMain.on('idle', () => {
 
 ipcMain.on('counting', () => {
   tray.setImage(icons.counting)
-  const workTime = store.get('work') / 60
+  const workTime = config.get('work') / 60
   new Notification({
     title: 'Pomodoro',
     body: `You must work during ${workTime} minutes.`
@@ -62,7 +63,7 @@ ipcMain.on('counting', () => {
 
 ipcMain.on('pausing', () => {
   tray.setImage(icons.pausing)
-  const pauseTime = store.get('pause') / 60
+  const pauseTime = config.get('pause') / 60
   new Notification({
     title: 'Pomodoro',
     body: `You have a break of ${pauseTime} minutes.`
@@ -71,28 +72,54 @@ ipcMain.on('pausing', () => {
 
 /* 
 * When the React App is loaded
-* Update the default state of the React App with the store
+* Update the default state of the React App with the config
 */
 
 ipcMain.on('handshake', () => {
   trayWindow.webContents.send('updateValues', {
-    work: store.get('work'),
-    pause: store.get('pause')
+    work: config.get('work'),
+    pause: config.get('pause')
   })
 })
 
-/* Set new values in the store */
+/* Set new values in the config */
 
-ipcMain.on('updateStore', (event, data) => {
-  store.set('work', data.work)
-  store.set('pause', data.pause)
+ipcMain.on('updateConfig', (event, data) => {
+  config.set('work', data.work)
+  config.set('pause', data.pause)
 })
 
 
 /* STREAK */
 
-ipcMain.on('updateStreak', (event, data) => {
-  // TODO
+ipcMain.on('updateStreak', (event, timePassed) => {
+  const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
+
+  // If it's the same day
+  if (config.get('alreadySetToday') && data.get('data').length > 0) {
+    const newData = data.get('data')
+    const index = newData.length - 1
+    newData[index] = {
+      day: ISODate,
+      value: newData[index].time + timePassed,
+      streak: newData[index].streak + 1
+    }
+    data.set('data', newData)
+  } else { // It's a new day
+    // Set a new key
+    const newData = data.get('data')
+    newData.push({
+      day: ISODate,
+      value: timePassed,
+      streak: 1
+    })
+    data.set('data', newData)
+    config.set('alreadySetToday', ISODate)
+  }
+})
+
+ipcMain.on('getStreak', () => {
+  trayWindow.webContents.send('getStreak', JSON.stringify(data.get('data')))
 })
 
 
@@ -101,6 +128,7 @@ ipcMain.on('updateStreak', (event, data) => {
 ipcMain.on('win-minimize', () => trayWindow.hide())
 
 ipcMain.on('win-close', () => app.quit())
+
 
 /**
  *
@@ -138,7 +166,7 @@ function createWindow () {
     }))
   }
 
-  const positioner = new Positioner(trayWindow)
+  positioner = new Positioner(trayWindow)
   positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
 
   if (isDev) {
