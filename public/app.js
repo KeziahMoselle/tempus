@@ -94,22 +94,27 @@ ipcMain.on('updateConfig', (event, data) => {
 
 ipcMain.on('updateStreak', (event, timePassed) => {
   const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
-  
+
   // If it's the same day
-  if (data.has(ISODate)) {
-    const { time, streak } = data.get(ISODate)
-    data.set(ISODate, {
+  if (config.get('alreadySetToday') && data.get('data').length > 0) {
+    const newData = data.get('data')
+    const index = newData.length - 1
+    newData[index] = {
       day: ISODate,
-      time: time + timePassed,
-      streak: streak + 1
-    })
+      time: newData[index].time + timePassed,
+      streak: newData[index].streak + 1
+    }
+    data.set('data', newData)
   } else { // It's a new day
     // Set a new key
-    data.set(ISODate, {
+    const newData = data.get('data')
+    newData.push({
       day: ISODate,
       time: timePassed,
       streak: 1
     })
+    data.set('data', newData)
+    config.set('alreadySetToday', ISODate)
   }
 })
 
