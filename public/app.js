@@ -101,7 +101,7 @@ ipcMain.on('updateStreak', (event, timePassed) => {
     const index = newData.length - 1
     newData[index] = {
       day: ISODate,
-      time: newData[index].time + timePassed,
+      value: newData[index].time + timePassed,
       streak: newData[index].streak + 1
     }
     data.set('data', newData)
@@ -110,12 +110,16 @@ ipcMain.on('updateStreak', (event, timePassed) => {
     const newData = data.get('data')
     newData.push({
       day: ISODate,
-      time: timePassed,
+      value: timePassed,
       streak: 1
     })
     data.set('data', newData)
     config.set('alreadySetToday', ISODate)
   }
+})
+
+ipcMain.on('getStreak', () => {
+  trayWindow.webContents.send('getStreak', JSON.stringify(data.get('data')))
 })
 
 
