@@ -11,8 +11,8 @@
 </p>
 
 <p align="center">
-  <img src="https://travis-ci.org/KeziahMoselle/pomodoro.svg?branch=master" />
-  <img src="https://ci.appveyor.com/api/projects/status/g8ma19s1fqyv31n5?svg=true" />
+  <img alt="Windows Release Badge" src="https://img.shields.io/appveyor/ci/keziahmoselle/pomodoro/master.svg?label=build%3Awindows&style=flat-square">
+  <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/pomodoro.svg?label=build%3Amac&style=flat-square">
 </p>
 
 <p align="center">
