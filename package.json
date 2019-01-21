@@ -1,7 +1,7 @@
 {
   "name": "pomodoro",
   "description": "A simple pomodoro in the tray",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
   "main": "./public/app.js",
@@ -24,10 +24,10 @@
     "wait-on": "^3.2.0"
   },
   "scripts": {
-    "dev": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "npm run react-build && build -c.extraMetadata.main=build/app.js",
     "release": "npm run react-build && build -c.extraMetadata.main=build/app.js --publish always",
-    "react-start": "react-scripts start",
+    "react-start": "cross-env BROWSER=none react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject"
