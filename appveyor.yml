@@ -6,4 +6,4 @@ install:
 build_script:
  - npm run release
 artifacts:
-  - path: .\dist\*.msi
+  - path: .\dist\*.exe
