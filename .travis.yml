@@ -16,3 +16,7 @@ cache:
 
 script:
   - yarn release
+
+branches:
+  only:
+    - master
