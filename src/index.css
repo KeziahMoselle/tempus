@@ -66,6 +66,10 @@ footer {
   transition: height 0.2s;
 }
 
+footer.extended {
+  height: 248px;
+}
+
 
 /**
  *
@@ -298,6 +302,7 @@ h1, h2, h3, h4, h5, h6, p {
   display: flex;
   justify-content: center;
   height: 100%;
+  color: black;
   background-color: rgba(255, 255, 255, 0.98);
   box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
 }
