@@ -58,19 +58,6 @@ body {
   align-items: center;
 }
 
-footer {
-  height: 56px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  transition: height 0.2s;
-}
-
-footer.extended {
-  height: 248px;
-}
-
-
 /**
  *
  * TYPOGRAPHY
@@ -273,11 +260,27 @@ h1, h2, h3, h4, h5, h6, p {
 
 /**
  *
- * NAVBAR
+ * FOOTER
  *
  */
 
- .navbar {
+footer {
+  z-index: 2;
+  height: 56px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.2s;
+}
+
+footer.extended {
+  height: 90%;
+}
+
+
+/* FOOTER HEADER */
+
+.footer-header {
   position: relative;
   display: flex;
   justify-content: space-around;
@@ -290,30 +293,29 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 
-
-/**
- *
- * MENU
- *
- */
+/* FOOTER CONTENT */
 
 
-.menu {
+.footer-content {
   display: flex;
   justify-content: center;
-  height: 100%;
+  align-items: center;
+  height: 90%;
   color: black;
   background-color: rgba(255, 255, 255, 0.98);
   box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
 }
 
-.menu ul {
+
+/* FOOTER TIMER */
+
+.footer-content ul {
   width: 100%;
   margin: 0;
   padding: 26px;
 }
 
-.menu ul li {
+.footer-content ul li {
   margin: 16px 0;
   display: flex;
   justify-content: space-between;
@@ -321,13 +323,13 @@ h1, h2, h3, h4, h5, h6, p {
   height: auto;
 }
 
-.menu label {
+.footer-content label {
   font-size: 0.9em;
   font-family: sans-serif;
   color: rgb(51, 51, 51);
 }
 
-.menu input {
+.footer-content input {
   height: 36px;
   width: 100px;
   text-align: center;
@@ -336,7 +338,7 @@ h1, h2, h3, h4, h5, h6, p {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.menu input:focus {
+.footer-content input:focus {
   outline: none;
 }
 

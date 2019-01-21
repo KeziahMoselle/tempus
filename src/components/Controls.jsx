@@ -24,7 +24,7 @@ export default ({
   return (
     <footer className={isExtended}>
 
-      <div className="navbar">
+      <div className="footer-header">
 
         <button
           onClick={() => switchComponent('Statistics')}
@@ -47,7 +47,7 @@ export default ({
       </div>
 
 
-      <div className="menu">
+      <div className="footer-content">
 
         { component === 'EditTimer' &&
           <EditTimer
