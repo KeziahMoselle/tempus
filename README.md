@@ -11,6 +11,11 @@
 </p>
 
 <p align="center">
+  <img src="https://travis-ci.org/KeziahMoselle/pomodoro.svg?branch=master" />
+  <img src="https://ci.appveyor.com/api/projects/status/g8ma19s1fqyv31n5?svg=true" />
+</p>
+
+<p align="center">
   <img src="./preview.gif" height="600" />
 </p>
 
