@@ -1,0 +1,9 @@
+image: Visual Studio 2017
+install:
+  - ps: Install-Product node 9
+  - npm install npm@latest -g
+  - npm install
+build_script:
+ - npm run release
+artifacts:
+  - path: .\dist\*.msi
