@@ -15,7 +15,7 @@ export default () => {
       }
 
       { !data &&
-        <div class="circle-ripple circle-ripple--animation"></div>
+        <div class="circle-ripple"></div>
       }
     </>
   )
