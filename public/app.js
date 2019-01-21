@@ -77,9 +77,13 @@ ipcMain.on('pausing', () => {
 */
 
 ipcMain.on('handshake', () => {
+  const { index } = config.get('alreadySetToday')
+  const { streak } = data.get(`data.${index}`)
+
   trayWindow.webContents.send('handshake', {
     work: config.get('work'),
-    pause: config.get('pause')
+    pause: config.get('pause'),
+    sessionStreak: streak
   })
 })
 
