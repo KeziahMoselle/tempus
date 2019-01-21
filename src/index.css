@@ -105,9 +105,15 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 6px 14px;
   font-weight: 600;
   font-size: 0.6em;
+  background-color: white;
+  color: black;
+  border-bottom-right-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.titlebar .streak.in-a-row {
   background-color: #ff694f;
   color: white;
-  border-bottom-right-radius: 6px;
 }
 
 .titlebar .streak span {

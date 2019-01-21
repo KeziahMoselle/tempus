@@ -160,7 +160,7 @@ class App extends Component {
       <div className="container">
 
         <div className="titlebar">
-          <div className="streak">
+          <div className={`streak ${this.state.sessionStreak > 0 ? 'in-a-row' : ''}`}>
             <p>
               <span role="img" aria-label="fire streak">🔥</span>
               { this.state.sessionStreak }
