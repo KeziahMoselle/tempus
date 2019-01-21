@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default () => {
+  const [data, setData] = useState(undefined)
+  useEffect(() => {
+    window.ipcRenderer.send('getData')
+    window.ipcRenderer.once('getData', (event, storeData) => setData(storeData))
+  }, [])
   
   return (
-    <p>Statistics</p>
+    <>
+      {
+        data &&
+        <p>{ data }</p>
+      }
+
+      { !data &&
+        <div class="circle-ripple circle-ripple--animation"></div>
+      }
+    </>
   )
 }
