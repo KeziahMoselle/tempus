@@ -21,6 +21,7 @@ const isDev = require('electron-is-dev')
 
 const { config, data } = require('./store')
 const icons = require('./icons')
+const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
 
 let tray
 let trayWindow
@@ -76,7 +77,7 @@ ipcMain.on('pausing', () => {
 */
 
 ipcMain.on('handshake', () => {
-  trayWindow.webContents.send('updateValues', {
+  trayWindow.webContents.send('handshake', {
     work: config.get('work'),
     pause: config.get('pause')
   })
@@ -93,33 +94,29 @@ ipcMain.on('updateConfig', (event, data) => {
 /* STREAK */
 
 ipcMain.on('updateStreak', (event, timePassed) => {
-  const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
-
+  const newData = data.get('data')
   // If it's the same day
   if (config.get('alreadySetToday') && data.get('data').length > 0) {
-    const newData = data.get('data')
     const index = newData.length - 1
     newData[index] = {
       day: ISODate,
-      value: newData[index].time + timePassed,
+      value: newData[index].value + timePassed,
       streak: newData[index].streak + 1
     }
     data.set('data', newData)
   } else { // It's a new day
     // Set a new key
-    const newData = data.get('data')
-    newData.push({
+    let index = newData.push({
       day: ISODate,
       value: timePassed,
       streak: 1
     })
     data.set('data', newData)
-    config.set('alreadySetToday', ISODate)
+    config.set('alreadySetToday', {
+      ISODate,
+      index: index - 1
+    })
   }
-})
-
-ipcMain.on('getStreak', () => {
-  trayWindow.webContents.send('getStreak', JSON.stringify(data.get('data')))
 })
 
 

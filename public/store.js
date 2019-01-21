@@ -10,7 +10,7 @@ const config = new Store({
 })
 
 const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
-if (ISODate !== config.get('alreadySetToday')) {
+if (ISODate !== config.get('alreadySetToday.ISODate')) {
   // If it's a new day, set `alreadySetToday` to false
   // to create a new key when a streak is done
   config.set('alreadySetToday', false)
