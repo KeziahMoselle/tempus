@@ -8,7 +8,7 @@ export default ({
   start, stop,
   setWork, setPause
 }) => {
-  const [isExtended, setIsExtended] = useState(false)
+  const [isExtended, setIsExtended] = useState('')
   const [component, setComponent] = useState(null)
 
   const switchComponent = (name) => {
