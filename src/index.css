@@ -342,10 +342,6 @@ button:focus {
               0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
-.active {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
 button.counting {
   background-color: #2F88FF;
   color: white;
@@ -382,4 +378,19 @@ button.pausing {
                 0 0 0 5em rgba(0, 0, 0, 0.3),
                 0 0 0 8em rgba(0, 0, 0, 0);
   }
+}
+
+
+/**
+ *
+ * STATES
+ *
+ */
+
+.active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.hide {
+  display: none !important;
 }

@@ -6,25 +6,27 @@ import ReactTooltip from 'react-tooltip'
 import './heatmap.css'
 
 export default () => {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [chartType, setChartType] = useState('heatmap')
+  const [data, setData] = useState(undefined)
+  const [chartType, setChartType] = useState('bar')
+  const [barChart, setBarChart] = useState(undefined)
 
   useEffect(() => {
     window.ipcRenderer.send('getData')
     window.ipcRenderer.once('getData', (event, storeData) => {
-      const dataset = storeData.map(object => ({
+      const heatmapDataset = storeData.map(object => ({
+        date: object.day,
+        streak: object.streak
+      }))
+      const barDataset = storeData.map(object => ({
         t: new Date(object.day),
         y: object.value
       }))
-
-      setIsLoaded(true)
-
-      new Chart('bar-chart', {
+      const bar = new Chart('bar-chart', {
         type: 'bar',
         data: {
           datasets: [{
             label: 'Minutes of work',
-            data: dataset,
+            data: barDataset,
             backgroundColor: [
               'rgba(255,179,186)',
               'rgba(255,223,186)',
@@ -57,6 +59,11 @@ export default () => {
           }
         }
       })
+      setBarChart(bar)
+      setData({
+        bar: barDataset,
+        heatmap: heatmapDataset
+      })
     })
   }, [])
   
@@ -64,38 +71,28 @@ export default () => {
     <div className="statistics-container">
 
       <div className="card">
-
-        <button className="card-item">
+        <button onClick={() => setChartType('heatmap')} className="card-item">
           <span role="img" aria-label="fire streak">🔥</span>
           4
         </button>
 
-        <button className="card-item">
+        <button onClick={() => setChartType('bar')} className="card-item">
           <span role="img" aria-label="fire streak">⏱️</span>
           4h
         </button>
-
       </div>
 
       <div className="chart-container">
-        {
-          (isLoaded && chartType === 'bar') &&
-          <canvas id="bar-chart"></canvas>
-        }
 
-        { (isLoaded && chartType === 'heatmap') &&
+          <canvas id="bar-chart" className={chartType !== 'bar' ? 'hide' : ''}></canvas>
+
+        { (data && chartType === 'heatmap') &&
           <>
             <CalendarHeatmap
               startDate={new Date('2019-01-01')}
               endDate={new Date('2019-04-30')}
               showWeekdayLabels={true}
-              values={[
-                { date: '2019-01-20', streak: 1 },
-                { date: '2019-01-21', streak: 2 },
-                { date: '2019-01-22', streak: 3 },
-                { date: '2019-01-23', streak: 4 },
-                { date: '2019-01-24', streak: 5 }
-              ]}
+              values={data.heatmap}
               classForValue={value => {
                 if (!value) return 'color-empty'
                 if (value.streak <= 3) return `color-${value.streak}`
@@ -111,7 +108,7 @@ export default () => {
         }
       </div>
 
-      { !isLoaded &&
+      { !data &&
         <div className="circle-ripple"></div>
       }
 
