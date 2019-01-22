@@ -7,26 +7,18 @@ export default () => {
     window.ipcRenderer.send('getData')
     window.ipcRenderer.once('getData', (event, storeData) => {
       const dataset = storeData.map(object => ({
-        x: object.day,
+        t: new Date(object.day),
         y: object.value
       }))
+      
       setIsLoaded(true)
-      console.log(dataset)
+      
       new Chart('bar-chart', {
         type: 'bar',
         data: {
           datasets: [{
             label: 'Minutes of work',
-            data: [{
-              x: new Date('2019-01-20'),
-              y: 25
-            }, {
-              x: new Date('2019-01-21'),
-              y: 50
-            }, {
-              x: new Date('2019-01-22'),
-              y: 30
-            }],
+            data: dataset,
             backgroundColor: [
               'rgba(255,179,186)',
               'rgba(255,223,186)',
