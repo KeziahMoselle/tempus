@@ -264,17 +264,22 @@ footer.extended {
  */
 
 .statistics-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 26px;
 }
 
 .statistics-container .card {
   display: flex;
   justify-content: space-evenly;
+  width: 60%;
 }
 
 .chart-container {
+  height: 100%;
+  width: 100%;
   margin: 26px 0;
-
 }
 
 

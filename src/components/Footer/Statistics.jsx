@@ -64,6 +64,7 @@ export default () => {
     <div className="statistics-container">
 
       <div className="card">
+
         <button className="card-item">
           <span role="img" aria-label="fire streak">🔥</span>
           4
@@ -73,6 +74,7 @@ export default () => {
           <span role="img" aria-label="fire streak">⏱️</span>
           4h
         </button>
+
       </div>
 
       <div className="chart-container">
@@ -82,7 +84,7 @@ export default () => {
         }
 
         { (isLoaded && chartType === 'heatmap') &&
-          <div style={{width: 80 + '%'}}>
+          <>
             <CalendarHeatmap
               startDate={new Date('2019-01-01')}
               endDate={new Date('2019-04-30')}
@@ -105,13 +107,14 @@ export default () => {
               }}
             />
             <ReactTooltip />
-          </div>
+          </>
         }
       </div>
 
       { !isLoaded &&
         <div className="circle-ripple"></div>
       }
+
     </div>
   )
 }

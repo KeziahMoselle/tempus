@@ -9,6 +9,10 @@
   font-size: 5px;
 }
 
+.react-calendar-heatmap .react-calendar-heatmap-weekday-label {
+  transform: translateX(-6px);
+}
+
 .react-calendar-heatmap rect:hover {
   stroke: #555;
   stroke-width: 1px;
