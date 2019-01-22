@@ -5,24 +5,45 @@ import ReactTooltip from 'react-tooltip'
 
 import './heatmap.css'
 
-export default () => {
-  const [data, setData] = useState(undefined)
+export default ({ sessionStreak }) => {
+  const [data, setData] = useState({
+    bar: undefined,
+    heatmap: undefined,
+    hoursOfWork: 'Loading...'
+  })
   const [chartType, setChartType] = useState('bar')
+  
+  /**
+   * Get data from the store
+   */
 
   useEffect(() => {
     window.ipcRenderer.send('getData')
     window.ipcRenderer.once('getData', (event, storeData) => {
+
+      /* Data for the Heatmap chart */
       const heatmapDataset = storeData.map(object => ({
         date: object.day,
         streak: object.streak
       }))
+
+      /* Data for the Bar chart */
       const barDataset = storeData.map(object => ({
         t: new Date(object.day),
         y: object.value
-      }))
+      })) 
+
+      /* Calculate the total worktime */
+      const minutesOfWork = storeData.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.value
+      }, 0)
+      const hoursOfWork = (minutesOfWork / 60).toFixed(1)
+      
+      /* Update values */
       setData({
         bar: barDataset,
-        heatmap: heatmapDataset
+        heatmap: heatmapDataset,
+        hoursOfWork
       })
     })
   }, [])
@@ -82,12 +103,12 @@ export default () => {
       <div className="card">
         <button onClick={() => setChartType('heatmap')} className="card-item">
           <span role="img" aria-label="fire streak">🔥</span>
-          4
+          { sessionStreak }
         </button>
 
         <button onClick={() => setChartType('bar')} className="card-item">
           <span role="img" aria-label="fire streak">⏱️</span>
-          4h
+          { data.hoursOfWork }h
         </button>
       </div>
 

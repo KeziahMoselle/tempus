@@ -179,6 +179,7 @@ class App extends Component {
           state={this.state.state}
           total={this.state.total}
           totalPause={this.state.totalPause}
+          sessionStreak={this.state.sessionStreak}
           start={this.start}
           stop={this.stop}
           setWork={this.setWork}

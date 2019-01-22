@@ -6,7 +6,8 @@ export default ({
   state,
   total, totalPause,
   start, stop,
-  setWork, setPause
+  setWork, setPause,
+  sessionStreak
 }) => {
   const [isExtended, setIsExtended] = useState('')
   const [component, setComponent] = useState(null)
@@ -59,7 +60,7 @@ export default ({
         }
 
         { component === 'Statistics' &&
-          <Statistics />
+          <Statistics sessionStreak={sessionStreak} />
         }
 
       </div>
