@@ -13,8 +13,10 @@
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",
     "react": "^16.8.0-alpha.0",
+    "react-calendar-heatmap": "^1.8.0",
     "react-dom": "^16.8.0-alpha.0",
-    "react-scripts": "2.1.2"
+    "react-scripts": "2.1.2",
+    "react-tooltip": "^3.9.2"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

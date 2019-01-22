@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Chart from 'chart.js'
+import CalendarHeatmap from 'react-calendar-heatmap'
+import ReactTooltip from 'react-tooltip'
+
+import './heatmap.css'
 
 export default () => {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [chartType, setChartType] = useState('heatmap')
+
   useEffect(() => {
     window.ipcRenderer.send('getData')
     window.ipcRenderer.once('getData', (event, storeData) => {
@@ -10,9 +16,9 @@ export default () => {
         t: new Date(object.day),
         y: object.value
       }))
-      
+
       setIsLoaded(true)
-      
+
       new Chart('bar-chart', {
         type: 'bar',
         data: {
@@ -57,8 +63,35 @@ export default () => {
   return (
     <>
       {
-        isLoaded &&
+        (isLoaded && chartType === 'bar') &&
         <canvas id="bar-chart"></canvas>
+      }
+
+      { (isLoaded && chartType === 'heatmap') &&
+        <div style={{width: 80 + '%'}}>
+          <CalendarHeatmap
+            startDate={new Date('2019-01-01')}
+            endDate={new Date('2019-04-30')}
+            showWeekdayLabels={true}
+            values={[
+              { date: '2019-01-20', streak: 1 },
+              { date: '2019-01-21', streak: 2 },
+              { date: '2019-01-22', streak: 3 },
+              { date: '2019-01-23', streak: 4 },
+              { date: '2019-01-24', streak: 5 }
+            ]}
+            classForValue={value => {
+              if (!value) return 'color-empty'
+              if (value.streak <= 3) return `color-${value.streak}`
+              return 'color-max'
+            }}
+            tooltipDataAttrs={value => {
+              if (!value.date) return { 'data-tip': 'No streak' }
+              return { 'data-tip': `${value.date} : Streak: ${value.streak}` }
+            }}
+          />
+          <ReactTooltip />
+        </div>
       }
 
       { !isLoaded &&
