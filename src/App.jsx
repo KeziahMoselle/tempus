@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
-import Menu from './components/Menu/Menu'
 
 class App extends Component {
 
@@ -176,16 +175,11 @@ class App extends Component {
 
         <Counter {...this.state} />
 
-        <Menu
-          cardsClass={this.state.cardsClass}
-          toggleCards={this.toggleCards}
-          sessionStreak={this.state.sessionStreak}
-        />
-
         <Controls
           state={this.state.state}
           total={this.state.total}
           totalPause={this.state.totalPause}
+          sessionStreak={this.state.sessionStreak}
           start={this.start}
           stop={this.stop}
           setWork={this.setWork}

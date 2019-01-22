@@ -1,28 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import EditTimer from './Footer/EditTimer'
+import Statistics from './Footer/Statistics'
 
 export default ({
   state,
   total, totalPause,
   start, stop,
   setWork, setPause,
-  toggleCards
+  sessionStreak
 }) => {
-  const [menu, setMenu] = useState(false)
-  useEffect(() => {
-    if (menu) {
-      document.querySelector('footer').style.height = '248px'
+  const [isExtended, setIsExtended] = useState('')
+  const [component, setComponent] = useState(null)
+
+  const switchComponent = (name) => {
+    setIsExtended('extended')
+    if (name !== component) {
+      setComponent(name)
     } else {
-      document.querySelector('footer').style.height = '56px'
+      setComponent(null)
+      setIsExtended('')
     }
-  }, [menu])
+  }
 
   return (
-    <footer>
+    <footer className={isExtended}>
 
-      <div className="navbar">
+      <div className="footer-header">
 
-        <button onClick={toggleCards}>
-          <i className="material-icons">view_agenda</i>
+        <button
+          onClick={() => switchComponent('Statistics')}
+          className={component === 'Statistics' ? 'active': ''}>
+          <i className="material-icons">{ component !== 'Statistics' ? 'view_agenda' : 'close' }</i>
         </button>
 
         <button
@@ -32,36 +40,29 @@ export default ({
         </button>
 
         <button
-          onClick={() => setMenu(!menu)}
-          className={menu ? 'active' : ''}>
-          <i className="material-icons">{ !menu ? 'timer' : 'close' }</i>
+          onClick={() => switchComponent('EditTimer')}
+          className={component === 'EditTimer' ? 'active' : ''}>
+          <i className="material-icons">{ component !== 'EditTimer' ? 'timer' : 'close' }</i>
         </button>
 
       </div>
 
-      <div className="menu">
-        <ul>
-          <li>
-            <label htmlFor="work">Work</label>
-            <input
-              onChange={(event) => setWork(event.target.value)}
-              id="work"
-              type="number"
-              min="1"
-              value={total / 60}
-            />
-          </li>
-          <li>
-            <label htmlFor="pause">Pause</label>
-            <input
-              onChange={(event) => setPause(event.target.value)}
-              id="pause"
-              type="number"
-              min="1"
-              value={totalPause / 60}
-            />
-          </li>
-        </ul>
+
+      <div className="footer-content">
+
+        { component === 'EditTimer' &&
+          <EditTimer
+            setWork={setWork}
+            setPause={setPause}
+            total={total}
+            totalPause={totalPause}
+          />
+        }
+
+        { component === 'Statistics' &&
+          <Statistics sessionStreak={sessionStreak} />
+        }
+
       </div>
 
     </footer>
