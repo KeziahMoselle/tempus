@@ -104,7 +104,7 @@ ipcMain.on('updateConfig', (event, data) => {
 /* Send data for charts */
 
 ipcMain.on('getData', () => {
-  trayWindow.webContents.send('getData', JSON.stringify(data.get('data')))
+  trayWindow.webContents.send('getData', data.get('data'))
 })
 
 /* Store the streak and time */
