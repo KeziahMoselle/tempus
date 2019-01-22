@@ -8,7 +8,6 @@ import './heatmap.css'
 export default () => {
   const [data, setData] = useState(undefined)
   const [chartType, setChartType] = useState('bar')
-  const [barChart, setBarChart] = useState(undefined)
 
   useEffect(() => {
     window.ipcRenderer.send('getData')
@@ -21,12 +20,27 @@ export default () => {
         t: new Date(object.day),
         y: object.value
       }))
-      const bar = new Chart('bar-chart', {
+      setData({
+        bar: barDataset,
+        heatmap: heatmapDataset
+      })
+    })
+  }, [])
+
+  
+  /*
+   * CREATE THE BAR CHART
+   * only when data is filled
+   */
+  
+  useEffect(() => {
+    if (data && chartType === 'bar') {
+      new Chart('bar-chart', {
         type: 'bar',
         data: {
           datasets: [{
             label: 'Minutes of work',
-            data: barDataset,
+            data: data.bar,
             backgroundColor: [
               'rgba(255,179,186)',
               'rgba(255,223,186)',
@@ -59,13 +73,8 @@ export default () => {
           }
         }
       })
-      setBarChart(bar)
-      setData({
-        bar: barDataset,
-        heatmap: heatmapDataset
-      })
-    })
-  }, [])
+    }
+  }, [data])
   
   return (
     <div className="statistics-container">
