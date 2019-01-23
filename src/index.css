@@ -74,6 +74,17 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 
+/**
+ *
+ * FLEX
+ *
+ */
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 
 /**
  *
@@ -266,32 +277,33 @@ footer.extended {
 .statistics-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 26px;
 }
 
-.statistics-container .card {
-  position: relative;
+.statistics-container .cards {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.statistics-container .cards .card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 60%;
-  margin-bottom: 30px;
-}
-
-.statistics-container .card > h3 {
-  position: absolute;
-  top: -14px;
-  font-size: 0.8em;
-}
-
-.statistics-container .card {
-  padding-top: 18px;
+  width: 40%;
 }
 
 .chart-container {
   height: 100%;
   width: 100%;
+}
+
+.chart-container .center {
+  margin-bottom: 10px;
+}
+
+.chart-container .center button {
+  margin: 0 6px;
 }
 
 
@@ -302,13 +314,23 @@ footer.extended {
  */
 
 .card {
+  position: relative;
   padding: 8px;
   border-radius: 4px;
   background-color: white;
   border: 1px solid #d1d5da;
+  padding-top: 18px;
+}
+
+.card > h3 {
+  position: absolute;
+  top: -14px;
+  font-size: 0.8em;
 }
 
 .card-item {
+  display: flex;
+  align-items: center;
   padding: 8px 16px;
   font-size: 0.7em;
   border-radius: 6px;

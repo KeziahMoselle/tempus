@@ -60,30 +60,28 @@ export default ({ sessionStreak }) => {
   return (
     <div className="statistics-container">
 
-      <div className="card">
-        <h3>Today</h3>
-        <div className="card-content">
-          <button onClick={() => setChartType('heatmap')} className="card-item">
+      <div className="cards">
+        <div className="card">
+          <h3>Today</h3>
+          <button className="card-item">
             <span role="img" aria-label="fire streak">🔥</span>
             { sessionStreak }
           </button>
 
-          <button onClick={() => setChartType('bar')} className="card-item">
+          <button className="card-item">
             <span role="img" aria-label="fire streak">⏱️</span>
             { data.sessionMinutes }m
           </button>
         </div>
-      </div>
 
-      <div className="card">
-        <h3>Total</h3>
-        <div className="card-content">
-          <button onClick={() => setChartType('heatmap')} className="card-item">
+        <div className="card">
+          <h3>Total</h3>
+          <button className="card-item">
             <span role="img" aria-label="fire streak">🔥</span>
             { data.totalStreak }
           </button>
 
-          <button onClick={() => setChartType('bar')} className="card-item">
+          <button className="card-item">
             <span role="img" aria-label="fire streak">⏱️</span>
             { data.totalHoursOfWork }h
           </button>
@@ -91,6 +89,20 @@ export default ({ sessionStreak }) => {
       </div>
 
       <div className="chart-container">
+
+        <div className="center">
+          <button
+            onClick={() => setChartType('bar')}
+            className={`card-item ${chartType === 'bar' ? 'active' : ''}`}>
+            Week
+          </button>
+          
+          <button
+            onClick={() => setChartType('heatmap')}
+            className={`card-item ${chartType === 'heatmap' ? 'active' : ''}`}>
+            Months
+          </button>
+        </div>
 
         { chartType === 'bar' &&
           <BarChart data={data.bar} />
