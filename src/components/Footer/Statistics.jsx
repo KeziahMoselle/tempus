@@ -43,8 +43,13 @@ export default ({ sessionStreak }) => {
         return accumulator + currentValue.streak
       }, 0)
 
-      const sessionMinutes = data.data[data.currentDayIndex].value
-      
+      let todayStreak = 0
+      let sessionMinutes = 0
+      if (data.data[data.currentDayIndex]) {
+        todayStreak = data.data[data.currentDayIndex].streak
+        sessionMinutes = data.data[data.currentDayIndex].value
+      }
+
       /* Update values */
       setData({
         today: data.today,
@@ -52,6 +57,7 @@ export default ({ sessionStreak }) => {
         heatmap: heatmapDataset,
         totalHoursOfWork,
         totalStreak,
+        todayStreak,
         sessionMinutes
       })
     })
@@ -63,28 +69,28 @@ export default ({ sessionStreak }) => {
       <div className="cards">
         <div className="card">
           <h3>Today</h3>
-          <button className="card-item">
+          <p className="card-item">
             <span role="img" aria-label="fire streak">🔥</span>
             { sessionStreak }
-          </button>
+          </p>
 
-          <button className="card-item">
+          <p className="card-item">
             <span role="img" aria-label="fire streak">⏱️</span>
             { data.sessionMinutes }m
-          </button>
+          </p>
         </div>
 
         <div className="card">
           <h3>Total</h3>
-          <button className="card-item">
+          <p className="card-item">
             <span role="img" aria-label="fire streak">🔥</span>
             { data.totalStreak }
-          </button>
+          </p>
 
-          <button className="card-item">
+          <p className="card-item">
             <span role="img" aria-label="fire streak">⏱️</span>
             { data.totalHoursOfWork }h
-          </button>
+          </p>
         </div>
       </div>
 

@@ -233,28 +233,23 @@ footer.extended {
 }
 
 
-/* FOOTER TIMER */
+/* EDIT TIMER */
 
-.footer-content ul {
-  margin: 0;
+.timer-container {
   padding: 26px;
 }
 
-.footer-content ul li {
-  margin: 16px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: auto;
+.timer-container h3 {
+  font-size: 1em;
 }
 
-.footer-content label {
+.timer-container label {
   font-size: 0.9em;
   font-family: sans-serif;
   color: rgb(51, 51, 51);
 }
 
-.footer-content input {
+.timer-container input {
   height: 36px;
   width: 100px;
   text-align: center;
@@ -263,7 +258,7 @@ footer.extended {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.footer-content input:focus {
+.timer-container input:focus {
   outline: none;
 }
 
@@ -329,8 +324,6 @@ footer.extended {
 }
 
 .card-item {
-  display: flex;
-  align-items: center;
   padding: 8px 16px;
   font-size: 0.7em;
   border-radius: 6px;
