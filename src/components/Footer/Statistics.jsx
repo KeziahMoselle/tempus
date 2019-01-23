@@ -99,13 +99,13 @@ export default ({ sessionStreak }) => {
         <div className="center">
           <button
             onClick={() => setChartType('bar')}
-            className={`card-item ${chartType === 'bar' ? 'active' : ''}`}>
+            className={chartType === 'bar' ? 'selected' : ''}>
             Week
           </button>
           
           <button
             onClick={() => setChartType('heatmap')}
-            className={`card-item ${chartType === 'heatmap' ? 'active' : ''}`}>
+            className={chartType === 'heatmap' ? 'selected' : ''}>
             Months
           </button>
         </div>

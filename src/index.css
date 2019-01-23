@@ -241,6 +241,13 @@ footer.extended {
 
 .timer-container h3 {
   font-size: 1em;
+  margin-bottom: 30px;
+}
+
+.timer-container .field {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 20px;
 }
 
 .timer-container label {
@@ -342,10 +349,13 @@ footer.extended {
 
 
 button {
+  font-size: 0.6em;
   border: none;
   background-color: white;
   transition: background-color 0.2s;
   cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
 }
 
 button:not(.overlap):hover {
@@ -416,6 +426,10 @@ button.pausing {
 
 .active {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.selected {
+  border: 1px solid black; 
 }
 
 .hide {
