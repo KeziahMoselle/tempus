@@ -24,14 +24,13 @@
 ## Features
 
 - Pomodoro (25 minutes of work / 5 minutes of pause)
-- Ability to change default values
-- Tray app
-- Notifications alert when changing phase
+- Change work time and pause time
+- Notifications
+- Streak
+- Statistics
 
 ## Features incoming
 
-- [Streak](https://github.com/KeziahMoselle/pomodoro/issues/9)
-- [Statistics](https://github.com/KeziahMoselle/pomodoro/issues/12)
 - [Inspirational quotes](https://github.com/KeziahMoselle/pomodoro/issues/10)
 - [Window focus](https://github.com/KeziahMoselle/pomodoro/issues/11)
 - [Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
