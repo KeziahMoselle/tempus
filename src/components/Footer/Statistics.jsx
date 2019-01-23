@@ -37,14 +37,23 @@ export default ({ sessionStreak }) => {
       const minutesOfWork = data.data.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.value
       }, 0)
-      const hoursOfWork = (minutesOfWork / 60).toFixed(1)
+      const totalHoursOfWork = (minutesOfWork / 60).toFixed(1)
+
+      /* Calculate the total streak */
+      const totalStreak = data.data.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.streak
+      }, 0)
+
+      const sessionMinutes = data.data[data.currentDayIndex].value
       
       /* Update values */
       setData({
         today: data.today,
         bar: barDataset,
         heatmap: heatmapDataset,
-        hoursOfWork
+        totalHoursOfWork,
+        totalStreak,
+        sessionMinutes
       })
     })
   }, [])
@@ -102,15 +111,33 @@ export default ({ sessionStreak }) => {
     <div className="statistics-container">
 
       <div className="card">
-        <button onClick={() => setChartType('heatmap')} className="card-item">
-          <span role="img" aria-label="fire streak">🔥</span>
-          { sessionStreak }
-        </button>
+        <h3>Today</h3>
+        <div className="card-content">
+          <button onClick={() => setChartType('heatmap')} className="card-item">
+            <span role="img" aria-label="fire streak">🔥</span>
+            { sessionStreak }
+          </button>
 
-        <button onClick={() => setChartType('bar')} className="card-item">
-          <span role="img" aria-label="fire streak">⏱️</span>
-          { data.hoursOfWork }h
-        </button>
+          <button onClick={() => setChartType('bar')} className="card-item">
+            <span role="img" aria-label="fire streak">⏱️</span>
+            { data.sessionMinutes }m
+          </button>
+        </div>
+      </div>
+
+      <div className="card">
+        <h3>Total</h3>
+        <div className="card-content">
+          <button onClick={() => setChartType('heatmap')} className="card-item">
+            <span role="img" aria-label="fire streak">🔥</span>
+            { data.totalStreak }
+          </button>
+
+          <button onClick={() => setChartType('bar')} className="card-item">
+            <span role="img" aria-label="fire streak">⏱️</span>
+            { data.totalHoursOfWork }h
+          </button>
+        </div>
       </div>
 
       <div className="chart-container">
@@ -134,7 +161,7 @@ export default ({ sessionStreak }) => {
               }}
               tooltipDataAttrs={value => {
                 if (!value.date) return { 'data-tip': 'No streak' }
-                return { 'data-tip': `${value.date} : Streak: ${value.streak}` }
+                return { 'data-tip': `${new Date(value.date).toDateString()} : Streak: ${value.streak}` }
               }}
             />
             <ReactTooltip />

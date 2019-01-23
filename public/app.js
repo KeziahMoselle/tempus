@@ -106,6 +106,7 @@ ipcMain.on('updateConfig', (event, data) => {
 ipcMain.on('getData', () => {
   trayWindow.webContents.send('getData', {
     today: ISODate,
+    currentDayIndex: config.get('alreadySetToday.index'),
     data: data.get('data')
   })
 })

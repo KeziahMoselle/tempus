@@ -271,15 +271,27 @@ footer.extended {
 }
 
 .statistics-container .card {
+  position: relative;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
   width: 60%;
+  margin-bottom: 30px;
+}
+
+.statistics-container .card > h3 {
+  position: absolute;
+  top: -14px;
+  font-size: 0.8em;
+}
+
+.statistics-container .card {
+  padding-top: 18px;
 }
 
 .chart-container {
   height: 100%;
   width: 100%;
-  margin: 26px 0;
 }
 
 
