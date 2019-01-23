@@ -5,6 +5,7 @@ export default ({ data }) => {
   useEffect(() => {
     new Chart('bar-chart', {
       type: 'bar',
+      data: {
         datasets: [{
           label: 'Minutes of work',
           data: data,
