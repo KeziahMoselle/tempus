@@ -71,7 +71,7 @@ export default ({ sessionStreak }) => {
           <h3>Today</h3>
           <p className="card-item">
             <span role="img" aria-label="fire streak">🔥</span>
-            { sessionStreak }
+            { data.todayStreak }
           </p>
 
           <p className="card-item">
