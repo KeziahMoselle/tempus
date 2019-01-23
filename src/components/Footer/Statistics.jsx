@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import Chart from 'chart.js'
-import CalendarHeatmap from 'react-calendar-heatmap'
-import ReactTooltip from 'react-tooltip'
+
+import BarChart from './BarChart'
+import HeatmapChart from './HeatmapChart'
 
 import './heatmap.css'
 
 export default ({ sessionStreak }) => {
   const [data, setData] = useState({
-    bar: undefined,
-    heatmap: undefined,
-    hoursOfWork: 'Loading...'
+    bar: null,
+    heatmap: null
   })
   const [chartType, setChartType] = useState('bar')
   
@@ -57,55 +56,6 @@ export default ({ sessionStreak }) => {
       })
     })
   }, [])
-
-  
-  /*
-   * CREATE THE BAR CHART
-   * only when data is filled
-   */
-  
-  useEffect(() => {
-    if (data && chartType === 'bar') {
-      new Chart('bar-chart', {
-        type: 'bar',
-        data: {
-          datasets: [{
-            label: 'Minutes of work',
-            data: data.bar,
-            backgroundColor: [
-              'rgba(255,179,186)',
-              'rgba(255,223,186)',
-              'rgba(255,255,186)',
-              'rgba(186,255,201)',
-              'rgba(186,225,255)'
-            ],
-            borderColor: [
-              'rgba(255,179,186, 0.8)',
-              'rgba(255,223,186, 0.8)',
-              'rgba(255,255,186, 0.8)',
-              'rgba(186,255,201, 0.8)',
-              'rgba(186,225,255, 0.8)'
-            ]
-          }]
-        },
-        options: {
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                unit: 'day'
-              }
-            }],
-            yAxes: [{
-              ticks: {
-                beginAtZero:true
-              }
-            }]
-          }
-        }
-      })
-    }
-  }, [data])
   
   return (
     <div className="statistics-container">
@@ -142,34 +92,16 @@ export default ({ sessionStreak }) => {
 
       <div className="chart-container">
 
-          <canvas id="bar-chart" className={chartType !== 'bar' ? 'hide' : ''}></canvas>
+        { chartType === 'bar' &&
+          <BarChart data={data.bar} />
+        }
 
-        { (data && chartType === 'heatmap') &&
-          <>
-            <CalendarHeatmap
-              startDate={new Date('2019-01-01')}
-              endDate={new Date('2019-04-30')}
-              showWeekdayLabels={true}
-              values={data.heatmap}
-              classForValue={value => {
-                if (!value) return 'color-empty'
-                let classes = ''
-                if (value.streak <= 3) classes = `color-${value.streak}`
-                if (value.streak >= 4) classes = 'color-max'
-                if (new Date(value.date).toString() === new Date(data.today).toString()) classes += ' today'
-                return classes
-              }}
-              tooltipDataAttrs={value => {
-                if (!value.date) return { 'data-tip': 'No streak' }
-                return { 'data-tip': `${new Date(value.date).toDateString()} : Streak: ${value.streak}` }
-              }}
-            />
-            <ReactTooltip />
-          </>
+        { chartType === 'heatmap' &&
+          <HeatmapChart data={data.heatmap} />
         }
       </div>
 
-      { !data &&
+      { (!data.bar || !data.heatmap) &&
         <div className="circle-ripple"></div>
       }
 
