@@ -286,7 +286,7 @@ footer.extended {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .statistics-container .cards .card {
@@ -301,7 +301,7 @@ footer.extended {
 }
 
 .chart-container .center {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .chart-container .center button {
@@ -337,7 +337,7 @@ footer.extended {
 }
 
 .card-item span[role="img"] {
-  margin-right: 5px;
+  margin-right: 8px;
 }
 
 
