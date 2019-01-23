@@ -19,28 +19,29 @@ export default ({ sessionStreak }) => {
 
   useEffect(() => {
     window.ipcRenderer.send('getData')
-    window.ipcRenderer.once('getData', (event, storeData) => {
+    window.ipcRenderer.once('getData', (event, data) => {
 
       /* Data for the Heatmap chart */
-      const heatmapDataset = storeData.map(object => ({
+      const heatmapDataset = data.data.map(object => ({
         date: object.day,
         streak: object.streak
       }))
 
       /* Data for the Bar chart */
-      const barDataset = storeData.map(object => ({
+      const barDataset = data.data.map(object => ({
         t: new Date(object.day),
         y: object.value
       })) 
 
       /* Calculate the total worktime */
-      const minutesOfWork = storeData.reduce((accumulator, currentValue) => {
+      const minutesOfWork = data.data.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.value
       }, 0)
       const hoursOfWork = (minutesOfWork / 60).toFixed(1)
       
       /* Update values */
       setData({
+        today: data.today,
         bar: barDataset,
         heatmap: heatmapDataset,
         hoursOfWork
@@ -125,8 +126,11 @@ export default ({ sessionStreak }) => {
               values={data.heatmap}
               classForValue={value => {
                 if (!value) return 'color-empty'
-                if (value.streak <= 3) return `color-${value.streak}`
-                return 'color-max'
+                let classes = ''
+                if (value.streak <= 3) classes = `color-${value.streak}`
+                if (value.streak >= 4) classes = 'color-max'
+                if (new Date(value.date).toString() === new Date(data.today).toString()) classes += ' today'
+                return classes
               }}
               tooltipDataAttrs={value => {
                 if (!value.date) return { 'data-tip': 'No streak' }

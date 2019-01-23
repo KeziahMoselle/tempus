@@ -18,6 +18,11 @@
   stroke-width: 1px;
 }
 
+.react-calendar-heatmap .today {
+  stroke: #555;
+  stroke-width: 1px;
+}
+
 
 /* COLOR SCALE */
 
