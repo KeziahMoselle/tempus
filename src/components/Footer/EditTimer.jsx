@@ -2,7 +2,15 @@ import React from 'react'
 
 export default ({ setWork, setPause, total, totalPause }) => (
   <div className="timer-container">
-    <h3>Preferences</h3>
+    <header>
+      <h3>Preferences</h3>
+      <button onClick={() => {
+        setWork(25)
+        setPause(5)
+      }}>
+        Reset
+      </button>
+    </header>
 
     <div className="card">
       <h3>Time</h3>
@@ -27,15 +35,6 @@ export default ({ setWork, setPause, total, totalPause }) => (
           min="1"
           value={totalPause / 60}
         />
-      </div>
-
-      <div className="center">
-        <button onClick={() => {
-          setWork(25)
-          setPause(5)
-        }}>
-          Reset to defaults
-        </button>
       </div>
     </div>
     

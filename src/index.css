@@ -36,6 +36,11 @@
   font-feature-settings: 'liga';
 }
 
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
 html, body, #root, .container {
   height: 100%;
 }
@@ -83,6 +88,10 @@ h1, h2, h3, h4, h5, h6, p {
 .center {
   display: flex;
   justify-content: center;
+}
+
+.column {
+  flex-direction: column;
 }
 
 
@@ -243,19 +252,26 @@ footer.extended {
   padding: 26px;
 }
 
+.timer-container header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
 .timer-container h3 {
   font-size: 1em;
-  margin-bottom: 30px;
 }
 
 .timer-container .field {
   display: flex;
   justify-content: space-between;
-  margin: 10px 20px;
+  align-items: center;
+  margin: 0 16px 6px;
 }
 
 .timer-container label {
-  font-size: 0.9em;
+  font-size: 0.7em;
   font-family: sans-serif;
   color: rgb(51, 51, 51);
 }
@@ -353,6 +369,8 @@ footer.extended {
 
 
 button {
+  display: flex;
+  align-items: center;
   font-size: 0.6em;
   border: none;
   background-color: white;
@@ -363,6 +381,13 @@ button {
 
 button:not(.overlap):hover {
   background-color: rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+button[disabled] {
+  cursor: default;
+  background-color: transparent !important;
+  color: black !important;
 }
 
 button:focus {
