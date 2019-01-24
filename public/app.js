@@ -104,11 +104,52 @@ ipcMain.on('updateConfig', (event, data) => {
 /* Send data for charts */
 
 ipcMain.on('getData', () => {
+  const currentDayIndex = config.get('alreadySetToday.index')
+  const storeData = data.get('data')
+
+  /* Calculate the total worktime */
+  const minutesOfWork = storeData.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.value
+  }, 0)
+  const totalHoursOfWork = (minutesOfWork / 60).toFixed(1)
+
+  /* Calculate the total streak */
+  const totalStreak = storeData.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.streak
+  }, 0)
+
+  let todayStreak = 0
+  let todayMinutes = 0
+  if (storeData[currentDayIndex]) {
+    todayStreak = storeData[currentDayIndex].streak
+    todayMinutes = storeData[currentDayIndex].value
+  }
+
   trayWindow.webContents.send('getData', {
-    today: ISODate,
-    currentDayIndex: config.get('alreadySetToday.index'),
-    data: data.get('data')
+    totalHoursOfWork,
+    totalStreak,
+    todayStreak,
+    todayMinutes
   })
+})
+
+ipcMain.on('getBarChartData', () => {
+  /* Data for the Bar chart */
+  const payload = data.get('data').map(object => ({
+    t: new Date(object.day),
+    y: object.value
+  }))
+  trayWindow.webContents.send('getBarChartData', payload)
+})
+
+ipcMain.on('getHeatmapChartData', () => {
+  /* Data for the Heatmap chart */
+  const payload = data.get('data').map(object => ({
+    date: object.day,
+    streak: object.streak
+  }))
+
+  trayWindow.webContents.send('getHeatmapChartData', payload)
 })
 
 /* Store the streak and time */

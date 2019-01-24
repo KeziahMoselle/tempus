@@ -390,34 +390,6 @@ button.pausing {
 }
 
 
-/* LOADING */
-
-.circle-ripple {
-  background-color: #fff;
-  opacity: 0.1;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;  
-  box-shadow: 0px 0px 71px 5px rgba(0,0,0,0.52);
-  animation: ripple 0.7s linear infinite;
-}
-
-@keyframes ripple {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3),
-                0 0 0 1em rgba(0, 0, 0, 0.3),
-                0 0 0 3em rgba(0, 0, 0, 0.3),
-                0 0 0 5em rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 1em rgba(0, 0, 0, 0.3),
-                0 0 0 3em rgba(0, 0, 0, 0.3),
-                0 0 0 5em rgba(0, 0, 0, 0.3),
-                0 0 0 8em rgba(0, 0, 0, 0);
-  }
-}
-
-
 /**
  *
  * STATES
