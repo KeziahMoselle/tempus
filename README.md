@@ -21,9 +21,9 @@
 </p>
 
 <p align="center">
-  <img src="./preview.gif" />
-  <img src="https://puu.sh/CBnQg/347708c609.png" />
-  <img src="https://puu.sh/CBnn8/fa7eab98de.png" />
+  <img width="600" src="./preview.gif" />
+  <img width="300" src="https://puu.sh/CBnQg/347708c609.png" />
+  <img width="300" src="https://puu.sh/CBnn8/fa7eab98de.png" />
 </p>
 
 ## [Click to download](https://github.com/KeziahMoselle/pomodoro/releases/latest)
