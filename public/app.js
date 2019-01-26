@@ -135,10 +135,12 @@ ipcMain.on('getData', () => {
 
 ipcMain.on('getBarChartData', () => {
   /* Data for the Bar chart */
-  const payload = data.get('data').map(object => ({
-    t: new Date(object.day),
-    y: object.value
-  }))
+  const payload = data.get('data')
+    .slice(-7)
+    .map(object => ({
+      t: new Date(object.day),
+      y: object.value
+    }))
   trayWindow.webContents.send('getBarChartData', payload)
 })
 
