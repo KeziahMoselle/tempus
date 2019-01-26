@@ -14,23 +14,18 @@ export default () => {
           datasets: [{
             label: 'Minutes of work',
             data: payload,
-            backgroundColor: [
-              'rgba(255,179,186)',
-              'rgba(255,223,186)',
-              'rgba(255,255,186)',
-              'rgba(186,255,201)',
-              'rgba(186,225,255)'
-            ],
-            borderColor: [
-              'rgba(255,179,186, 0.8)',
-              'rgba(255,223,186, 0.8)',
-              'rgba(255,255,186, 0.8)',
-              'rgba(186,255,201, 0.8)',
-              'rgba(186,225,255, 0.8)'
-            ]
+            backgroundColor: '#A1D6FF',
+            hoverBackgroundColor: '#87CBFF',
+            borderColor: '#6EC0FF',
+            borderWidth: 2
           }]
         },
         options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Minutes of work in the last 7 days'
+          },
           scales: {
             xAxes: [{
               type: 'time',
