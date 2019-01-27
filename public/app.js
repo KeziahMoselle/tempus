@@ -16,6 +16,7 @@ const {
   ipcMain,
   shell
  } = require('electron')
+const { autoUpdater } = require("electron-updater")
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 
@@ -41,6 +42,7 @@ if (isDev) {
 app.on('ready', () => {
   createTray()
   createWindow()
+  autoUpdater.checkForUpdatesAndNotify()
 })
 
 /* Change icon on idle */
