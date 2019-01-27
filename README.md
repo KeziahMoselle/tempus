@@ -18,6 +18,12 @@
   <a href="https://travis-ci.org/KeziahMoselle/pomodoro">
     <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/pomodoro.svg?label=build%3Amac&style=flat-square">
   </a>
+  
+  <a href="https://github.com/KeziahMoselle/pomodoro/releases/latest">
+    <img alt="Version" src="https://img.shields.io/github/tag/KeziahMoselle/pomodoro.svg?label=version&style=flat-square">
+  </a>
+  
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/KeziahMoselle/pomodoro/master.svg?style=flat-square">
 </p>
 
 <p align="center">
