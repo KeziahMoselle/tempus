@@ -271,12 +271,12 @@ footer.extended {
 }
 
 .timer-container label {
-  font-size: 0.7em;
+  font-size: 0.6em;
   font-family: sans-serif;
   color: rgb(51, 51, 51);
 }
 
-.timer-container input {
+.timer-container input[type="number"] {
   height: 36px;
   width: 100px;
   text-align: center;
@@ -287,6 +287,10 @@ footer.extended {
 
 .timer-container input:focus {
   outline: none;
+}
+
+.timer-container .card {
+  margin-bottom: 26px;
 }
 
 

@@ -7,7 +7,8 @@ export default ({
   total, totalPause,
   start, stop,
   setWork, setPause, resetTime,
-  sessionStreak
+  sessionStreak,
+  setNumberOfCycle, numberOfCycle
 }) => {
   const [isExtended, setIsExtended] = useState('')
   const [component, setComponent] = useState(null)
@@ -57,6 +58,8 @@ export default ({
             resetTime={resetTime}
             total={total}
             totalPause={totalPause}
+            setNumberOfCycle={setNumberOfCycle}
+            numberOfCycle={numberOfCycle}
           />
         }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ setWork, setPause, resetTime, total, totalPause }) => (
+export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCycle, numberOfCycle }) => (
   <div className="timer-container">
     <header>
       <h3>Preferences</h3>
@@ -31,6 +31,21 @@ export default ({ setWork, setPause, resetTime, total, totalPause }) => (
           type="number"
           min="1"
           value={totalPause / 60}
+        />
+      </div>
+    </div>
+
+    <div className="card">
+      <h3>Cycle {numberOfCycle === 0 ? '(disabled)' : ''}</h3>
+
+      <div className="field">
+        <label htmlFor="cycle">The number of cycle</label>
+        <input
+          onChange={(event) => setNumberOfCycle(event.target.value)}
+          id="cycle"
+          type="number"
+          min="0"
+          value={numberOfCycle}
         />
       </div>
     </div>

@@ -85,15 +85,17 @@ ipcMain.on('handshake', () => {
   trayWindow.webContents.send('handshake', {
     work: config.get('work'),
     pause: config.get('pause'),
-    sessionStreak: streak
+    sessionStreak: streak,
+    numberOfCycle: config.get('numberOfCycle')
   })
 })
 
 /* Set new values in the config */
 
 ipcMain.on('updateConfig', (event, data) => {
-  config.set('work', data.work)
-  config.set('pause', data.pause)
+  if (data.work) config.set('work', data.work)
+  if (data.pause) config.set('pause', data.pause)
+  if (data.numberOfCycle) config.set('numberOfCycle', data.numberOfCycle)
 })
 
 

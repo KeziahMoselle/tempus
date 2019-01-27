@@ -10,6 +10,8 @@ class App extends Component {
     count: 0,
     totalPause: 300,
     countPause: 0,
+    numberOfCycle: 0,
+    countCycle: 0,
     sessionStreak: 0
   }
 
@@ -24,7 +26,8 @@ class App extends Component {
       this.setState({
         total: data.work,
         totalPause: data.pause,
-        sessionStreak: data.sessionStreak
+        sessionStreak: data.sessionStreak,
+        numberOfCycle: data.numberOfCycle
       })
     })
   }
@@ -37,7 +40,7 @@ class App extends Component {
    */
   start = () => {
     if (this.state.state === 'counting') return // If already counting return
-    this.countInterval = setInterval(this.increment, 1000)
+    this.countInterval = setInterval(this.increment, 100)
     this.setState({
       state: 'counting'
     })
@@ -56,12 +59,26 @@ class App extends Component {
       this.stop()
       this.setState(prevState => ({
         state: 'pausing',
-        sessionStreak: prevState.sessionStreak + 1
+        sessionStreak: prevState.sessionStreak + 1,
+        countCycle: prevState.countCycle + 1
       }))
+      
+      /* Cycles */
+      if (this.state.numberOfCycle > 0 && (this.state.countCycle >= this.state.numberOfCycle)) {
+        this.setState({
+          countCycle: 0
+        })
+        return this.stop()
+      }
+      
+      /* Streak */
       window.ipcRenderer.send('updateStreak', this.state.total / 60)
+      /* Set pause state */
       window.ipcRenderer.send('pausing')
-      return this.pauseInterval = setInterval(this.incrementPause, 1000)
+      /* Begin to count pause */
+      return this.pauseInterval = setInterval(this.incrementPause, 100)
     }
+    // Continue to increment the count variable
     this.setState(prevState => ({
       count: prevState.count + 1
     }))
@@ -144,6 +161,20 @@ class App extends Component {
     })
   }
 
+  
+  /**
+   *  Set a new value for numberOfCycle
+   */
+  setNumberOfCycle = (newValue) => {
+    if (newValue < 0) return
+    this.setState({
+      numberOfCycle: parseInt(newValue, 10)
+    })
+    window.ipcRenderer.send('updateConfig', {
+      numberOfCycle: newValue
+    })
+  }
+
   /**
    *  Show a confirmation dialog before quit the app
    */
@@ -185,6 +216,8 @@ class App extends Component {
           setPause={this.setPause}
           resetTime={this.resetTime}
           toggleCards={this.toggleCards}
+          setNumberOfCycle={this.setNumberOfCycle}
+          numberOfCycle={this.state.numberOfCycle}
         />
         
       </div>

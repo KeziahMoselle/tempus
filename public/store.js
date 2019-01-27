@@ -5,6 +5,7 @@ const config = new Store({
   defaults: {
     work: 1500, // 25 minutes in sec
     pause: 300, // 5 minutes in sec
+    numberOfCycle: 0, // Disable cycle by default
     alreadySetToday: false
   }
 })
