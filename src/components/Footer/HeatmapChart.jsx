@@ -11,14 +11,19 @@ export default () => {
       setData(payload)
     })
   }, [])
+
+  const startDate = new Date()
+  startDate.setMonth(startDate.getMonth() - 1, 1)
+  const endDate = new Date()
+  endDate.setMonth(endDate.getMonth() + 5, 1)
   
   return (
     <>
       { data &&
         <>
           <CalendarHeatmap
-            startDate={new Date('2019-01-01')}
-            endDate={new Date('2019-04-30')}
+            startDate={startDate}
+            endDate={endDate}
             showWeekdayLabels={true}
             values={data}
             classForValue={value => {
