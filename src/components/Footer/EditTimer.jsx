@@ -1,13 +1,10 @@
 import React from 'react'
 
-export default ({ setWork, setPause, total, totalPause }) => (
+export default ({ setWork, setPause, resetTime, total, totalPause }) => (
   <div className="timer-container">
     <header>
       <h3>Preferences</h3>
-      <button onClick={() => {
-        setWork(25)
-        setPause(5)
-      }}>
+      <button onClick={resetTime}>
         Reset
       </button>
     </header>

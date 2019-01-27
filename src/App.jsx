@@ -103,6 +103,17 @@ class App extends Component {
     window.ipcRenderer.send('idle')
   }
 
+  resetTime = () => {
+    this.setState({
+      total: 1500,
+      totalPause: 300
+    })
+    window.ipcRenderer.send('updateConfig', {
+      work: 1500,
+      pause: 300
+    })
+  }
+
   
   /**
    *  Set a new value for work time
@@ -184,6 +195,7 @@ class App extends Component {
           stop={this.stop}
           setWork={this.setWork}
           setPause={this.setPause}
+          resetTime={this.resetTime}
           toggleCards={this.toggleCards}
         />
         

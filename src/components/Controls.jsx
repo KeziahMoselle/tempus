@@ -6,7 +6,7 @@ export default ({
   state,
   total, totalPause,
   start, stop,
-  setWork, setPause,
+  setWork, setPause, resetTime,
   sessionStreak
 }) => {
   const [isExtended, setIsExtended] = useState('')
@@ -54,6 +54,7 @@ export default ({
           <EditTimer
             setWork={setWork}
             setPause={setPause}
+            resetTime={resetTime}
             total={total}
             totalPause={totalPause}
           />
