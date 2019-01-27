@@ -10,8 +10,7 @@ class App extends Component {
     count: 0,
     totalPause: 300,
     countPause: 0,
-    sessionStreak: 0,
-    cardsClass: ''
+    sessionStreak: 0
   }
 
   componentDidMount () {
@@ -143,17 +142,6 @@ class App extends Component {
       work: this.state.total,
       pause: seconds
     })
-  }
-
-  /**
-   *  Toggle the menu cards
-   */
-  toggleCards = () => {
-    if (!this.state.cardsClass) {
-      this.setState({ cardsClass: 'show' })
-    } else {
-      this.setState({ cardsClass: '' })
-    }
   }
 
   /**
