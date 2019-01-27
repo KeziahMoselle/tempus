@@ -21,9 +21,9 @@
 </p>
 
 <p align="center">
-  <img width="600" src="./preview.gif" />
-  <img width="300" src="https://puu.sh/CBnQg/347708c609.png" />
-  <img width="300" src="https://puu.sh/CBnn8/fa7eab98de.png" />
+  <img width="200" src="./preview.gif" />
+  <img width="200" src="./statistics.gif" />
+  <img width="200" src="./edit.png" />
 </p>
 
 ## [Click to download](https://github.com/KeziahMoselle/pomodoro/releases/latest)
@@ -35,14 +35,16 @@
 - Notifications
 - Streak
 - Statistics
+- Cycles
 
 ## Features incoming
 
+- [Goals](https://github.com/KeziahMoselle/pomodoro/issues/21)
 - [Inspirational quotes](https://github.com/KeziahMoselle/pomodoro/issues/10)
 - [Window focus](https://github.com/KeziahMoselle/pomodoro/issues/11)
 - [Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
 
-> See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects/1) for more informations
+> See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects/1)
 
 ## Want to contribute ?
 

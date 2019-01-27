@@ -40,7 +40,7 @@ class App extends Component {
    */
   start = () => {
     if (this.state.state === 'counting') return // If already counting return
-    this.countInterval = setInterval(this.increment, 100)
+    this.countInterval = setInterval(this.increment, 1000)
     this.setState({
       state: 'counting'
     })
@@ -76,7 +76,7 @@ class App extends Component {
       /* Set pause state */
       window.ipcRenderer.send('pausing')
       /* Begin to count pause */
-      return this.pauseInterval = setInterval(this.incrementPause, 100)
+      return this.pauseInterval = setInterval(this.incrementPause, 1000)
     }
     // Continue to increment the count variable
     this.setState(prevState => ({
