@@ -36,7 +36,7 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
     </div>
 
     <div className="card">
-      <h3>Cycle {numberOfCycle === 0 ? '(disabled)' : ''}</h3>
+      <h3>Cycle {parseInt(numberOfCycle, 10) === 0 ? '(disabled)' : ''}</h3>
 
       <div className="field">
         <label htmlFor="cycle">The number of cycle</label>
