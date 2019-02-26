@@ -15,7 +15,7 @@ export default () => {
   const startDate = new Date()
   startDate.setMonth(startDate.getMonth() - 1, 1)
   const endDate = new Date()
-  endDate.setMonth(endDate.getMonth() + 5, 1)
+  endDate.setMonth(endDate.getMonth() + 3, 1)
   
   return (
     <>
