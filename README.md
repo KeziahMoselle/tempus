@@ -18,12 +18,11 @@
 
 ## Features
 
-- Pomodoro (25 minutes of work / 5 minutes of pause)
-- Change work time and pause time
-- Notifications
-- Streak
-- Statistics
-- Cycles
+- ⏱️ Change work time and pause time
+- 🔔 Notifications
+- 🔥 Streak
+- 📊 Statistics
+- 🔁 Cycles
 
 ## Features incoming
 
@@ -37,8 +36,7 @@
 ## Want to contribute ?
 
 ### Prerequisites
-* Install [NodeJS](https://nodejs.org/en/)
-* Use [Yarn](https://yarnpkg.com/) (*Optional*)
+* Have [Node.js](https://nodejs.org/en/)  installed (> 8)
 
 ### Steps
 
@@ -48,11 +46,11 @@
 ```
 2. Install dependencies :
 ```sh
-> cd pomodoro && yarn
+> cd pomodoro && npm install
 ```
 3. Run the app in `development` mode
 ```sh
-> yarn dev
+> npm run dev
 ```
 
 ### Project tree
@@ -75,7 +73,7 @@
 ## How to build ?
 
 ```sh
-> yarn build
+> npm run build
 ```
 The binaries will be created in the `dist` folder.
 
