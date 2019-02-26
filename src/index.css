@@ -260,7 +260,7 @@ footer.extended {
 }
 
 .timer-container h3 {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .timer-container .field {
@@ -278,11 +278,32 @@ footer.extended {
 
 .timer-container input[type="number"] {
   height: 36px;
-  width: 100px;
-  text-align: center;
-  font-size: 0.8em;
-  border-radius: 6px;
+  width: 50px;
+  padding-left: 10px;
+  font-size: 0.7em;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.timer-container .has-suffix {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.timer-container input[type="number"] + .suffix {
+  height: 38px;
+  width: 100%;
+  padding: 0 6px;
+  font-size: 0.7em;
+  text-align: center;
+  line-height: 38px;
+  background-color: #f3f3f3;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: none;
 }
 
 .timer-container input:focus {
@@ -350,8 +371,8 @@ footer.extended {
 
 .card > h3 {
   position: absolute;
-  top: -14px;
-  font-size: 0.8em;
+  top: -13px;
+  font-size: 0.7em;
 }
 
 .card-item {
