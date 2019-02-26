@@ -11,25 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://ci.appveyor.com/project/KeziahMoselle/pomodoro">
-    <img alt="Windows Release Badge" src="https://img.shields.io/appveyor/ci/keziahmoselle/pomodoro/master.svg?label=build%3Awindows&style=flat-square">
-  </a>
-    
-  <a href="https://travis-ci.org/KeziahMoselle/pomodoro">
-    <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/pomodoro.svg?label=build%3Amac&style=flat-square">
-  </a>
-  
-  <a href="https://github.com/KeziahMoselle/pomodoro/releases/latest">
-    <img alt="Version" src="https://img.shields.io/github/tag/KeziahMoselle/pomodoro.svg?label=version&style=flat-square">
-  </a>
-  
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/KeziahMoselle/pomodoro/master.svg?style=flat-square">
-</p>
-
-<p align="center">
-  <img width="200" src="./preview.gif" />
-  <img width="200" src="./statistics.gif" />
-  <img width="200" src="./edit.png" />
+  <img width="90%" src="./.github/cover.png" alt="Pomodoro cover">
 </p>
 
 ## [Click to download](https://github.com/KeziahMoselle/pomodoro/releases/latest)
@@ -99,8 +81,8 @@ The binaries will be created in the `dist` folder.
 
 ## Built With
 
-* [ElectronJS](https://electronjs.org/) - framework for creating native applications with web technologies
-* [ReactJS](https://reactjs.org) - A JavaScript library for building user interfaces
+* [Electron](https://electronjs.org/) - framework for creating native applications with web technologies
+* [React](https://reactjs.org) - A JavaScript library for building user interfaces
 
 
 ## License
