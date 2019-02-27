@@ -1,7 +1,7 @@
 {
   "name": "pomodoro",
   "description": "A simple pomodoro in the tray",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
   "main": "./public/app.js",
@@ -35,11 +35,13 @@
     "electron": "^4.0.0",
     "electron-builder": "^20.38.5",
     "electron-devtools-installer": "^2.2.4",
-    "wait-on": "^3.2.0"
+    "wait-on": "^3.2.0",
+    "typescript": "^3.3.3333"
   },
   "build": {
     "appId": "com.electron.pomodoro",
     "productName": "Pomodoro",
+    "extends": null,
     "publish": [
       {
         "provider": "github",
