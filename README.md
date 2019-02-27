@@ -38,7 +38,9 @@
 ## Features
 
 <details>
-<summary>⏱️ Change work time and pause time</summary>
+	<summary>⏱️ Change work time and pause time</summary>
+
+  <p align="center">Want to work 27 min ? You can.</p>
 	<p align="center">
     <img width="400" src="./.github/change_time.gif" alt="preview">
   </p>
@@ -46,6 +48,8 @@
 
 <details>
 	<summary>🔥 Streak</summary>
+
+  <p align="center">It counts how many times you finished a pomodoro.</p>
 	<p align="center">
     <img width="400" src="./.github/streak.gif" alt="preview">
   </p>
@@ -53,6 +57,8 @@
 
 <details>
 	<summary>📊 Statistics</summary>
+
+  <p align="center">It gives you insights about your productivity.</p>
 	<p align="center">
     <img width="400" src="./.github/statistics.gif" alt="preview">
   </p>
@@ -60,6 +66,8 @@
 
 <details>
 	<summary>🔁 Cycles</summary>
+
+  <p align="center">If set, it will automatically stop the pomodoro after `x` times.</p>
 	<p align="center">
     <img width="400" src="./.github/cycles.gif" alt="preview">
   </p>
@@ -67,8 +75,9 @@
 
 ## Coming soon
 
-- [🚩 Goals](https://github.com/KeziahMoselle/pomodoro/issues/21)
-- [🧭 Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
+[🚩 Goals](https://github.com/KeziahMoselle/pomodoro/issues/21)
+
+[🧭 Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
 
 > See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects/1)
 
