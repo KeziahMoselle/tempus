@@ -8,7 +8,8 @@ const config = new Store({
     work: 1500, // 25 minutes in sec
     pause: 300, // 5 minutes in sec
     numberOfCycle: 0, // Disable cycle by default
-    lastTimeUpdated: false
+    lastTimeUpdated: false,
+    autoLaunch: false
   }
 })
 

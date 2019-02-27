@@ -19,6 +19,7 @@ const {
 const { autoUpdater } = require("electron-updater")
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
+const AutoLaunch = require('auto-launch')
 
 const { config, data, updateData } = require('./store')
 const icons = require('./icons')
@@ -26,6 +27,7 @@ const icons = require('./icons')
 let tray
 let trayWindow
 let positioner
+const autoLauncher = new AutoLaunch({ name: 'pomodoro' })
 
 
 /* Temporary fix for Windows 10 notification in dev mode
@@ -248,6 +250,14 @@ function createTray () {
     },
     { type: 'separator' },
     {
+      type: 'checkbox',
+      checked: config.get('autoLaunch'),
+      label: 'Enable Launch At Login',
+      click (event) {
+        toggleAutoLaunch(event.checked)
+      }
+    },
+    {
       label: 'Feedback && Support...',
       click () {
         shell.openExternal('https://github.com/KeziahMoselle/pomodoro/issues/new')
@@ -274,4 +284,9 @@ function toggleWindow () {
   } else {
     trayWindow.show()
   }
+}
+
+function toggleAutoLaunch (isEnabled) {
+  isEnabled ? autoLauncher.enable() : autoLauncher.disable()
+  config.set('autoLaunch', isEnabled)
 }

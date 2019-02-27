@@ -7,7 +7,17 @@
   "main": "./public/app.js",
   "homepage": "./",
   "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "npm run react-build && build -c.extraMetadata.main=build/app.js",
+    "release": "npm run react-build && build -c.extraMetadata.main=build/app.js --publish always",
+    "react-start": "cross-env BROWSER=none react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject"
+  },
   "dependencies": {
+    "auto-launch": "^5.0.5",
     "chart.js": "^2.7.3",
     "electron-is-dev": "^1.0.1",
     "electron-positioner": "^4.1.0",
@@ -26,15 +36,6 @@
     "electron-builder": "^20.38.5",
     "electron-devtools-installer": "^2.2.4",
     "wait-on": "^3.2.0"
-  },
-  "scripts": {
-    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
-    "build": "npm run react-build && build -c.extraMetadata.main=build/app.js",
-    "release": "npm run react-build && build -c.extraMetadata.main=build/app.js --publish always",
-    "react-start": "cross-env BROWSER=none react-scripts start",
-    "react-build": "react-scripts build",
-    "react-test": "react-scripts test",
-    "react-eject": "react-scripts eject"
   },
   "build": {
     "appId": "com.electron.pomodoro",
