@@ -20,9 +20,8 @@ const { autoUpdater } = require("electron-updater")
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 
-const { config, data } = require('./store')
+const { config, data, updateData } = require('./store')
 const icons = require('./icons')
-const [ISODate] = new Date().toISOString().split('T') // "yyyy-mm-dd"
 
 let tray
 let trayWindow
@@ -79,7 +78,7 @@ ipcMain.on('pausing', () => {
 */
 
 ipcMain.on('handshake', () => {
-  const index = config.get('alreadySetToday.index') || null
+  const index = config.get('lastTimeUpdated.index') || null
   const streak = data.get(`data.${index}.streak`) || 0
 
   trayWindow.webContents.send('handshake', {
@@ -108,7 +107,7 @@ ipcMain.on('updateConfig', (event, data) => {
 /* Send data for charts */
 
 ipcMain.on('getData', () => {
-  const currentDayIndex = config.get('alreadySetToday.index')
+  const currentDayIndex = config.get('lastTimeUpdated.index')
   const storeData = data.get('data')
 
   /* Calculate the total worktime */
@@ -122,9 +121,10 @@ ipcMain.on('getData', () => {
     return accumulator + currentValue.streak
   }, 0)
 
-  let todayStreak = 0
-  let todayMinutes = 0
-  if (storeData[currentDayIndex]) {
+  /* Streak */
+  let todayStreak = 0 // default value
+  let todayMinutes = 0 // default value
+  if (storeData[currentDayIndex]) { // Get streak if it exists
     todayStreak = storeData[currentDayIndex].streak
     todayMinutes = storeData[currentDayIndex].value
   }
@@ -160,31 +160,7 @@ ipcMain.on('getHeatmapChartData', () => {
 
 /* Store the streak and time */
 
-ipcMain.on('updateStreak', (event, timePassed) => {
-  const newData = data.get('data')
-  // If it's the same day
-  if (config.get('alreadySetToday') && data.get('data').length > 0) {
-    const index = newData.length - 1
-    newData[index] = {
-      day: ISODate,
-      value: newData[index].value + timePassed,
-      streak: newData[index].streak + 1
-    }
-    data.set('data', newData)
-  } else { // It's a new day
-    // Set a new key
-    let index = newData.push({
-      day: ISODate,
-      value: timePassed,
-      streak: 1
-    })
-    data.set('data', newData)
-    config.set('alreadySetToday', {
-      ISODate,
-      index: index - 1
-    })
-  }
-})
+ipcMain.on('updateStreak', (event, timePassed) => updateData(timePassed))
 
 
 /* Window events */
