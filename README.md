@@ -43,12 +43,10 @@
 - 📊 Statistics
 - 🔁 Cycles
 
-## Features incoming
+## Coming soon
 
-- [Goals](https://github.com/KeziahMoselle/pomodoro/issues/21)
-- [Inspirational quotes](https://github.com/KeziahMoselle/pomodoro/issues/10)
-- [Window focus](https://github.com/KeziahMoselle/pomodoro/issues/11)
-- [Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
+- [🚩 Goals](https://github.com/KeziahMoselle/pomodoro/issues/21)
+- [🧭 Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
 
 > See [Project v1.0.0](https://github.com/KeziahMoselle/pomodoro/projects/1)
 
