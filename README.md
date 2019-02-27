@@ -38,30 +38,30 @@
 ## Features
 
 <details>
-	<summary>⏱️ Change work time and pause time</summary>
+<summary>⏱️ Change work time and pause time</summary>
 	<p align="center">
-    <img width="600" src="./.github/change_time.gif" alt="preview">
+    <img width="400" src="./.github/change_time.gif" alt="preview">
   </p>
 </details>
 
 <details>
 	<summary>🔥 Streak</summary>
 	<p align="center">
-    <img width="600" src="./.github/streak.gif" alt="preview">
+    <img width="400" src="./.github/streak.gif" alt="preview">
   </p>
 </details>
 
 <details>
 	<summary>📊 Statistics</summary>
 	<p align="center">
-    <img width="600" src="./.github/statistics.gif" alt="preview">
+    <img width="400" src="./.github/statistics.gif" alt="preview">
   </p>
 </details>
 
 <details>
 	<summary>🔁 Cycles</summary>
 	<p align="center">
-    <img width="600" src="./.github/cycles.gif" alt="preview">
+    <img width="400" src="./.github/cycles.gif" alt="preview">
   </p>
 </details>
 
