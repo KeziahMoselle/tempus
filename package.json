@@ -23,13 +23,13 @@
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
-    "react": "^16.8.3",
     "react-calendar-heatmap": "^1.8.0",
-    "react-dom": "^16.8.3",
-    "react-scripts": "^2.1.5",
     "react-tooltip": "^3.9.2"
   },
   "devDependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-scripts": "^2.1.5",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "electron": "^4.0.0",
