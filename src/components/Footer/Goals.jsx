@@ -12,7 +12,7 @@ function Goals () {
     window.ipcRenderer.send('getGoalsData')
 
     window.ipcRenderer.on('getGoalsData', (event, payload) => {
-      setGoals(payload)
+      setGoals(payload.reverse())
     })
 
     window.ipcRenderer.on('refreshGoals', () => {
