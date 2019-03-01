@@ -26,6 +26,11 @@ function Goals () {
   function addGoal () {
     if (hour < 1) return
 
+    const isCreated = goals.findIndex(goal => {
+      return goal.type === type && goal.value === (hour * 60)
+    })
+    if (isCreated !== -1) return
+
     window.ipcRenderer.send('addGoal', {
       value: hour * 60,
       type
