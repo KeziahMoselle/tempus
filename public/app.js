@@ -165,6 +165,24 @@ ipcMain.on('getHeatmapChartData', () => {
 
 /* Data for Goals */
 
+ipcMain.on('addGoal', (event, { type, value }) => {
+  console.log(type, value)
+  // Edit goals config
+  const goalsConfig = config.get('goals')
+  goalsConfig.push({
+    type,
+    value
+  })
+
+  console.log(goalsConfig)
+
+  // Save
+  config.set('goals', goalsConfig)
+
+  // Send response to the app
+  event.sender.send('refreshGoals')
+})
+
 ipcMain.on('getGoalsData', () => {
   const goalsCreated = config.get('goals') // [ { type: 'day', value: 60 } ]
   const localData = data.get('data')

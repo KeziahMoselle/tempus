@@ -2,19 +2,34 @@ import React, { useState, useEffect } from 'react'
 
 function Goals () {
   const [goals, setGoals] = useState([])
+
   const [hour, setHour] = useState(1)
   const [type, setType] = useState('day')
-
+  
   useEffect(() => {
     window.ipcRenderer.send('getGoalsData')
-    window.ipcRenderer.once('getGoalsData', (event, payload) => {
+
+    window.ipcRenderer.on('getGoalsData', (event, payload) => {
       setGoals(payload)
-      console.log(payload)
     })
+
+    window.ipcRenderer.on('refreshGoals', () => {
+      window.ipcRenderer.send('getGoalsData')
+    })
+
+    return () => {
+      window.ipcRenderer.removeAllListeners('getGoalsData')
+      window.ipcRenderer.removeAllListeners('refreshGoals')
+    }
   }, [])
 
   function addGoal () {
-    
+    if (hour < 1) return
+
+    window.ipcRenderer.send('addGoal', {
+      value: hour * 60,
+      type
+    })
   }
 
   return (

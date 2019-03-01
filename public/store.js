@@ -10,7 +10,7 @@ const config = new Store({
     numberOfCycle: 0, // Disable cycle by default
     lastTimeUpdated: false,
     autoLaunch: false,
-    goals: [{ type: 'day', value: 60 }, { type: 'week', value: 120 }]
+    goals: []
   }
 })
 
