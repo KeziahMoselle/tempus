@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .etched {
   text-shadow: 0 2px rgba(255, 255, 255, 0.8);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #b8bec5;
 }
@@ -381,10 +381,27 @@ footer.extended {
 
 .goals {
   height: 220px;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  padding: 0 20px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 32px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none #ffffff;
+  border-radius: 31px;
 }
 
 .goals .card {
-  padding: 12px 24px;
+  padding: 12px 16px;
   margin-bottom: 12px;
 }
 
@@ -410,10 +427,24 @@ footer.extended {
 
 .goals .card:not(.goals-add) button.circle {
   position: absolute;
-  right: -14px;
-  top: 8px;
+  height: 16px;
+  width: 16px;
+  right: 0;
+  top: 0;
   transition: opacity 0.2s, background-color 0.2s, color 0.2s;
   opacity: 0;
+  background: transparent;
+}
+
+.goals .card.goals-add button.circle {
+  position: absolute;
+  right: -10px;
+  top: 10px;
+}
+
+.goals .card.goals-add button.circle:hover {
+  background-color: white;
+  border: 1px solid black;
 }
 
 .goals .card:not(.goals-add):hover button.circle {
@@ -421,20 +452,19 @@ footer.extended {
 }
 
 .goals .card:not(.goals-add) button.circle:hover {
-  background-color: #FF5F56;
-  color: white;
+  color: #FF5F56;
 }
 
 .goals .circle.add {
   position: absolute;
-  background-color: #2F88FF;
+  border: 2px solid black;
+  background-color: white;
   height: 32px;
   width: 32px;
-  color: white;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 12px;
+  color: black;
+  left: 6px;
   transition: filter 0.2s;
+  margin-top: 12px;
 }
 
 .goals .circle.add:hover {
