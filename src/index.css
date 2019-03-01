@@ -78,6 +78,13 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 0;
 }
 
+.etched {
+  text-shadow: 0 2px rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #b8bec5;
+}
+
 
 /**
  *
@@ -454,6 +461,22 @@ footer.extended {
 
 .goals-add select {
   padding-bottom: 3px;
+}
+
+.no-goals {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 130px;
+}
+
+.no-goals p {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.no-goals p:not(.etched) {
+  font-size: 1.3rem;
 }
 
 /**

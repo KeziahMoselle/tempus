@@ -94,6 +94,13 @@ function Goals () {
         ))
       }
 
+      { (goals.length === 0 && !isShow) &&
+        <div className="no-goals">
+          <p className="etched">You do not have goals yet !</p>
+          <p>Click on the blue button to start</p>
+        </div>
+      }
+
       <button className="circle add" onClick={toggleAddGoalCard}>
         {isShow ? '⨯' : '+'}
       </button>
