@@ -78,12 +78,27 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 0;
 }
 
+.etched {
+  text-shadow: 0 2px rgba(255, 255, 255, 0.8);
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #b8bec5;
+}
+
 
 /**
  *
  * FLEX
  *
  */
+ 
+ .flex {
+   display: flex;
+ }
+
+ .space-between {
+   justify-content: space-between;
+ }
 
 .center {
   display: flex;
@@ -92,6 +107,10 @@ h1, h2, h3, h4, h5, h6, p {
 
 .column {
   flex-direction: column;
+}
+
+.valign {
+  align-items: center;
 }
 
 
@@ -331,7 +350,7 @@ footer.extended {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
 }
 
 .statistics-container .cards .card {
@@ -346,13 +365,163 @@ footer.extended {
 }
 
 .chart-container .center {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .chart-container .center button {
   margin: 0 6px;
 }
 
+
+/**
+ *
+ * GOALS
+ *
+ */
+
+.goals {
+  height: 220px;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  padding: 0 20px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 32px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none #ffffff;
+  border-radius: 31px;
+}
+
+.goals .card {
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.goals .card.success {
+  border-left: 6px solid #14B07B;
+}
+
+.goals .card.in-progress {
+  border-left: 6px solid #FFBB23;
+}
+
+.goals .card span {
+  font-size: 0.7em;
+}
+
+.goals .card span.success {
+  color: #14B07B;
+}
+
+.goals .card span.in-progress {
+  color: #FFBB23;
+}
+
+.goals .card:not(.goals-add) button.circle {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  right: 0;
+  top: 0;
+  transition: opacity 0.2s, background-color 0.2s, color 0.2s;
+  opacity: 0;
+  background: transparent;
+}
+
+.goals .card.goals-add button.circle {
+  position: absolute;
+  right: -10px;
+  top: 10px;
+}
+
+.goals .card.goals-add button.circle:hover {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.goals .card:not(.goals-add):hover button.circle {
+  opacity: 1;
+}
+
+.goals .card:not(.goals-add) button.circle:hover {
+  color: #FF5F56;
+}
+
+.goals .circle.add {
+  position: absolute;
+  border: 2px solid black;
+  background-color: white;
+  height: 32px;
+  width: 32px;
+  color: black;
+  left: 6px;
+  transition: filter 0.2s;
+  margin-top: 12px;
+}
+
+.goals .circle.add:hover {
+  filter: brightness(70%);
+}
+
+
+/* GOALS ADD INPUT */
+
+.goals-add {
+  border-left: 6px solid #2F88FF !important;
+  height: 26px;
+}
+
+.goals-add label {
+  font-size: 0.65em;
+  margin-right: 6px;
+}
+
+.goals-add label ~ span {
+  font-size: 0.65em;
+  margin: 0 6px;
+}
+
+.goals-add input[type="number"] {
+  width: 50px;
+  text-align: center;
+}
+
+.goals-add input, select {
+  font-size: 0.6em;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.goals-add select {
+  padding-bottom: 3px;
+}
+
+
+/* NO GOALS */
+
+.no-goals {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 130px;
+}
+
+.no-goals p {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.no-goals p:not(.etched) {
+  font-size: 1.3rem;
+}
 
 /**
  *
@@ -402,6 +571,15 @@ button {
   transition: background-color 0.2s;
   cursor: pointer;
   padding: 8px 16px;
+}
+
+button.circle {
+  justify-content: center;
+  padding: 0;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: rgb(238, 238, 238);
 }
 
 button:not(.overlap):hover {

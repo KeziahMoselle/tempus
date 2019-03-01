@@ -139,8 +139,9 @@ ipcMain.on('getData', () => {
   })
 })
 
+/* Data for the Bar chart */
+
 ipcMain.on('getBarChartData', () => {
-  /* Data for the Bar chart */
   const payload = data.get('data')
     .slice(-7)
     .map(object => ({
@@ -150,8 +151,9 @@ ipcMain.on('getBarChartData', () => {
   trayWindow.webContents.send('getBarChartData', payload)
 })
 
+/* Data for the Heatmap chart */
+
 ipcMain.on('getHeatmapChartData', () => {
-  /* Data for the Heatmap chart */
   const payload = data.get('data').map(object => ({
     date: object.day,
     streak: object.streak
@@ -160,9 +162,87 @@ ipcMain.on('getHeatmapChartData', () => {
   trayWindow.webContents.send('getHeatmapChartData', payload)
 })
 
+
+/* Data for Goals */
+
+ipcMain.on('addGoal', (event, { type, value }) => {
+  // Edit goals config
+  const goalsConfig = config.get('goals')
+  goalsConfig.push({
+    type,
+    value
+  })
+
+  // Save
+  config.set('goals', goalsConfig)
+
+  // Refresh the app
+  event.sender.send('refreshGoals')
+})
+
+ipcMain.on('removeGoal', (event, { type, value }) => {
+  const goalsConfig = config.get('goals')
+
+  // Find the index to remove
+  const index = goalsConfig.findIndex(goal => {
+    return goal.type === type && goal.value === value
+  })
+
+  // Not found
+  if (index === -1) return
+
+  // Remove
+  goalsConfig.splice(index, 1)
+
+  // Save
+  config.set('goals', goalsConfig)
+
+  // Refresh the app
+  event.sender.send('refreshGoals')
+})
+
+ipcMain.on('getGoalsData', () => {
+  const goalsCreated = config.get('goals') // [ { type: 'day', value: 60 } ]
+  const localData = data.get('data')
+  const types = {
+    day: 1,
+    week: 7,
+    month: 31,
+    year: 365
+  }
+
+  let payload = []
+
+  goalsCreated.forEach(goal => {
+    // Number of days to fetch
+    const days = types[goal.type]
+    // Fetch the x days
+    const daysData = localData.slice(`-${days}`)
+    // Return the total of minutes in x days
+    const totalMinutes = daysData.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.value
+    }, 0)
+    // Compare the value of the goal and the minutes of work
+    
+    // If superior -> The goal is achieved
+    // If inferior -> The goal is not achieved
+    let isSuccess
+    totalMinutes >= goal.value ? isSuccess = true : isSuccess = false
+
+    payload.push({
+      ...goal,
+      currentValue: totalMinutes,
+      success: isSuccess
+    })
+  })
+
+  trayWindow.webContents.send('getGoalsData', payload)
+})
+
 /* Store the streak and time */
 
-ipcMain.on('updateStreak', (event, timePassed) => updateData(timePassed))
+ipcMain.on('updateData', (event, timePassed) => updateData(timePassed))
+
 
 
 /* Window events */

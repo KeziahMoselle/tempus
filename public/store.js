@@ -9,7 +9,8 @@ const config = new Store({
     pause: 300, // 5 minutes in sec
     numberOfCycle: 0, // Disable cycle by default
     lastTimeUpdated: false,
-    autoLaunch: false
+    autoLaunch: false,
+    goals: []
   }
 })
 

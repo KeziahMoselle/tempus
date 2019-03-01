@@ -72,7 +72,7 @@ class App extends Component {
       }
       
       /* Streak */
-      window.ipcRenderer.send('updateStreak', this.state.total / 60)
+      window.ipcRenderer.send('updateData', this.state.total / 60)
       /* Set pause state */
       window.ipcRenderer.send('pausing')
       /* Begin to count pause */
