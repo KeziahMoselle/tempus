@@ -373,7 +373,7 @@ footer.extended {
  */
 
 .goals .card {
-  padding: 12px 18px;
+  padding: 12px 24px;
   margin-bottom: 12px;
 }
 
@@ -395,6 +395,23 @@ footer.extended {
 
 .goals .card span.in-progress {
   color: #FFBB23;
+}
+
+.goals button.circle {
+  position: absolute;
+  right: -14px;
+  top: 8px;
+  transition: opacity 0.2s, background-color 0.2s, color 0.2s;
+  opacity: 0;
+}
+
+.goals .card:hover button.circle {
+  opacity: 1;
+}
+
+.goals button.circle:hover {
+  background-color: #FF5F56;
+  color: white;
 }
 
 .goals-add label {
@@ -470,6 +487,15 @@ button {
   transition: background-color 0.2s;
   cursor: pointer;
   padding: 8px 16px;
+}
+
+button.circle {
+  justify-content: center;
+  padding: 0;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: rgb(238, 238, 238);
 }
 
 button:not(.overlap):hover {

@@ -32,6 +32,13 @@ function Goals () {
     })
   }
 
+  function removeGoal (type, value) {
+    window.ipcRenderer.send('removeGoal', {
+      type,
+      value
+    })
+  }
+
   return (
     <div className="goals">
       { goals.length > 0 &&
@@ -43,6 +50,7 @@ function Goals () {
             <span className={goal.success ? 'success' : 'in-progress'}>
               { Math.round(((goal.currentValue / goal.value)*100)) }%
             </span>
+            <button className="circle" onClick={() => removeGoal(goal.type, goal.value)}>x</button>
           </div>
         ))
       }

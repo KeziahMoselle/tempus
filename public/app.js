@@ -166,7 +166,6 @@ ipcMain.on('getHeatmapChartData', () => {
 /* Data for Goals */
 
 ipcMain.on('addGoal', (event, { type, value }) => {
-  console.log(type, value)
   // Edit goals config
   const goalsConfig = config.get('goals')
   goalsConfig.push({
@@ -174,12 +173,31 @@ ipcMain.on('addGoal', (event, { type, value }) => {
     value
   })
 
-  console.log(goalsConfig)
+  // Save
+  config.set('goals', goalsConfig)
+
+  // Refresh the app
+  event.sender.send('refreshGoals')
+})
+
+ipcMain.on('removeGoal', (event, { type, value }) => {
+  const goalsConfig = config.get('goals')
+
+  // Find the index to remove
+  const index = goalsConfig.findIndex(goal => {
+    return goal.type === type && goal.value === value
+  })
+
+  // Not found
+  if (index === -1) return
+
+  // Remove
+  goalsConfig.splice(index, 1)
 
   // Save
   config.set('goals', goalsConfig)
 
-  // Send response to the app
+  // Refresh the app
   event.sender.send('refreshGoals')
 })
 
