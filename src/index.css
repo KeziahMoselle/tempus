@@ -84,6 +84,14 @@ h1, h2, h3, h4, h5, h6, p {
  * FLEX
  *
  */
+ 
+ .flex {
+   display: flex;
+ }
+
+ .space-between {
+   justify-content: space-between;
+ }
 
 .center {
   display: flex;
@@ -92,6 +100,10 @@ h1, h2, h3, h4, h5, h6, p {
 
 .column {
   flex-direction: column;
+}
+
+.valign {
+  align-items: center;
 }
 
 
@@ -351,6 +363,38 @@ footer.extended {
 
 .chart-container .center button {
   margin: 0 6px;
+}
+
+
+/**
+ *
+ * GOALS
+ *
+ */
+
+.goals .card {
+  padding: 12px 18px;
+  margin-bottom: 12px;
+}
+
+.goals .card.success {
+  border-left: 6px solid #14B07B;
+}
+
+.goals .card.in-progress {
+  border-left: 6px solid #FFBB23;
+}
+
+.goals .card span {
+  font-size: 0.7em;
+}
+
+.goals .card span.success {
+  color: #14B07B;
+}
+
+.goals .card span.in-progress {
+  color: #FFBB23;
 }
 
 

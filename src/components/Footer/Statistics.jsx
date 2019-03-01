@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import BarChart from './BarChart'
 import HeatmapChart from './HeatmapChart'
+import Goals from './Goals'
 
 import './heatmap.css'
 
@@ -75,6 +76,12 @@ export default ({ sessionStreak }) => {
             className={chartType === 'heatmap' ? 'selected' : ''}>
             Months
           </button>
+
+          <button
+            onClick={() => setChartType('Goals')}
+            className={chartType === 'Goals' ? 'selected' : ''}>
+            Goals
+          </button>
         </div>
 
         { chartType === 'bar' &&
@@ -83,6 +90,10 @@ export default ({ sessionStreak }) => {
 
         { chartType === 'heatmap' &&
           <HeatmapChart />
+        }
+
+        { chartType === 'Goals' &&
+          <Goals />
         }
       </div>
 
