@@ -379,9 +379,9 @@ footer.extended {
  *
  */
 
- .goals {
-   height: 220px;
- }
+.goals {
+  height: 220px;
+}
 
 .goals .card {
   padding: 12px 24px;
@@ -408,7 +408,7 @@ footer.extended {
   color: #FFBB23;
 }
 
-.goals .card button.circle {
+.goals .card:not(.goals-add) button.circle {
   position: absolute;
   right: -14px;
   top: 8px;
@@ -416,11 +416,11 @@ footer.extended {
   opacity: 0;
 }
 
-.goals .card:hover button.circle {
+.goals .card:not(.goals-add):hover button.circle {
   opacity: 1;
 }
 
-.goals .card button.circle:hover {
+.goals .card:not(.goals-add) button.circle:hover {
   background-color: #FF5F56;
   color: white;
 }
@@ -428,14 +428,25 @@ footer.extended {
 .goals .circle.add {
   position: absolute;
   background-color: #2F88FF;
+  height: 32px;
+  width: 32px;
   color: white;
-  right: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 12px;
   transition: filter 0.2s;
 }
 
 .goals .circle.add:hover {
   filter: brightness(70%);
+}
+
+
+/* GOALS ADD INPUT */
+
+.goals-add {
+  border-left: 6px solid #2F88FF !important;
+  height: 26px;
 }
 
 .goals-add label {
@@ -462,6 +473,9 @@ footer.extended {
 .goals-add select {
   padding-bottom: 3px;
 }
+
+
+/* NO GOALS */
 
 .no-goals {
   display: flex;

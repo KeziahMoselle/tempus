@@ -37,6 +37,9 @@ function Goals () {
       value: hour * 60,
       type
     })
+
+    // Hide input
+    setIsShow(false)
   }
 
   function removeGoal (type, value) {
@@ -77,7 +80,7 @@ function Goals () {
           </select>
         </div>
 
-        <button onClick={addGoal}>Add</button>
+        <button className="circle counting" onClick={addGoal}>+</button>
       </div>
 
       { goals.length > 0 &&
@@ -97,7 +100,7 @@ function Goals () {
       { (goals.length === 0 && !isShow) &&
         <div className="no-goals">
           <p className="etched">You do not have goals yet !</p>
-          <p>Click on the blue button to start</p>
+          <p>Click on the blue button to create your first goal</p>
         </div>
       }
 
