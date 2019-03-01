@@ -5,6 +5,8 @@ function Goals () {
 
   const [hour, setHour] = useState(1)
   const [type, setType] = useState('day')
+
+  const [isShow, setIsShow] = useState(false)
   
   useEffect(() => {
     window.ipcRenderer.send('getGoalsData')
@@ -24,7 +26,7 @@ function Goals () {
   }, [])
 
   function addGoal () {
-    if (hour < 1) return
+    if (hour <= 0) return
 
     const isCreated = goals.findIndex(goal => {
       return goal.type === type && goal.value === (hour * 60)
@@ -44,23 +46,13 @@ function Goals () {
     })
   }
 
+  function toggleAddGoalCard () {
+    isShow ? setIsShow(false) : setIsShow(true)
+  }
+
   return (
     <div className="goals">
-      { goals.length > 0 &&
-        goals.map((goal, index) => (
-          <div
-            key={index}
-            className={`card flex space-between ${goal.success ? 'success' : 'in-progress'}`}>
-            <span>Work { goal.value / 60 } hr per { goal.type }</span>
-            <span className={goal.success ? 'success' : 'in-progress'}>
-              { Math.round(((goal.currentValue / goal.value)*100)) }%
-            </span>
-            <button className="circle" onClick={() => removeGoal(goal.type, goal.value)}>x</button>
-          </div>
-        ))
-      }
-
-      <div className="goals-add card flex space-between">
+      <div className={`goals-add card flex space-between ${isShow ? 'show' : 'hide'}`}>
         <div className="flex valign">
           <label htmlFor="hour">Work</label>
           <input
@@ -68,7 +60,8 @@ function Goals () {
             value={hour}
             type="number"
             placeholder="1"
-            min="0">
+            min="0.1"
+            step="0.1">
           </input>
           <span>hr</span>
 
@@ -86,6 +79,24 @@ function Goals () {
 
         <button onClick={addGoal}>Add</button>
       </div>
+
+      { goals.length > 0 &&
+        goals.map((goal, index) => (
+          <div
+            key={index}
+            className={`card flex space-between ${goal.success ? 'success' : 'in-progress'}`}>
+            <span>Work { goal.value / 60 } hr per { goal.type }</span>
+            <span className={goal.success ? 'success' : 'in-progress'}>
+              { Math.round(((goal.currentValue / goal.value)*100)) }%
+            </span>
+            <button className="circle" onClick={() => removeGoal(goal.type, goal.value)}>x</button>
+          </div>
+        ))
+      }
+
+      <button className="circle add" onClick={toggleAddGoalCard}>
+        {isShow ? '⨯' : '+'}
+      </button>
     </div>
   )
 }

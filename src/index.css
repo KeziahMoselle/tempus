@@ -372,6 +372,10 @@ footer.extended {
  *
  */
 
+ .goals {
+   height: 220px;
+ }
+
 .goals .card {
   padding: 12px 24px;
   margin-bottom: 12px;
@@ -397,7 +401,7 @@ footer.extended {
   color: #FFBB23;
 }
 
-.goals button.circle {
+.goals .card button.circle {
   position: absolute;
   right: -14px;
   top: 8px;
@@ -409,9 +413,22 @@ footer.extended {
   opacity: 1;
 }
 
-.goals button.circle:hover {
+.goals .card button.circle:hover {
   background-color: #FF5F56;
   color: white;
+}
+
+.goals .circle.add {
+  position: absolute;
+  background-color: #14B07B;
+  color: white;
+  right: 12px;
+  bottom: 12px;
+  transition: filter 0.2s;
+}
+
+.goals .circle.add:hover {
+  filter: brightness(70%);
 }
 
 .goals-add label {
