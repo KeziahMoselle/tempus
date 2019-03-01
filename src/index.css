@@ -343,7 +343,7 @@ footer.extended {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
 }
 
 .statistics-container .cards .card {
@@ -358,7 +358,7 @@ footer.extended {
 }
 
 .chart-container .center {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .chart-container .center button {
@@ -397,6 +397,30 @@ footer.extended {
   color: #FFBB23;
 }
 
+.goals-add label {
+  font-size: 0.65em;
+  margin-right: 6px;
+}
+
+.goals-add label ~ span {
+  font-size: 0.65em;
+  margin: 0 6px;
+}
+
+.goals-add input[type="number"] {
+  width: 50px;
+  text-align: center;
+}
+
+.goals-add input, select {
+  font-size: 0.6em;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.goals-add select {
+  padding-bottom: 3px;
+}
 
 /**
  *

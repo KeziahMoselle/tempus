@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 function Goals () {
   const [goals, setGoals] = useState([])
+  const [hour, setHour] = useState(1)
+  const [type, setType] = useState('day')
 
   useEffect(() => {
     window.ipcRenderer.send('getGoalsData')
@@ -12,7 +14,7 @@ function Goals () {
   }, [])
 
   function addGoal () {
-
+    
   }
 
   return (
@@ -29,6 +31,33 @@ function Goals () {
           </div>
         ))
       }
+
+      <div className="goals-add card flex space-between">
+        <div className="flex valign">
+          <label htmlFor="hour">Work</label>
+          <input
+            onChange={(event) => setHour(event.target.value)}
+            value={hour}
+            type="number"
+            placeholder="1"
+            min="0">
+          </input>
+          <span>hr</span>
+
+          <label htmlFor="type">per</label>
+          <select
+            id="type"
+            onChange={(event) => setType(event.target.value)}
+            value={type}>
+              <option value="day">day</option>
+              <option value="week">week</option>
+              <option value="month">month</option>
+              <option value="year">year</option>
+          </select>
+        </div>
+
+        <button onClick={addGoal}>Add</button>
+      </div>
     </div>
   )
 }
