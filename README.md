@@ -47,6 +47,15 @@
 </details>
 
 <details>
+	<summary>🚩 Goals</summary>
+
+  <p align="center">Want to work at least 1 hour a day ? You can create a goal for that.</p>
+	<p align="center">
+    <img width="400" src="./.github/goals.gif" alt="preview">
+  </p>
+</details>
+
+<details>
 	<summary>🔥 Streak</summary>
 
   <p align="center">It counts how many times you finished a pomodoro.</p>
@@ -74,8 +83,6 @@
 </details>
 
 ## Coming soon
-
-[🚩 Goals](https://github.com/KeziahMoselle/pomodoro/issues/21)
 
 [🧭 Feature Discovery](https://github.com/KeziahMoselle/pomodoro/issues/13)
 
