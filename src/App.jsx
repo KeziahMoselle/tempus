@@ -12,7 +12,8 @@ class App extends Component {
     countPause: 0,
     numberOfCycle: 0,
     countCycle: 0,
-    sessionStreak: 0
+    sessionStreak: 0,
+    loadedConfig: false
   }
 
   componentDidMount () {
@@ -27,7 +28,8 @@ class App extends Component {
         total: data.work,
         totalPause: data.pause,
         sessionStreak: data.sessionStreak,
-        numberOfCycle: data.numberOfCycle
+        numberOfCycle: data.numberOfCycle,
+        loadedConfig: true
       })
     })
   }
@@ -122,11 +124,13 @@ class App extends Component {
   resetTime = () => {
     this.setState({
       total: 1500,
-      totalPause: 300
+      totalPause: 300,
+      numberOfCycle: 0
     })
     window.ipcRenderer.send('updateConfig', {
       work: 1500,
-      pause: 300
+      pause: 300,
+      numberOfCycle: 0
     })
   }
 
@@ -169,17 +173,11 @@ class App extends Component {
    */
   quit = () => {
     if (window.confirm('Do you really want to quit ?')) {
-      window.ipcRenderer.send('updateConfig', {
-        work: this.state.total,
-        pause: this.state.totalPause,
-        numberOfCycle: this.state.numberOfCycle
-      })
       window.ipcRenderer.send('win-close')
     }
   }
 
   render() {
-
     return (
       <div className="container">
 
@@ -212,6 +210,7 @@ class App extends Component {
           toggleCards={this.toggleCards}
           setNumberOfCycle={this.setNumberOfCycle}
           numberOfCycle={this.state.numberOfCycle}
+          loadedConfig={this.state.loadedConfig}
         />
         
       </div>

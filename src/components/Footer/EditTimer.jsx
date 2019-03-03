@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCycle, numberOfCycle }) => (
+export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCycle, numberOfCycle, setIsTimerChanged }) => (
   <div className="timer-container">
     <header>
       <h3>Preferences</h3>
@@ -16,7 +16,10 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="work">Work time</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => setWork(event.target.value)}
+            onChange={(event) => {
+              setWork(event.target.value)
+              setIsTimerChanged(true)
+            }}
             id="work"
             type="number"
             min="1"
@@ -31,7 +34,10 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="pause">Break time</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => setPause(event.target.value)}
+            onChange={(event) => {
+              setPause(event.target.value)
+              setIsTimerChanged(true)
+            }}
             id="pause"
             type="number"
             min="1"
@@ -50,7 +56,10 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="cycle">Repeat</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => setNumberOfCycle(event.target.value)}
+            onChange={(event) => {
+              setNumberOfCycle(event.target.value)
+              setIsTimerChanged(true)
+            }}
             id="cycle"
             type="number"
             min="0"

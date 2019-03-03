@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import EditTimer from './Footer/EditTimer'
 import Statistics from './Footer/Statistics'
 
@@ -8,10 +8,15 @@ export default ({
   start, stop,
   setWork, setPause, resetTime,
   sessionStreak,
-  setNumberOfCycle, numberOfCycle
+  setNumberOfCycle, numberOfCycle,
+  loadedConfig
 }) => {
+  // Is the footer full height or not ? (classname)
   const [isExtended, setIsExtended] = useState('')
+  // Which component to display
   const [component, setComponent] = useState(null)
+  // If a timer state has been changed
+  const [isTimerChanged, setIsTimerChanged] = useState(false)
 
   const switchComponent = (name) => {
     setIsExtended('extended')
@@ -22,6 +27,25 @@ export default ({
       setIsExtended('')
     }
   }
+
+  
+  /**
+   *  Save the new values to the config store
+   *  Only when :
+   *  - The user leave the EditTimer component
+   *  - The config is loaded (local state is equal to the config store)
+   *  - The user has changed values in the EditTimer component
+   */
+  useEffect(() => {
+    if (component !== 'EditTimer' && loadedConfig && isTimerChanged) {
+      window.ipcRenderer.send('updateConfig', {
+        work: total,
+        pause: totalPause,
+        numberOfCycle: numberOfCycle
+      })
+      setIsTimerChanged(false)
+    }
+  }, [component, isTimerChanged])
 
   return (
     <footer className={isExtended}>
@@ -60,6 +84,7 @@ export default ({
             totalPause={totalPause}
             setNumberOfCycle={setNumberOfCycle}
             numberOfCycle={numberOfCycle}
+            setIsTimerChanged={setIsTimerChanged}
           />
         }
 

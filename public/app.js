@@ -94,9 +94,13 @@ ipcMain.on('handshake', () => {
 /* Set new values in the config */
 
 ipcMain.on('updateConfig', (event, data) => {
-  if (data.work) config.set('work', data.work)
-  if (data.pause) config.set('pause', data.pause)
-  if (data.numberOfCycle) config.set('numberOfCycle', data.numberOfCycle)
+  const work = config.get('work')
+  const pause = config.get('pause')
+  const numberOfCycle = config.get('numberOfCycle')
+
+  if (work !== data.work) config.set('work', data.work)
+  if (pause !== data.pause) config.set('pause', data.pause)
+  if (numberOfCycle !== data.numberOfCycle) config.set('numberOfCycle', data.numberOfCycle)
 })
 
 
