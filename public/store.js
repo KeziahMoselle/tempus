@@ -22,19 +22,23 @@ const data = new Store({
   }
 })
 
+
+const localData = data.get('data')
+
 // Create a new key at startup
-setNewKey()
+if (localData.length === 0) { // If there is no key yet
+  setNewKey(localData)
+} else if (localData[localData.length - 1].day !== ISODate) {
+  // If the last key is not the same -> avoid duplicata
+  setNewKey(localData)
+}
 
-// Fill potential empty dates 
-fillEmptyDates()
+if (localData.length >= 2) {
+  // Fill potential empty dates 
+  fillEmptyDates(localData)
+}
 
-function setNewKey () {
-  const newData = data.get('data')
-  const lastIndex = newData.length - 1
-
-  // Return if a key with the same date already exists
-  if (newData[lastIndex].day === ISODate) return 
-
+function setNewKey (newData) {
   // Push the new item
   const index = newData.push({
     day: ISODate,
@@ -67,9 +71,7 @@ function updateData (timePassed) {
   data.set('data', newData)
 }
 
-function fillEmptyDates () {
-  const entries = data.get('data')
-
+function fillEmptyDates (entries) {
   // Check for potential empty dates
   const lastEntry = entries[entries.length - 2].day
   // Yesterday because today already exists with `setNewKey()`
