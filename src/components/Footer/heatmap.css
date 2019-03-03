@@ -19,16 +19,12 @@
 }
 
 .react-calendar-heatmap .today {
-  stroke: #555;
+  stroke: rgba(0, 0, 0, 0.3);
   stroke-width: 1px;
 }
 
 
 /* COLOR SCALE */
-
-.react-calendar-heatmap .color-empty {
-  fill: #eeeeee;
-}
 
 .react-calendar-heatmap .color-0 {
   fill: #eeeeee;

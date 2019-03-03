@@ -27,11 +27,13 @@ export default () => {
             showWeekdayLabels={true}
             values={data}
             classForValue={value => {
-              if (!value) return 'color-empty'
+              if (!value) return 'color-0'
               let classes = ''
               if (value.streak <= 3) classes = `color-${value.streak}`
               if (value.streak >= 4) classes = 'color-max'
-              if (new Date(value.date).toString() === new Date(data.today).toString()) classes += ' today'
+
+              const today = new Date().toISOString().split('T')[0].toString()
+              if (value.date.toString() === today) classes += ' today'
               return classes
             }}
             tooltipDataAttrs={value => {
