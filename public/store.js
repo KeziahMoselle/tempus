@@ -26,7 +26,7 @@ const data = new Store({
 
 setNewKey()
 
-function setNewKey (value, streak) {
+function setNewKey () {
   const newData = data.get('data')
   const lastIndex = newData.length - 1
 

@@ -140,10 +140,6 @@ class App extends Component {
     this.setState({
       total: seconds
     })
-    window.ipcRenderer.send('updateConfig', {
-      work: seconds,
-      pause: this.state.totalPause
-    })
   }
 
   /**
@@ -154,10 +150,6 @@ class App extends Component {
     if (!seconds) return
     this.setState({
       totalPause: seconds
-    })
-    window.ipcRenderer.send('updateConfig', {
-      work: this.state.total,
-      pause: seconds
     })
   }
 
@@ -170,9 +162,6 @@ class App extends Component {
     this.setState({
       numberOfCycle: parseInt(newValue, 10)
     })
-    window.ipcRenderer.send('updateConfig', {
-      numberOfCycle: newValue
-    })
   }
 
   /**
@@ -180,6 +169,11 @@ class App extends Component {
    */
   quit = () => {
     if (window.confirm('Do you really want to quit ?')) {
+      window.ipcRenderer.send('updateConfig', {
+        work: this.state.total,
+        pause: this.state.totalPause,
+        numberOfCycle: this.state.numberOfCycle
+      })
       window.ipcRenderer.send('win-close')
     }
   }
