@@ -54,12 +54,15 @@ ipcMain.on('idle', () => {
 
 /* Change icon on counting + notification */
 
-ipcMain.on('counting', () => {
+ipcMain.on('counting', (event, value) => {
+  // Value comes from `workTillNearestHour()` in App.jsx
+  // It will override the seconds from the store because we do not store these values
   tray.setImage(icons.counting)
+  
   const workTime = config.get('work') / 60
   new Notification({
     title: 'Pomodoro',
-    body: `You must work during ${workTime} minutes.`
+    body: `You must work during ${value ? value / 60 : workTime} minutes.`
   }).show()
 })
 

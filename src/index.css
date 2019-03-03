@@ -208,6 +208,33 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
+.counter.counting ~ .sub-action {
+  z-index: 1;
+}
+
+.sub-action {
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 300px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: padding 0.2s,
+              border-radius 0.2s,
+              background-color 0.2s,
+              color 0.2s,
+              opacity 0.2s;
+}
+
+.sub-action:hover {
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 12px;
+  border-radius: 17px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sub-action.counting, .sub-action.pausing {
+  opacity: 0;
+}
+
 
 /**
  *

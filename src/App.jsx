@@ -5,15 +5,20 @@ import Controls from './components/Controls'
 class App extends Component {
 
   state = {
-    state: '',
-    total: 1500,
-    count: 0,
-    totalPause: 300,
-    countPause: 0,
-    numberOfCycle: 0,
-    countCycle: 0,
-    sessionStreak: 0,
-    loadedConfig: false
+    state: '', // Can be '', 'counting' or 'pausing'
+    total: 1500, // Total of seconds for the counting interval
+    count: 0, // Count the seconds to `total`
+    totalPause: 300, // Total of seconds for the pausing interval
+    countPause: 0, // Count the seconds for `totalPause`
+    numberOfCycle: 0, // Repeat the counter `x` times (0 mean infinity)
+    countCycle: 0, // Count the number of repetition
+    sessionStreak: 0, // Count the streak this session
+    loadedConfig: false, // Is the config has been fetched
+    shouldResetValues: { // Used for `workTillNearestHour()`
+      shouldReset: false, // Should we revert the old values ?
+      oldTotal: null, // Old value for total seconds
+      oldCycle: null // Old value for cycle
+    }
   }
 
   componentDidMount () {
@@ -40,13 +45,15 @@ class App extends Component {
    * Creates the `countInterval` variable
    * Send `counting` event to the main process
    */
-  start = () => {
+  start = (customValue) => {
     if (this.state.state === 'counting') return // If already counting return
     this.countInterval = setInterval(this.increment, 1000)
     this.setState({
       state: 'counting'
     })
-    window.ipcRenderer.send('counting')
+    // The `customValue` will show the right value for the notification
+    // (Because it's not saved in the store)
+    window.ipcRenderer.send('counting', customValue)
   }
   
 
@@ -64,12 +71,25 @@ class App extends Component {
         sessionStreak: prevState.sessionStreak + 1,
         countCycle: prevState.countCycle + 1
       }))
-      
+
       /* Cycles */
       if (this.state.numberOfCycle > 0 && (this.state.countCycle >= this.state.numberOfCycle)) {
         this.setState({
           countCycle: 0
         })
+
+        // The counter was called via `workTillNearestHour`, need to set the old values
+        if (this.state.shouldResetValues.shouldReset) {
+          const { oldTotal, oldCycle } = this.state.shouldResetValues
+          // Restore old values
+          this.setState({
+            total: oldTotal,
+            numberOfCycle: oldCycle,
+            shouldResetValues: {
+              shouldReset: false
+            }
+          })
+        }
         return this.stop()
       }
       
@@ -105,6 +125,32 @@ class App extends Component {
     }))
   }
 
+
+  
+  /**
+   *  Work till the nearest hour
+   */
+  workTillNearestHour = () => {
+    const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
+    // The number of seconds we need to count
+    const secondsOfWork = (60 - minutes) * 60
+    // Get old values to restore them later
+    const { total, numberOfCycle } = this.state
+
+    this.setState({
+      total: secondsOfWork,
+      numberOfCycle: 1,
+      shouldResetValues: {
+        shouldReset: true,
+        oldTotal: total,
+        oldCycle: numberOfCycle
+      }
+    })
+
+    // Start the counter, but it will automatically stop after `secondsOfWork` seconds
+    this.start(secondsOfWork)
+  }
+
   /**
    * Clear all intervals
    * Clear the state
@@ -118,6 +164,7 @@ class App extends Component {
       count: 0,
       countPause: 0
     })
+
     window.ipcRenderer.send('idle')
   }
 
@@ -178,6 +225,13 @@ class App extends Component {
   }
 
   render() {
+    const date = new Date()
+    date.setHours(date.getHours() + 1)
+    const nextHour = date.toLocaleString('en-US', {
+      hour: 'numeric',
+      hour12: true
+    })
+
     return (
       <div className="container">
 
@@ -196,6 +250,10 @@ class App extends Component {
         </div>
 
         <Counter {...this.state} />
+
+        <h6 onClick={this.workTillNearestHour} className={`sub-action ${this.state.state}`}>
+          Or work till {nextHour}.
+        </h6>
 
         <Controls
           state={this.state.state}
