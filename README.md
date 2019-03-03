@@ -47,6 +47,17 @@
 </details>
 
 <details>
+	<summary>⏲️ Automagically set the timer till the next hour</summary>
+
+  <p align="center">Want to work until 8 PM ? You can set the timer automagically for you.
+  <br><b>Note</b>: It will revert your settings after the timer.
+  </p>
+	<p align="center">
+    <img width="400" src="./.github/workTillNextHour.gif" alt="preview">
+  </p>
+</details>
+
+<details>
 	<summary>🚩 Goals</summary>
 
   <p align="center">Want to work at least 1 hour a day ? You can create a goal for that.</p>
