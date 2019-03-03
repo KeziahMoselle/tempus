@@ -23,8 +23,10 @@ const data = new Store({
 })
 
 // Create a new key at startup
-
 setNewKey()
+
+// Fill potential empty dates 
+fillEmptyDates()
 
 function setNewKey () {
   const newData = data.get('data')
@@ -63,6 +65,49 @@ function updateData (timePassed) {
 
   // Save it
   data.set('data', newData)
+}
+
+function fillEmptyDates () {
+  const entries = data.get('data')
+
+  // Check for potential empty dates
+  const lastEntry = entries[entries.length - 2].day
+  // Yesterday because today already exists with `setNewKey()`
+  const date = new Date()
+  date.setDate(date.getDate() - 1)
+  const [yesterday] = date.toISOString().split('T')
+
+  // Cancel if no empty dates
+  if (yesterday === lastEntry) return 
+
+  const firstDate = entries[0].day
+  const lastDate = entries[entries.length - 1].day
+
+  const dates = [...Array(Date.parse(lastDate)/86400000 - Date.parse(firstDate)/86400000 + 1).keys()]
+    .map(k => new Date(86400000*k+Date.parse(firstDate))
+    .toISOString()
+    .split('T')[0])
+
+  const result = []
+
+  for(let i=0 , j=0; i<dates.length; i++) {
+    let hasSameKey = false
+    if (dates[i] === entries[j].day) hasSameKey = true
+
+    result[i] = {
+      day: dates[i],
+      value: hasSameKey ? entries[j].value : 0,
+      streak: hasSameKey ? entries[j].streak : 0
+    }
+
+    if (hasSameKey) j++
+  }
+
+  data.set('data', result)
+
+  // Update the last index
+  const newIndex = result.length - 1 
+  config.set('lastTimeUpdated.index', newIndex)
 }
 
 module.exports = {
