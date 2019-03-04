@@ -14,6 +14,7 @@ class App extends Component {
     countCycle: 0, // Count the number of repetition
     sessionStreak: 0, // Count the streak this session
     loadedConfig: false, // Is the config has been fetched
+    nextHour: null,
     shouldResetValues: { // Used for `workTillNearestHour()`
       shouldReset: false, // Should we revert the old values ?
       oldTotal: null, // Old value for total seconds
@@ -37,6 +38,28 @@ class App extends Component {
         loadedConfig: true
       })
     })
+  
+    // Interval to update `this.state.nextHour`
+    const updateNextHour = () => {
+      const date = new Date()
+      date.setHours(date.getHours() + 1)
+      const nextHour = date.toLocaleString('en-US', {
+        hour: 'numeric',
+        hour12: true
+      })
+
+      this.setState({
+        nextHour: nextHour
+      })
+
+      const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
+      // Pass this value to setInterval, to update the hour in the UI
+      console.log('Updated with value: ', nextHour)
+      console.log('Next update in: ', 60 - minutes)
+      return (60 - minutes)
+    }
+    const minutesUntilNextUpdate = updateNextHour()
+    setInterval(updateNextHour, 1000 * 60 * minutesUntilNextUpdate)
   }
 
 
@@ -225,13 +248,6 @@ class App extends Component {
   }
 
   render() {
-    const date = new Date()
-    date.setHours(date.getHours() + 1)
-    const nextHour = date.toLocaleString('en-US', {
-      hour: 'numeric',
-      hour12: true
-    })
-
     return (
       <div className="container">
 
@@ -252,7 +268,7 @@ class App extends Component {
         <Counter {...this.state} />
 
         <h6 onClick={this.workTillNearestHour} className={`sub-action ${this.state.state}`}>
-          Or work till {nextHour}.
+          Or work till {this.state.nextHour}.
         </h6>
 
         <Controls
