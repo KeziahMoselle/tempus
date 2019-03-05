@@ -33,9 +33,13 @@
   <img width="90%" src="./.github/cover.png" alt="Pomodoro cover">
 </p>
 
-## [Download](https://github.com/KeziahMoselle/pomodoro/releases/latest)
+<h2>
+  <a href="">Download <img alt="Last GitHub version" src="https://img.shields.io/github/tag/KeziahMoselle/pomodoro.svg?label=%20&style=flat-square"></a>
+</h2>
 
 ## Features
+
+Click on the arrows to get more informations about these features
 
 <details>
 	<summary>⏱️ Change work time and pause time</summary>
@@ -134,6 +138,11 @@
     |   |-- store.js        <-- Store
     |   |-- icons
     |-- src                 <-- React App
+        |-- App.jsx         <-- Main component
+        |-- index.css       <-- Main CSS
+        |-- index.js
+        |-- components
+        |-- fonts
 ```
 
 ## How to build ?
