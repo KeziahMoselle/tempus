@@ -1,7 +1,7 @@
 {
   "name": "pomodoro",
   "description": " A simple yet featureful pomodoro in the tray/menubar",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
   "main": "./public/app.js",
