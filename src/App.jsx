@@ -96,23 +96,16 @@ class App extends Component {
       }))
 
       /* Cycles */
+      // The maximum number of cycle has been reached
       if (this.state.numberOfCycle > 0 && (this.state.countCycle >= this.state.numberOfCycle)) {
         this.setState({
           countCycle: 0
         })
 
-        // The counter was called via `workTillNearestHour`, need to set the old values
         if (this.state.shouldResetValues.shouldReset) {
-          const { oldTotal, oldCycle } = this.state.shouldResetValues
-          // Restore old values
-          this.setState({
-            total: oldTotal,
-            numberOfCycle: oldCycle,
-            shouldResetValues: {
-              shouldReset: false
-            }
-          })
+          this.revertValues()
         }
+
         return this.stop()
       }
       
@@ -177,18 +170,38 @@ class App extends Component {
   }
 
   /**
+   *  Will revert old values after  `workTillNearestHour`
+   */
+  revertValues = () => {
+    const { oldTotal, oldCycle } = this.state.shouldResetValues
+    // Restore old values
+    this.setState({
+      total: oldTotal,
+      numberOfCycle: oldCycle,
+      shouldResetValues: {
+        shouldReset: false
+      }
+    })
+  }
+
+  /**
    * Clear all intervals
    * Clear the state
    * Send `idle` event to the main process
    */
-  stop = () => {
+  stop = (isManual) => {
     clearInterval(this.countInterval)
     clearInterval(this.pauseInterval)
+
     this.setState({
       state: '',
       count: 0,
       countPause: 0
     })
+
+    if (isManual) {
+      this.revertValues()
+    }
 
     window.ipcRenderer.send('idle')
   }

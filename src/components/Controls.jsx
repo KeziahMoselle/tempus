@@ -59,7 +59,7 @@ export default ({
         </button>
 
         <button
-          onClick={() => !state ? start() : stop()}
+          onClick={() => !state ? start() : stop(true)}
           className={`overlap ${state}`}>
           <i className="material-icons">{ !state ? 'play_arrow' : 'stop' }</i>
         </button>
