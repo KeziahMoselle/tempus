@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
+import Welcome from './components/Welcome/index'
 
 class App extends Component {
 
@@ -19,10 +20,17 @@ class App extends Component {
       shouldReset: false, // Should we revert the old values ?
       oldTotal: null, // Old value for total seconds
       oldCycle: null // Old value for cycle
-    }
+    },
+    finishedWelcome: false
   }
 
   componentDidMount () {
+    if (localStorage.getItem('finishedWelcome')) {
+      this.setState({
+        finishedWelcome: true
+      })
+    }
+
     // Listeners from the Tray menu
     window.ipcRenderer.on('start', this.start)
     window.ipcRenderer.on('stop', this.stop)
@@ -54,8 +62,6 @@ class App extends Component {
 
       const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
       // Pass this value to setInterval, to update the hour in the UI
-      console.log('Updated with value: ', nextHour)
-      console.log('Next update in: ', 60 - minutes)
       return (60 - minutes)
     }
     const minutesUntilNextUpdate = updateNextHour()
@@ -262,48 +268,59 @@ class App extends Component {
     }
   }
 
+  finishedWelcome = () => {
+    this.setState({
+      finishedWelcome: true
+    })
+    localStorage.setItem('finishedWelcome', true)
+  }
+
   render() {
-    return (
-      <div className="container">
+    if (this.state.finishedWelcome) {
+      return (
+        <div className="container">
 
-        <div className="titlebar">
-          <div className={`streak ${this.state.sessionStreak > 0 ? 'in-a-row' : ''}`}>
-            <p>
-              <span role="img" aria-label="fire streak">🔥</span>
-              { this.state.sessionStreak }
-            </p>
+          <div className="titlebar">
+            <div className={`streak ${this.state.sessionStreak > 0 ? 'in-a-row' : ''}`}>
+              <p>
+                <span role="img" aria-label="fire streak">🔥</span>
+                { this.state.sessionStreak }
+              </p>
+            </div>
+
+            <div className="controls">
+              <i onClick={() => window.ipcRenderer.send('win-minimize')} className="material-icons">remove</i>
+              <i onClick={this.quit} className="material-icons danger">close</i>
+            </div>
           </div>
 
-          <div className="controls">
-            <i onClick={() => window.ipcRenderer.send('win-minimize')} className="material-icons">remove</i>
-            <i onClick={this.quit} className="material-icons danger">close</i>
-          </div>
+          <Counter {...this.state} />
+
+          <h6 onClick={this.workTillNearestHour} className={`sub-action ${this.state.state}`}>
+            Or work till {this.state.nextHour}.
+          </h6>
+
+          <Controls
+            state={this.state.state}
+            total={this.state.total}
+            totalPause={this.state.totalPause}
+            sessionStreak={this.state.sessionStreak}
+            start={this.start}
+            stop={this.stop}
+            setWork={this.setWork}
+            setPause={this.setPause}
+            resetTime={this.resetTime}
+            toggleCards={this.toggleCards}
+            setNumberOfCycle={this.setNumberOfCycle}
+            numberOfCycle={this.state.numberOfCycle}
+            loadedConfig={this.state.loadedConfig}
+          />
+          
         </div>
-
-        <Counter {...this.state} />
-
-        <h6 onClick={this.workTillNearestHour} className={`sub-action ${this.state.state}`}>
-          Or work till {this.state.nextHour}.
-        </h6>
-
-        <Controls
-          state={this.state.state}
-          total={this.state.total}
-          totalPause={this.state.totalPause}
-          sessionStreak={this.state.sessionStreak}
-          start={this.start}
-          stop={this.stop}
-          setWork={this.setWork}
-          setPause={this.setPause}
-          resetTime={this.resetTime}
-          toggleCards={this.toggleCards}
-          setNumberOfCycle={this.setNumberOfCycle}
-          numberOfCycle={this.state.numberOfCycle}
-          loadedConfig={this.state.loadedConfig}
-        />
-        
-      </div>
-    )
+      )
+    } else {
+      return <Welcome finishedWelcome={this.finishedWelcome} quit={this.quit} />
+    }
   }
 }
 

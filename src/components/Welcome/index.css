@@ -1,0 +1,99 @@
+.welcome .container {
+  padding: 0 20px;
+}
+
+.welcome a {
+  font-size: 18px;
+  color: grey;
+  padding: 0;
+}
+
+.welcome .sub-action {
+  padding: 12px 32px;
+  border-radius: 17px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  margin: 0;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.welcome .sub-action:hover {
+  padding: 12px 32px !important;
+  transform: translateY(-4px);
+  background-color: #2f88ff;
+  color: white !important;
+}
+
+.welcome .sub-action.action {
+  margin-top: 64px;
+  padding: 8px 16px;
+  background-color: #2f88ff;
+  color: white;
+} 
+
+.welcome .sub-action.action:hover {
+  color: white;
+}
+
+.welcome img {
+  border-radius: 6px;
+  margin-top: 22px;
+  width: 80%;
+}
+
+.welcome h6 {
+  font-weight: 300;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.welcome p {
+  font-size: 17px !important;
+  text-align: center;
+}
+
+.welcome .sub-action:hover {
+  padding: 12px;
+  color: black;
+}
+
+.welcome footer {
+  height: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome footer .progress {
+  background-color: white;
+  color: black;
+  padding: 6px 16px;
+  border-radius: 18px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.welcome footer button {
+  background-color: black;
+  color: white;
+}
+
+.welcome footer button:first-child {
+  border-top-right-radius: 6px;
+}
+
+.welcome footer button:last-child {
+  background-color: #2f88ff;
+  color: white;
+  border-top-left-radius: 6px;
+}
+
+.welcome footer button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
+.welcome p {
+  font-size: 20px;
+}
