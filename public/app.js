@@ -62,7 +62,7 @@ ipcMain.on('counting', (event, value) => {
   const workTime = config.get('work') / 60
   new Notification({
     title: 'Pomodoro',
-    body: `You must work during ${value ? Math.ceil(value / 60) : workTime} minutes.`
+    body: `You must work during ${value ? Math.round(value / 60) : workTime} minutes.`
   }).show()
 })
 
@@ -134,8 +134,8 @@ ipcMain.on('getData', () => {
   let todayStreak = 0 // default value
   let todayMinutes = 0 // default value
   if (storeData[currentDayIndex]) { // Get streak if it exists
-    todayStreak = storeData[currentDayIndex].streak
-    todayMinutes = storeData[currentDayIndex].value
+    todayStreak = Math.round(storeData[currentDayIndex].streak)
+    todayMinutes = Math.round(storeData[currentDayIndex].value)
   }
 
   trayWindow.webContents.send('getData', {
