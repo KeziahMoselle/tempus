@@ -54,16 +54,12 @@ ipcMain.on('idle', () => {
 
 /* Change icon on counting + notification */
 
-ipcMain.on('counting', (event, value) => {
-  // Value comes from `workTillNearestHour()` in App.jsx
-  // It will override the seconds from the store because we do not store these values
-  tray.setImage(icons.counting)
+ipcMain.on('counting', (event, minimize) => {
   
-  const workTime = config.get('work') / 60
-  new Notification({
-    title: 'Pomodoro',
-    body: `You must work during ${value ? Math.round(value / 60) : workTime} minutes.`
-  }).show()
+  tray.setImage(icons.counting)
+  if (minimize) {
+    trayWindow.hide()
+  }
 })
 
 /* Change icon on pausing + notification */
@@ -74,6 +70,24 @@ ipcMain.on('pausing', () => {
   new Notification({
     title: 'Pomodoro',
     body: `You have a break of ${pauseTime} minutes.`
+  }).show()
+
+  setTimeout(() => {
+    new Notification({
+      title: 'Pomodoro',
+      body: `You must work during ${config.get('work') / 60} minutes`
+    }).show()
+  }, pauseTime * 60 * 1000);
+})
+
+/* When the max number of cycle has been reached,
+ * Show a notification
+*/
+
+ipcMain.on('finished', () => {
+  new Notification({
+    title: 'Pomodoro',
+    body: `You finished the pomodoro !`
   }).show()
 })
 
@@ -313,7 +327,7 @@ function createWindow () {
 
 function createTray () {
   tray = new Tray(icons.idle)
-  tray.setToolTip('Pomodoro')
+  tray.setToolTip('Pomodoro, click to open')
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show/Hide...',

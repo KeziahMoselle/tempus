@@ -74,15 +74,14 @@ class App extends Component {
    * Creates the `countInterval` variable
    * Send `counting` event to the main process
    */
-  start = (customValue) => {
+  start = () => {
     if (this.state.state === 'counting') return // If already counting return
     this.countInterval = setInterval(this.increment, 1000)
     this.setState({
       state: 'counting'
     })
-    // The `customValue` will show the right value for the notification
-    // (Because it's not saved in the store)
-    window.ipcRenderer.send('counting', customValue)
+
+    window.ipcRenderer.send('counting', true)
   }
   
 
@@ -108,9 +107,13 @@ class App extends Component {
           countCycle: 0
         })
 
+        // Get the old values back
         if (this.state.shouldResetValues.shouldReset) {
           this.revertValues()
         }
+
+        // Display the notification 'You finished the pomodoro'
+        window.ipcRenderer.send('finished')
 
         return this.stop()
       }
@@ -139,7 +142,6 @@ class App extends Component {
       // Max value for `state.countPause`
       // Switch into the `countInterval`
       this.stop()
-      window.ipcRenderer.send('counting')
       return this.start()
     }
     this.setState(prevState => ({
@@ -172,7 +174,7 @@ class App extends Component {
     })
 
     // Start the counter, but it will automatically stop after `secondsOfWork` seconds
-    this.start(secondsOfWork)
+    this.start()
   }
 
   /**
@@ -205,8 +207,11 @@ class App extends Component {
       countPause: 0
     })
 
-    if (isManual) {
+    if (isManual && this.state.shouldResetValues.shouldReset) {
       this.revertValues()
+      
+      // Display the notification 'You finished the pomodoro'
+      window.ipcRenderer.send('finished')
     }
 
     window.ipcRenderer.send('idle')
