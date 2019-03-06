@@ -62,7 +62,7 @@ ipcMain.on('counting', (event, value) => {
   const workTime = config.get('work') / 60
   new Notification({
     title: 'Pomodoro',
-    body: `You must work during ${value ? value / 60 : workTime} minutes.`
+    body: `You must work during ${value ? Math.ceil(value / 60) : workTime} minutes.`
   }).show()
 })
 

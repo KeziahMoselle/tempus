@@ -154,9 +154,11 @@ class App extends Component {
    *  Work till the nearest hour
    */
   workTillNearestHour = () => {
-    const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
-    // The number of seconds we need to count
-    const secondsOfWork = (60 - minutes) * 60
+    const date = new Date()
+    const minutes = date.getMinutes() // i.e 32 (min)
+    const seconds = date.getSeconds() // i.e 16 (sec)
+    const secondsOfWork = (60 - minutes) * 60 - seconds
+
     // Get old values to restore them later
     const { total, numberOfCycle } = this.state
 
