@@ -34,7 +34,7 @@
 </p>
 
 <h2>
-  <a href="">Download <img alt="Last GitHub version" src="https://img.shields.io/github/tag/KeziahMoselle/pomodoro.svg?label=%20&style=flat-square"></a>
+  <a href="https://github.com/KeziahMoselle/pomodoro/releases">Download <img alt="Last GitHub version" src="https://img.shields.io/github/tag/KeziahMoselle/pomodoro.svg?label=%20&style=flat-square"></a>
 </h2>
 
 ## Features
