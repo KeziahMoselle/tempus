@@ -18,7 +18,7 @@ export default ({
   // If a timer state has been changed
   const [isTimerChanged, setIsTimerChanged] = useState(false)
 
-  const switchComponent = (name) => {
+  function switchComponent (name) {
     setIsExtended('extended')
     if (name !== component) {
       setComponent(name)
@@ -26,6 +26,17 @@ export default ({
       setComponent(null)
       setIsExtended('')
     }
+  }
+  
+  function saveAndStart () {
+    window.ipcRenderer.send('updateConfig', {
+      work: total,
+      pause: totalPause,
+      numberOfCycle: numberOfCycle
+    })
+    setIsTimerChanged(false)
+
+    start()
   }
 
   
@@ -59,7 +70,7 @@ export default ({
         </button>
 
         <button
-          onClick={() => !state ? start() : stop(true)}
+          onClick={() => !state ? saveAndStart() : stop(true)}
           className={`overlap ${state}`}>
           <i className="material-icons">{ !state ? 'play_arrow' : 'stop' }</i>
         </button>

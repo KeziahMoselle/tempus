@@ -77,7 +77,7 @@ ipcMain.on('pausing', () => {
       title: 'Pomodoro',
       body: `You must work during ${config.get('work') / 60} minutes`
     }).show()
-  }, pauseTime * 60 * 1000);
+  }, pauseTime * 60 * 1000)
 })
 
 /* When the max number of cycle has been reached,
