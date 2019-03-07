@@ -30,13 +30,7 @@ let positioner
 const autoLauncher = new AutoLaunch({ name: 'pomodoro' })
 
 
-/* Temporary fix for Windows 10 notification in dev mode
- * Doesn't work in production  (https://github.com/electron/electron/issues/10864)
- */
-
-if (isDev) {
-  app.setAppUserModelId('com.electron.pomodoro')
-}
+app.setAppUserModelId('com.electron.pomodoro')
 
 /* Create the application */
 

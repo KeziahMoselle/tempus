@@ -27,16 +27,16 @@
     "react-tooltip": "^3.9.2"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "electron": "^4.0.7",
+    "electron-builder": "^20.38.5",
+    "electron-devtools-installer": "^2.2.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "^2.1.5",
-    "concurrently": "^4.1.0",
-    "cross-env": "^5.2.0",
-    "electron": "^4.0.0",
-    "electron-builder": "^20.38.5",
-    "electron-devtools-installer": "^2.2.4",
-    "wait-on": "^3.2.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "wait-on": "^3.2.0"
   },
   "build": {
     "appId": "com.electron.pomodoro",
