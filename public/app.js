@@ -262,7 +262,10 @@ ipcMain.on('updateData', (event, timePassed) => updateData(timePassed))
 
 /* Window events */
 
-ipcMain.on('win-minimize', () => trayWindow.hide())
+ipcMain.on('win-minimize', () => {
+  trayWindow.hide()
+  app.dock.hide()
+})
 
 ipcMain.on('win-close', () => app.quit())
 
@@ -376,8 +379,10 @@ function createTray () {
 function toggleWindow () {
   if (trayWindow.isVisible()) {
     trayWindow.hide()
+    app.dock.hide()
   } else {
     trayWindow.show()
+    app.dock.show()
   }
 }
 
