@@ -16,7 +16,7 @@ const {
   ipcMain,
   shell
  } = require('electron')
-const { autoUpdater } = require("electron-updater")
+const { autoUpdater } = require('electron-updater')
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
@@ -264,7 +264,9 @@ ipcMain.on('updateData', (event, timePassed) => updateData(timePassed))
 
 ipcMain.on('win-minimize', () => {
   trayWindow.hide()
-  app.dock.hide()
+  if (process.platform === 'darwin') {
+    app.dock.hide()
+  }
 })
 
 ipcMain.on('win-close', () => app.quit())
@@ -379,10 +381,14 @@ function createTray () {
 function toggleWindow () {
   if (trayWindow.isVisible()) {
     trayWindow.hide()
-    app.dock.hide()
+    if (process.platform === 'darwin') {
+      app.dock.hide()
+    }
   } else {
     trayWindow.show()
-    app.dock.show()
+    if (process.platform === 'darwin') {
+      app.dock.show()
+    }
   }
 }
 
