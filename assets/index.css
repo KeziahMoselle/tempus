@@ -140,6 +140,11 @@ button:hover {
   margin-top: 48px;
 }
 
+.heading {
+  font-size: 56px;
+  margin-bottom: 24px;
+}
+
 
 /**
  *
@@ -241,6 +246,10 @@ header img {
   border-radius: 50%;
   background-color: #0065ff;
   margin-bottom: 20px;
+}
+
+.feature .circle img {
+  height: 28px;
 }
 
 .feature h3 {
