@@ -81,7 +81,7 @@ class App extends Component {
       state: 'counting'
     })
 
-    window.ipcRenderer.send('counting', true)
+    window.ipcRenderer.send('counting')
   }
   
 

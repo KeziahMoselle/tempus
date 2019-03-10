@@ -7,7 +7,7 @@
 const url = require('url')
 const path = require('path')
 
-const { 
+const {
   BrowserWindow,
   Menu,
   Notification,
@@ -15,7 +15,7 @@ const {
   app,
   ipcMain,
   shell
- } = require('electron')
+} = require('electron')
 const { autoUpdater } = require('electron-updater')
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
@@ -48,10 +48,10 @@ ipcMain.on('idle', () => {
 
 /* Change icon on counting + notification */
 
-ipcMain.on('counting', (event, minimize) => {
+ipcMain.on('counting', (event) => {
   
   tray.setImage(icons.counting)
-  if (minimize) {
+  if (config.get('autoHide')) {
     trayWindow.hide()
   }
 })
@@ -355,6 +355,14 @@ function createTray () {
       label: 'Enable Launch At Login',
       click (event) {
         toggleAutoLaunch(event.checked)
+      }
+    },
+    {
+      type: 'checkbox',
+      checked: config.get('autoHide'),
+      label: 'Auto hide on start',
+      click (event) {
+        config.set('autoHide', event.checked)
       }
     },
     {

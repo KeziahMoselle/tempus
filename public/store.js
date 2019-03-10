@@ -10,6 +10,7 @@ const config = new Store({
     numberOfCycle: 0, // Disable cycle by default
     lastTimeUpdated: false,
     autoLaunch: false,
+    autoHide: false,
     goals: []
   }
 })
