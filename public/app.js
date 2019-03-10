@@ -49,11 +49,14 @@ ipcMain.on('idle', () => {
 /* Change icon on counting + notification */
 
 ipcMain.on('counting', (event) => {
-  
   tray.setImage(icons.counting)
   if (config.get('autoHide')) {
     trayWindow.hide()
   }
+})
+
+ipcMain.on('updateTrayIcon', (event, iconName) => {
+  tray.setImage(icons[iconName])
 })
 
 /* Change icon on pausing + notification */

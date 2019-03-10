@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 export default ({
   state,
@@ -17,7 +17,7 @@ export default ({
   const borderWidth = (percentage * 2.78) + 56 // 334px to fill (2.78 + 0.56)
 
   return (
-    <>
+    <Fragment>
       <div className={`counter ${state}`} style={{borderWidth: borderWidth + 'px'}}></div>
       { state &&
         <h1 className="percentage">{ percentage }%</h1>
@@ -25,10 +25,8 @@ export default ({
       { !state &&
         <h1 className="percentage">{ Math.floor(total / 60) }m</h1>
       }
-    </>
+    </Fragment>
   )
 }
 
-const toPercentage = (seconds, total) => {
-  return Math.round((seconds / total * 100).toFixed(1))
-}
+const toPercentage = (seconds, total) => parseInt(Math.round((seconds / total * 100).toFixed(0)), 10)

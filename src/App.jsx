@@ -81,6 +81,26 @@ class App extends Component {
       state: 'counting'
     })
 
+    // Update icon at 25%
+    this.timeout25 = setTimeout(() => {
+      window.ipcRenderer.send('updateTrayIcon', 'one')
+    }, (this.state.total * 0.25) * 1000)
+
+    // Update icon at 50%
+    this.timeout50 = setTimeout(() => {
+      window.ipcRenderer.send('updateTrayIcon', 'two')
+    }, (this.state.total * 0.50) * 1000)
+
+    // Update icon at 75%
+    this.timeout75 = setTimeout(() => {
+      window.ipcRenderer.send('updateTrayIcon', 'three')
+    }, (this.state.total * 0.75) * 1000)
+
+    // Update icon at 90%
+    this.timeout90 = setTimeout(() => {
+      window.ipcRenderer.send('updateTrayIcon', 'four')
+    }, (this.state.total * 0.90) * 1000)
+
     window.ipcRenderer.send('counting')
   }
   
@@ -125,6 +145,7 @@ class App extends Component {
       /* Begin to count pause */
       return this.pauseInterval = setInterval(this.incrementPause, 1000)
     }
+
     // Continue to increment the count variable
     this.setState(prevState => ({
       count: prevState.count + 1
@@ -200,6 +221,11 @@ class App extends Component {
   stop = (isManual) => {
     clearInterval(this.countInterval)
     clearInterval(this.pauseInterval)
+
+    clearTimeout(this.timeout25)
+    clearTimeout(this.timeout50)
+    clearTimeout(this.timeout75)
+    clearTimeout(this.timeout90)
 
     this.setState({
       state: '',
