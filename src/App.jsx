@@ -237,7 +237,13 @@ class App extends Component {
       this.revertValues()
       
       // Display the notification 'You finished the pomodoro'
+      // If it's manual -> don't show
       window.ipcRenderer.send('finished', isManual)
+    }
+
+    if (isManual) {
+      // Cancel the pausing timeout 'You must work during...'
+      window.ipcRenderer.send('pausing', isManual)
     }
 
     window.ipcRenderer.send('idle')

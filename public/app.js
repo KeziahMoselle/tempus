@@ -60,8 +60,13 @@ ipcMain.on('updateTrayIcon', (event, iconName) => {
 })
 
 /* Change icon on pausing + notification */
+let workTimeout
 
-ipcMain.on('pausing', () => {
+ipcMain.on('pausing', (event, isManual) => {
+  if (isManual) {
+    return clearTimeout(workTimeout)
+  }
+
   tray.setImage(icons.pausing)
   const pauseTime = config.get('pause') / 60
 
@@ -71,7 +76,7 @@ ipcMain.on('pausing', () => {
       body: `You have a break of ${pauseTime} minutes.`
     }).show()
   
-    setTimeout(() => {
+    workTimeout = setTimeout(() => {
       new Notification({
         title: 'Pomodoro',
         body: `You must work during ${config.get('work') / 60} minutes`
