@@ -3,7 +3,7 @@
 </p>
 
 <h2 align="center">
-  Pomodoro
+  Tempus
 </h2>
 
 <p align="center">
@@ -30,7 +30,7 @@
 </p>
 
 <p align="center">
-  <img width="90%" src="./.github/cover.png" alt="Pomodoro cover">
+  <img width="90%" src="./.github/cover.png" alt="Tempus cover">
 </p>
 
 <h2>

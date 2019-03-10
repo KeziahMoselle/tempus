@@ -72,13 +72,13 @@ ipcMain.on('pausing', (event, isManual) => {
 
   if (config.get('showNotifications')) {
     new Notification({
-      title: 'Pomodoro',
+      title: 'Tempus',
       body: `You have a break of ${pauseTime} minutes.`
     }).show()
   
     workTimeout = setTimeout(() => {
       new Notification({
-        title: 'Pomodoro',
+        title: 'Tempus',
         body: `You must work during ${config.get('work') / 60} minutes`
       }).show()
     }, pauseTime * 60 * 1000)
@@ -92,7 +92,7 @@ ipcMain.on('pausing', (event, isManual) => {
 ipcMain.on('finished', (event, isManual) => {
   if (config.get('showNotifications') && !isManual) {
     new Notification({
-      title: 'Pomodoro',
+      title: 'Tempus',
       body: `You finished the pomodoro !`
     }).show()
   }
@@ -117,7 +117,6 @@ ipcMain.on('handshake', () => {
   
   if (storeData[currentDayIndex - 1]) {
     // Add yesterday streak if it exists
-    console.log(storeData[currentDayIndex - 1])
     todayStreak += storeData[currentDayIndex - 1].streak
   }
 
@@ -355,7 +354,7 @@ function createWindow () {
 
 function createTray () {
   tray = new Tray(icons.idle)
-  tray.setToolTip('Pomodoro, click to open')
+  tray.setToolTip('Tempus, click to open')
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show/Hide...',
