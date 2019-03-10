@@ -99,13 +99,28 @@ ipcMain.on('finished', (event, isManual) => {
 */
 
 ipcMain.on('handshake', () => {
-  const index = config.get('lastTimeUpdated.index') || null
-  const streak = data.get(`data.${index}.streak`) || 0
+  const currentDayIndex = config.get('lastTimeUpdated.index')
+  const storeData = data.get('data')
+
+  // default value
+  let todayStreak = 0
+
+  // 
+  if (storeData[currentDayIndex]) { // Get streak if it exists
+    todayStreak = storeData[currentDayIndex].streak
+  } 
+  
+  if (storeData[currentDayIndex - 1]) {
+    // Add yesterday streak if it exists
+    console.log(storeData[currentDayIndex - 1])
+    todayStreak += storeData[currentDayIndex - 1].streak
+  }
+
 
   trayWindow.webContents.send('handshake', {
     work: config.get('work'),
     pause: config.get('pause'),
-    sessionStreak: streak,
+    sessionStreak: todayStreak,
     numberOfCycle: config.get('numberOfCycle')
   })
 })
@@ -150,7 +165,7 @@ ipcMain.on('getData', () => {
   let todayStreak = 0 // default value
   let todayMinutes = 0 // default value
   if (storeData[currentDayIndex]) { // Get streak if it exists
-    todayStreak = Math.round(storeData[currentDayIndex].streak)
+    todayStreak = storeData[currentDayIndex].streak
     todayMinutes = Math.round(storeData[currentDayIndex].value)
   }
 
