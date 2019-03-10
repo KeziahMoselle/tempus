@@ -183,7 +183,7 @@ ipcMain.on('getBarChartData', () => {
   const payload = data.get('data')
     .slice(-7)
     .map(object => ({
-      t: new Date(object.day),
+      t: new Date(object.day).toLocaleDateString('en-US'),
       y: object.value
     }))
   trayWindow.webContents.send('getBarChartData', payload)
