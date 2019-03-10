@@ -61,28 +61,33 @@ ipcMain.on('counting', (event) => {
 ipcMain.on('pausing', () => {
   tray.setImage(icons.pausing)
   const pauseTime = config.get('pause') / 60
-  new Notification({
-    title: 'Pomodoro',
-    body: `You have a break of ${pauseTime} minutes.`
-  }).show()
 
-  setTimeout(() => {
+  if (config.get('showNotifications')) {
     new Notification({
       title: 'Pomodoro',
-      body: `You must work during ${config.get('work') / 60} minutes`
+      body: `You have a break of ${pauseTime} minutes.`
     }).show()
-  }, pauseTime * 60 * 1000)
+  
+    setTimeout(() => {
+      new Notification({
+        title: 'Pomodoro',
+        body: `You must work during ${config.get('work') / 60} minutes`
+      }).show()
+    }, pauseTime * 60 * 1000)
+  }
 })
 
 /* When the max number of cycle has been reached,
  * Show a notification
 */
 
-ipcMain.on('finished', () => {
-  new Notification({
-    title: 'Pomodoro',
-    body: `You finished the pomodoro !`
-  }).show()
+ipcMain.on('finished', (event, isManual) => {
+  if (config.get('showNotifications') && !isManual) {
+    new Notification({
+      title: 'Pomodoro',
+      body: `You finished the pomodoro !`
+    }).show()
+  }
 })
 
 /* 
@@ -363,6 +368,14 @@ function createTray () {
       label: 'Auto hide on start',
       click (event) {
         config.set('autoHide', event.checked)
+      }
+    },
+    {
+      type: 'checkbox',
+      checked: config.get('showNotifications'),
+      label: 'Show notifications',
+      click (event) {
+        config.set('showNotifications', event.checked)
       }
     },
     {

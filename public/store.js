@@ -11,6 +11,7 @@ const config = new Store({
     lastTimeUpdated: false,
     autoLaunch: false,
     autoHide: false,
+    showNotifications: true,
     goals: []
   }
 })

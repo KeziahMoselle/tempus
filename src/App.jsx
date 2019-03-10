@@ -211,7 +211,7 @@ class App extends Component {
       this.revertValues()
       
       // Display the notification 'You finished the pomodoro'
-      window.ipcRenderer.send('finished')
+      window.ipcRenderer.send('finished', isManual)
     }
 
     window.ipcRenderer.send('idle')
