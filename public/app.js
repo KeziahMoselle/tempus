@@ -179,6 +179,7 @@ ipcMain.on('getBarChartData', () => {
 ipcMain.on('getHeatmapChartData', () => {
   const payload = data.get('data').map(object => ({
     date: object.day,
+    value: object.value,
     streak: object.streak
   }))
 

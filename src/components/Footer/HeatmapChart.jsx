@@ -38,7 +38,7 @@ export default () => {
             }}
             tooltipDataAttrs={value => {
               if (!value.date) return { 'data-tip': 'No streak' }
-              return { 'data-tip': `${new Date(value.date).toDateString()} : Streak: ${value.streak}` }
+              return { 'data-tip': `${new Date(value.date).toDateString()} : ${value.value} min (Streak: ${value.streak})` }
             }}
           />
           <ReactTooltip />
