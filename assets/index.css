@@ -141,7 +141,7 @@ button:hover {
 }
 
 .heading {
-  font-size: 56px;
+  font-size: 40px;
   margin-bottom: 24px;
 }
 
@@ -228,6 +228,10 @@ header img {
   padding: 64px 0;
 }
 
+.features h2 {
+  text-align: center;
+}
+
 .feature {
   display: flex;
   flex-direction: column;
@@ -266,6 +270,34 @@ header img {
 
 /**
  *
+ * PRICING
+ *
+ */
+
+.pricing {
+  background-color: #041029;
+  color: white;
+  padding: 64px 0;
+  margin-bottom: 64px;
+}
+
+.pricing h2 {
+  text-align: center;
+}
+
+.pricing h3 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.pricing p {
+  font-size: 20px;
+}
+
+
+/**
+ *
  * FOOTER
  *
  */
@@ -275,10 +307,6 @@ footer {
   flex-direction: column;
   align-items: center;
   padding: 0 32px 128px 32px;
-}
-
-footer h2 {
-  font-size: 42px;
 }
 
 
@@ -299,7 +327,7 @@ footer h2 {
   border-radius: 3px;
 }
 
-.team img {
+.team .avatar {
   border-radius: 50%;
   height: 128px;
 }
@@ -321,6 +349,7 @@ footer h2 {
   text-align: center;
   font-size: 18px;
   margin: 16px 0 0 0;
+  line-height: 1.5;
 }
 
 .team .links {
@@ -333,4 +362,55 @@ footer h2 {
   text-decoration: none;
   margin: 0 8px;
   color: #0065ff;
+}
+
+
+/**
+ *
+ * BMC
+ *
+ */
+
+.bmc-button img {
+  width: 27px;
+  margin-bottom: 1px;
+  box-shadow: none;
+  border: none;
+  vertical-align: middle;
+}
+
+.bmc-button {
+  line-height: 36px;
+  height: 37px;
+  text-decoration: none;
+  display: inline-flex;
+  color: #ffffff;
+  background-color: #FF813F;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  padding: 0px 9px;
+  font-size: 17px;
+  letter-spacing: -0.08px;
+  margin: 16px 0 0 0;
+  font-family: 'Lato', sans-serif;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -o-transition: 0.3s all linear;
+  -webkit-transition: 0.3s all linear;
+  -moz-transition: 0.3s all linear;
+  -ms-transition: 0.3s all linear;
+  transition: 0.3s all linear;
+}
+
+.bmc-button span {
+  margin-left:5px
+}
+
+.bmc-button:hover,
+.bmc-button:active,
+.bmc-button:focus {
+  transform: translateY(-3px);
+  text-decoration: none;
+  opacity: 0.85;
+  color: #ffffff;
 }
