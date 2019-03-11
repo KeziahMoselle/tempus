@@ -15,16 +15,16 @@
     <img alt="Windows Release Badge" src="https://img.shields.io/appveyor/ci/keziahmoselle/pomodoro/master.svg?label=build%3Awindows&style=flat-square">
   </a>
     
-  <a href="https://travis-ci.org/KeziahMoselle/pomodoro">
-    <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/pomodoro.svg?label=build%3Amac&style=flat-square">
+  <a href="https://travis-ci.org/KeziahMoselle/tempus">
+    <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/tempus.svg?label=build%3Amac&style=flat-square">
   </a>
   
-  <a href="https://github.com/KeziahMoselle/pomodoro/releases/latest">
-    <img alt="Version" src="https://img.shields.io/github/tag/KeziahMoselle/pomodoro.svg?label=version&style=flat-square">
+  <a href="https://github.com/KeziahMoselle/tempus/releases/latest">
+    <img alt="Version" src="https://img.shields.io/github/tag/KeziahMoselle/tempus.svg?label=version&style=flat-square">
   </a>
 
-  <a href="https://github.com/KeziahMoselle/pomodoro/commits/master"> 
-    <img alt="Last commit" src="https://img.shields.io/github/last-commit/KeziahMoselle/pomodoro/master.svg?style=flat-square">
+  <a href="https://github.com/KeziahMoselle/tempus/commits/master"> 
+    <img alt="Last commit" src="https://img.shields.io/github/last-commit/KeziahMoselle/tempus/master.svg?style=flat-square">
   </a>
   
 </p>
