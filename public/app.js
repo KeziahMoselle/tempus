@@ -27,10 +27,10 @@ const icons = require('./icons')
 let tray
 let trayWindow
 let positioner
-const autoLauncher = new AutoLaunch({ name: 'pomodoro' })
+const autoLauncher = new AutoLaunch({ name: 'tempus' })
 
 
-app.setAppUserModelId('com.electron.pomodoro')
+app.setAppUserModelId('com.electron.tempus')
 
 /* Create the application */
 
@@ -71,16 +71,10 @@ ipcMain.on('pausing', (event, isManual) => {
   const pauseTime = config.get('pause') / 60
 
   if (config.get('showNotifications')) {
-    new Notification({
-      title: 'Tempus',
-      body: `You have a break of ${pauseTime} minutes.`
-    }).show()
+    showNotification(`You have a break of ${pauseTime} minutes.`)
   
     workTimeout = setTimeout(() => {
-      new Notification({
-        title: 'Tempus',
-        body: `You must work during ${config.get('work') / 60} minutes`
-      }).show()
+      showNotification(`You must work during ${config.get('work') / 60} minutes`)
     }, pauseTime * 60 * 1000)
   }
 })
@@ -91,10 +85,7 @@ ipcMain.on('pausing', (event, isManual) => {
 
 ipcMain.on('finished', (event, isManual) => {
   if (config.get('showNotifications') && !isManual) {
-    new Notification({
-      title: 'Tempus',
-      body: `You finished the pomodoro !`
-    }).show()
+    showNotification('You finished the pomodoro !')
   }
 })
 
@@ -404,7 +395,7 @@ function createTray () {
     {
       label: 'Feedback && Support...',
       click () {
-        shell.openExternal('https://github.com/KeziahMoselle/pomodoro/issues/new')
+        shell.openExternal('https://github.com/KeziahMoselle/tempus/issues/new')
       }
     },
     {
@@ -439,4 +430,12 @@ function toggleWindow () {
 function toggleAutoLaunch (isEnabled) {
   isEnabled ? autoLauncher.enable() : autoLauncher.disable()
   config.set('autoLaunch', isEnabled)
+}
+
+function showNotification (body) {
+  new Notification({
+    title: 'Tempus',
+    icon: process.platform === 'win32' ? icons.idle : null,
+    body: body
+  }).show()
 }
