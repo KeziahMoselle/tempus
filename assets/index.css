@@ -58,6 +58,10 @@ html, body {
   font-family: 'Montserrat', sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .container {
   padding: 32px;
   max-width: 1020px;
@@ -212,7 +216,25 @@ header img {
 .hero img {
   margin-top: 64px;
   object-fit: contain;
-  width: 100%;
+}
+
+.gif-box {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 64px;
+  border: 3px solid black;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.1);
+}
+
+.gif-box img {
+  margin-top: 0;
+  height: auto;
+  width: 280px;
+  padding: 16px;
 }
 
 
