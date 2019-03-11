@@ -414,3 +414,33 @@ footer {
   opacity: 0.85;
   color: #ffffff;
 }
+
+
+/**
+ *
+ * ADS
+ *
+ */
+
+.ads {
+  margin-top: 128px;
+  border-top: 1px solid rgba(0, 0 ,0 ,0.1);
+}
+
+.ads h2 {
+  text-align: center;
+}
+
+.ads iframe {
+  border:0;
+  width:320px;
+  height:144px;
+  margin: 0 16px;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11),
+              0 1px 3px rgba(0,0,0,.08);
+  transition: transform 0.3s;
+}
+
+.ads iframe:hover {
+  transform: translateY(-3px);
+}
