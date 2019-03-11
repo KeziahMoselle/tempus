@@ -134,6 +134,7 @@ class App extends Component {
 
         // Display the notification 'You finished the pomodoro'
         window.ipcRenderer.send('finished')
+        window.ipcRenderer.send('updateData', this.state.total / 60)
 
         return this.stop()
       }
