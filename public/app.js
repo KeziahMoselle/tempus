@@ -387,6 +387,7 @@ function createTray () {
         config.set('showNotifications', event.checked)
       }
     },
+    { type: 'separator' },
     {
       label: 'Feedback && Support...',
       click () {
