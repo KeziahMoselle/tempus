@@ -67,7 +67,9 @@ ipcMain.on('pausing', (event, isManual) => {
   tray.setImage(icons.pausing)
   const pauseTime = config.get('pause') / 60
 
-  showNotification(`You have a break of ${pauseTime} minutes.`)
+  if (!isManual) {
+    showNotification(`You have a break of ${pauseTime} minutes.`)
+  }
 })
 
 /* When the max number of cycle has been reached,
