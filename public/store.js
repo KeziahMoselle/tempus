@@ -20,7 +20,19 @@ const config = new Store({
   }
 })
 
-// Store streak and informations
+
+/**
+ *
+ * Store streak and informations
+ * 
+ * Data structure :
+ *  {
+ *	  "day": "yyyy-mm-dd",    Record's date
+ *    "value": 0,             Work time 
+ *	  "streak": 0             Streak
+ *  }
+ *
+ */
 const data = new Store({
   name: 'data',
   defaults: {
@@ -44,6 +56,15 @@ if (localData.length >= 2) {
   fillEmptyDates(localData)
 }
 
+
+/**
+ * Set a new key at startup
+ * to mutate this object later
+ * Also set the `lastTimeUpdated` config key
+ * With the current date and the index to mutate
+ *
+ * @param {object} newData Local data
+ */
 function setNewKey (newData) {
   // Push the new item
   const index = newData.push({
@@ -62,6 +83,12 @@ function setNewKey (newData) {
   })
 }
 
+
+/**
+ * Mutate the object to save the user activity
+ *
+ * @param {number} timePassed Work time passed to add
+ */
 function updateData (timePassed) {
   const newData = data.get('data')
   const index = newData.length - 1
@@ -77,6 +104,13 @@ function updateData (timePassed) {
   data.set('data', newData)
 }
 
+
+/**
+ * It will fill empty objects between two dates
+ * It fixes partial chart data
+ *
+ * @param {object} entries
+ */
 function fillEmptyDates (entries) {
   // Check for potential empty dates
   const lastEntry = entries[entries.length - 2].day

@@ -74,9 +74,10 @@ ipcMain.on('pausing', (event, isManual) => {
   }
 })
 
-/* When the max number of cycle has been reached,
+/* 
+ * When the max number of cycle has been reached,
  * Show a notification
-*/
+ */
 
 ipcMain.on('finished', (event, isManual) => {
   if (!isManual) {
@@ -100,13 +101,13 @@ ipcMain.on('handshake', () => {
   // default value
   let todayStreak = 0
 
-  // 
-  if (storeData[currentDayIndex]) { // Get streak if it exists
+  // Get streak if it exists
+  if (storeData[currentDayIndex]) { 
     todayStreak = storeData[currentDayIndex].streak
   } 
   
+  // Add yesterday streak if it exists
   if (storeData[currentDayIndex - 1]) {
-    // Add yesterday streak if it exists
     todayStreak += storeData[currentDayIndex - 1].streak
   }
 
@@ -230,7 +231,7 @@ ipcMain.on('removeGoal', (event, { type, value }) => {
   // Save
   config.set('goals', goalsConfig)
 
-  // Refresh the app
+  // Update the UI
   event.sender.send('refreshGoals')
 })
 
