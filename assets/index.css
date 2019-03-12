@@ -172,6 +172,19 @@ header img {
   height: 48px;
 }
 
+header button img {
+  height: 24px;
+  margin-right: 6px;
+}
+
+header button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
 
 /**
  *
@@ -343,7 +356,7 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 30px 40px;
   min-height: 360px;
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 3px;
@@ -457,7 +470,7 @@ footer {
   border:0;
   width:320px;
   height:144px;
-  margin: 0 16px;
+  margin: 16px;
   box-shadow: 0 4px 6px rgba(50,50,93,.11),
               0 1px 3px rgba(0,0,0,.08);
   transition: transform 0.3s;
