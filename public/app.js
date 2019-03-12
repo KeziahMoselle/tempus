@@ -54,7 +54,9 @@ ipcMain.on('counting', (event, displayWorkNotification) => {
     trayWindow.hide()
   }
 
-  showNotification(`You must work during ${config.get('work') / 60} minutes`)
+  if (displayWorkNotification) {
+    showNotification(`You must work during ${config.get('work') / 60} minutes`)
+  }
 })
 
 ipcMain.on('updateTrayIcon', (event, iconName) => {
