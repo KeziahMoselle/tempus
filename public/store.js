@@ -8,9 +8,13 @@ const config = new Store({
     work: 1500, // 25 minutes in sec
     pause: 300, // 5 minutes in sec
     numberOfCycle: 0, // Disable cycle by default
-    lastTimeUpdated: false,
-    autoLaunch: false,
-    autoHide: false,
+    lastTimeUpdated: {
+      ISODate: null, // The current date in ISO Format
+      index: null // The current index of the data to mutate
+    },
+    autoLaunch: false, // Launch the app on OS start
+    autoHide: false, // Hide the window when the user click on the start btn
+    autoShowOnFinish: false, // Show the window when the pomodoro is finished
     showNotifications: true,
     goals: []
   }

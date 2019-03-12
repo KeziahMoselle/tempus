@@ -82,6 +82,10 @@ ipcMain.on('finished', (event, isManual) => {
   if (!isManual) {
     showNotification('You finished the pomodoro !')
   }
+
+  if (config.get('autoShowOnFinish')) {
+    trayWindow.show()
+  }
 })
 
 /* 
@@ -365,6 +369,14 @@ function createTray () {
     { type: 'separator' },
     {
       type: 'checkbox',
+      checked: config.get('showNotifications'),
+      label: 'Enable notifications',
+      click (event) {
+        config.set('showNotifications', event.checked)
+      }
+    },
+    {
+      type: 'checkbox',
       checked: config.get('autoLaunch'),
       label: 'Enable Launch At Login',
       click (event) {
@@ -374,17 +386,17 @@ function createTray () {
     {
       type: 'checkbox',
       checked: config.get('autoHide'),
-      label: 'Auto hide on start',
+      label: 'Auto hide window on start',
       click (event) {
         config.set('autoHide', event.checked)
       }
     },
     {
       type: 'checkbox',
-      checked: config.get('showNotifications'),
-      label: 'Show notifications',
+      checked: config.get('autoShowOnFinish'),
+      label: 'Auto show window on finish',
       click (event) {
-        config.set('showNotifications', event.checked)
+        config.set('autoShowOnFinish', event.checked)
       }
     },
     { type: 'separator' },
