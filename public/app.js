@@ -48,11 +48,13 @@ ipcMain.on('idle', () => {
 
 /* Change icon on counting + notification */
 
-ipcMain.on('counting', (event) => {
+ipcMain.on('counting', (event, displayWorkNotification) => {
   tray.setImage(icons.counting)
   if (config.get('autoHide')) {
     trayWindow.hide()
   }
+
+  showNotification(`You must work during ${config.get('work') / 60} minutes`)
 })
 
 ipcMain.on('updateTrayIcon', (event, iconName) => {
@@ -60,23 +62,12 @@ ipcMain.on('updateTrayIcon', (event, iconName) => {
 })
 
 /* Change icon on pausing + notification */
-let workTimeout
 
 ipcMain.on('pausing', (event, isManual) => {
-  if (isManual) {
-    return clearTimeout(workTimeout)
-  }
-
   tray.setImage(icons.pausing)
   const pauseTime = config.get('pause') / 60
 
-  if (config.get('showNotifications')) {
-    showNotification(`You have a break of ${pauseTime} minutes.`)
-  
-    workTimeout = setTimeout(() => {
-      showNotification(`You must work during ${config.get('work') / 60} minutes`)
-    }, pauseTime * 60 * 1000)
-  }
+  showNotification(`You have a break of ${pauseTime} minutes.`)
 })
 
 /* When the max number of cycle has been reached,
@@ -84,7 +75,7 @@ ipcMain.on('pausing', (event, isManual) => {
 */
 
 ipcMain.on('finished', (event, isManual) => {
-  if (config.get('showNotifications') && !isManual) {
+  if (!isManual) {
     showNotification('You finished the pomodoro !')
   }
 })
@@ -433,9 +424,11 @@ function toggleAutoLaunch (isEnabled) {
 }
 
 function showNotification (body) {
-  new Notification({
-    title: 'Tempus',
-    icon: process.platform === 'win32' ? icons.idle : null,
-    body: body
-  }).show()
+  if (config.get('showNotifications')) {
+    new Notification({
+      title: 'Tempus',
+      icon: process.platform === 'win32' ? icons.idle : null,
+      body: body
+    }).show()
+  }
 }

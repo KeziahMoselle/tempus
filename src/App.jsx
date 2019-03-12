@@ -74,7 +74,7 @@ class App extends Component {
    * Creates the `countInterval` variable
    * Send `counting` event to the main process
    */
-  start = () => {
+  start = (displayWorkNotification) => {
     if (this.state.state === 'counting') return // If already counting return
     this.countInterval = setInterval(this.increment, 1000)
     this.setState({
@@ -101,7 +101,7 @@ class App extends Component {
       window.ipcRenderer.send('updateTrayIcon', 'four')
     }, (this.state.total * 0.90) * 1000)
 
-    window.ipcRenderer.send('counting')
+    window.ipcRenderer.send('counting', displayWorkNotification)
   }
   
 
@@ -164,7 +164,7 @@ class App extends Component {
       // Max value for `state.countPause`
       // Switch into the `countInterval`
       this.stop()
-      return this.start()
+      return this.start(true) // True to display the work notification
     }
     this.setState(prevState => ({
       countPause: prevState.countPause + 1
