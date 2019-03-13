@@ -347,8 +347,9 @@ function createWindow () {
       .then(name => console.log('Added extension : ', name))
       .catch(error => console.log(error))
     trayWindow.webContents.openDevTools()
-    trayWindow.on('ready-to-show', () => trayWindow.show())
   }
+
+  trayWindow.on('ready-to-show', () => trayWindow.show())
 }
 
 function createTray () {
