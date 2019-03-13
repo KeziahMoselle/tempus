@@ -328,7 +328,15 @@ function createWindow () {
   }
 
   positioner = new Positioner(trayWindow)
-  positioner.move(`${process.platform === 'win32' ? 'trayBottomCenter' : 'trayCenter'}`, tray.getBounds())
+  let trayPosition
+  if (process.platform === 'win32') {
+    trayPosition = 'trayBottomCenter'
+  } else if (process.platform === 'darwin') {
+    trayPosition = 'trayCenter'
+  } else {
+    trayPosition = 'trayRight'
+  }
+  positioner.move(trayPosition, tray.getBounds())
 
   if (isDev) {
     const {
