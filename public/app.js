@@ -43,12 +43,12 @@ app.on('ready', () => {
     if (latestVersionAvailable()) {
       const notification = new Notification({
         title: 'Tempus',
-        body: 'Click to download the new version on GitHub !'
+        body: 'Click to download the new version on the Website !'
       })
 
       notification.show()
 
-      notification.on('click', () => shell.openExternal('https://github.com/KeziahMoselle/tempus/releases/latest'))
+      notification.on('click', () => shell.openExternal('https://tempus.keziahmoselle.fr/'))
     }
   } else {
     autoUpdater.checkForUpdatesAndNotify()
