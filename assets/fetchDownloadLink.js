@@ -1,6 +1,12 @@
 fetch('https://api.github.com/repos/KeziahMoselle/tempus/releases/latest')
   .then(response => response.json())
-  .then(({ assets }) => {
+  .then(({ name, assets }) => {
+    checkFromversion(name)
+    updateDownloadLinks(assets)
+  })
+
+
+  function updateDownloadLinks (assets) {
     let windowsLink
     let macosLink
 
@@ -24,4 +30,16 @@ fetch('https://api.github.com/repos/KeziahMoselle/tempus/releases/latest')
       const element = macosAnchor[i]
       element.href = macosLink
     }
-  })
+  }
+
+  function checkFromversion (name) {
+    if (window.location.search.startsWith('?from=')) {
+      const [, version] = window.location.search.split('=')
+      document.querySelector('h1').innerHTML = `Tempus <code class="old">${name}</code>`
+      document.querySelector('.hero h2').insertAdjacentHTML('afterend', `
+        <h3>Your version : ${version}</h3>
+      `)
+    } else {
+      document.querySelector('h1').innerHTML = `Tempus <code>${name}</code>`
+    }
+  }

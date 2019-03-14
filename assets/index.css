@@ -62,6 +62,14 @@ html, body {
   box-sizing: border-box;
 }
 
+code {
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+  font-size: 30%;
+  margin: 0;
+  padding: .2em .4em;
+}
+
 .container {
   padding: 32px;
   max-width: 1020px;
