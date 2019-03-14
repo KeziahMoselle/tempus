@@ -190,7 +190,13 @@ class App extends Component {
     const date = new Date()
 
     date.setHours(date.getHours() + 1)
-    const minutesValue = value || this.state.workTillDelayedMinutes
+    
+    let minutesValue
+    if (value === undefined) {
+      minutesValue = this.state.workTillDelayedMinutes
+    } else {
+      minutesValue = value
+    }
     date.setMinutes(minutesValue)
 
     const nextHour = date.toLocaleString('en-US', {
