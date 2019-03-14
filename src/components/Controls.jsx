@@ -9,7 +9,8 @@ export default ({
   setWork, setPause, resetTime,
   sessionStreak,
   setNumberOfCycle, numberOfCycle,
-  loadedConfig
+  loadedConfig,
+  setWorkTillDelayedMinutes, workTillDelayedMinutes
 }) => {
   // Is the footer full height or not ? (classname)
   const [isExtended, setIsExtended] = useState('')
@@ -52,7 +53,8 @@ export default ({
       window.ipcRenderer.send('updateConfig', {
         work: total,
         pause: totalPause,
-        numberOfCycle: numberOfCycle
+        numberOfCycle: numberOfCycle,
+        workTillDelayedMinutes: workTillDelayedMinutes
       })
       setIsTimerChanged(false)
     }
@@ -96,6 +98,8 @@ export default ({
             setNumberOfCycle={setNumberOfCycle}
             numberOfCycle={numberOfCycle}
             setIsTimerChanged={setIsTimerChanged}
+            workTillDelayedMinutes={workTillDelayedMinutes}
+            setWorkTillDelayedMinutes={setWorkTillDelayedMinutes}
           />
         }
 

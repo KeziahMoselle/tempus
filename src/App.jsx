@@ -16,6 +16,7 @@ class App extends Component {
     sessionStreak: 0, // Count the streak this session
     loadedConfig: false, // Is the config has been fetched
     nextHour: null,
+    workTillDelayedMinutes: 0, // Delayed minutes for 'Work till' (Allow working until 1.)
     shouldResetValues: { // Used for `workTillNearestHour()`
       shouldReset: false, // Should we revert the old values ?
       oldTotal: null, // Old value for total seconds
@@ -38,36 +39,20 @@ class App extends Component {
     // Send `handshake` event to receive new value from the store
     window.ipcRenderer.send('handshake')
     // Receive new values from the store
-    window.ipcRenderer.on('handshake', (event, data) => {
+    window.ipcRenderer.once('handshake', (event, data) => {
       this.setState({
         total: data.work,
         totalPause: data.pause,
         sessionStreak: data.sessionStreak,
         numberOfCycle: data.numberOfCycle,
         loadedConfig: true,
-        allowDrag: data.isDraggable
+        allowDrag: data.isDraggable,
+        workTillDelayedMinutes: data.workTillDelayedMinutes
       })
+
+      // Interval to update `this.state.nextHour`
+      this.updateNextHour(data.workTillDelayedMinutes)
     })
-  
-    // Interval to update `this.state.nextHour`
-    const updateNextHour = () => {
-      const date = new Date()
-      date.setHours(date.getHours() + 1)
-      const nextHour = date.toLocaleString('en-US', {
-        hour: 'numeric',
-        hour12: true
-      })
-
-      this.setState({
-        nextHour: nextHour
-      })
-
-      const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
-      // Pass this value to setInterval, to update the hour in the UI
-      return (60 - minutes)
-    }
-    const minutesUntilNextUpdate = updateNextHour()
-    setInterval(updateNextHour, 1000 * 60 * minutesUntilNextUpdate)
   }
 
 
@@ -182,7 +167,9 @@ class App extends Component {
     const date = new Date()
     const minutes = date.getMinutes() // i.e 32 (min)
     const seconds = date.getSeconds() // i.e 16 (sec)
-    const secondsOfWork = (60 - minutes) * 60 - seconds
+    const secondsOfWork = (60 - minutes + this.state.workTillDelayedMinutes) * 60 - seconds
+
+    console.log(secondsOfWork / 60)
 
     // Get old values to restore them later
     const { total, numberOfCycle } = this.state
@@ -199,6 +186,31 @@ class App extends Component {
 
     // Start the counter, but it will automatically stop after `secondsOfWork` seconds
     this.start()
+  }
+
+  updateNextHour = (value) => {
+    console.log(value)
+    const date = new Date()
+
+    date.setHours(date.getHours() + 1)
+    date.setMinutes(value)
+
+    const nextHour = date.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    })
+
+    console.log(nextHour)
+
+    this.setState({
+      nextHour: nextHour
+    })
+
+    const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
+
+    // Run again the next hour to update the UI
+    this.updateNextHourInterval = setInterval(this.updateNextHour, 1000 * 60 * (60 - minutes))
   }
 
   /**
@@ -300,6 +312,22 @@ class App extends Component {
   }
 
   /**
+   *  Set a new value for workTillDelayedMinutes
+   */
+  setWorkTillDelayedMinutes = (newValue) => {
+    if (newValue < 0) return
+    if (newValue > 59) return
+
+    clearInterval(this.updateNextHourInterval)
+
+    this.setState({
+      workTillDelayedMinutes: parseInt(newValue, 10)
+    })
+
+    this.updateNextHour(parseInt(newValue, 10))
+  }
+
+  /**
    *  Show a confirmation dialog before quit the app
    */
   quit = () => {
@@ -354,6 +382,8 @@ class App extends Component {
             setNumberOfCycle={this.setNumberOfCycle}
             numberOfCycle={this.state.numberOfCycle}
             loadedConfig={this.state.loadedConfig}
+            workTillDelayedMinutes={this.state.workTillDelayedMinutes}
+            setWorkTillDelayedMinutes={this.setWorkTillDelayedMinutes}
           />
           
         </div>

@@ -123,7 +123,8 @@ ipcMain.on('handshake', () => {
     pause: config.get('pause'),
     sessionStreak: todayStreak,
     numberOfCycle: config.get('numberOfCycle'),
-    isDraggable: config.get('allowDrag')
+    isDraggable: config.get('allowDrag'),
+    workTillDelayedMinutes: config.get('workTillDelayedMinutes')
   })
 })
 
@@ -133,10 +134,12 @@ ipcMain.on('updateConfig', (event, data) => {
   const work = config.get('work')
   const pause = config.get('pause')
   const numberOfCycle = config.get('numberOfCycle')
+  const workTillDelayedMinutes = config.get('workTillDelayedMinutes')
 
   if (work !== data.work) config.set('work', data.work)
   if (pause !== data.pause) config.set('pause', data.pause)
   if (numberOfCycle !== data.numberOfCycle) config.set('numberOfCycle', data.numberOfCycle)
+  if (workTillDelayedMinutes !== data.workTillDelayedMinutes) config.set('workTillDelayedMinutes', data.workTillDelayedMinutes)
 })
 
 
