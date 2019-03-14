@@ -20,6 +20,7 @@ const { autoUpdater } = require('electron-updater')
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
+const latestVersionAvailable = require('./utils/latestVersion')
 
 const { config, data, updateData } = require('./store')
 const icons = require('./icons')
@@ -37,7 +38,22 @@ app.setAppUserModelId('com.electron.tempus')
 app.on('ready', () => {
   createTray()
   createWindow()
-  autoUpdater.checkForUpdatesAndNotify()
+
+  if (process.platform === 'darwin') {
+    if (latestVersionAvailable()) {
+      const notification = new Notification({
+        title: 'Tempus',
+        icon: process.platform === 'win32' ? icons.idle : null,
+        body: 'Click to download the new version on GitHub !'
+      })
+
+      notification.show()
+
+      notification.on('click', () => shell.openExternal('https://github.com/KeziahMoselle/tempus/releases/latest'))
+    }
+  } else {
+    autoUpdater.checkForUpdatesAndNotify()
+  }
 })
 
 /* Change icon on idle */
