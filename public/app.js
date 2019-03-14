@@ -139,7 +139,9 @@ ipcMain.on('updateConfig', (event, data) => {
   if (work !== data.work) config.set('work', data.work)
   if (pause !== data.pause) config.set('pause', data.pause)
   if (numberOfCycle !== data.numberOfCycle) config.set('numberOfCycle', data.numberOfCycle)
-  if (workTillDelayedMinutes !== data.workTillDelayedMinutes) config.set('workTillDelayedMinutes', data.workTillDelayedMinutes)
+  if (data.workTillDelayedMinutes || data.workTillDelayedMinutes === 0) {
+    if (workTillDelayedMinutes !== data.workTillDelayedMinutes) config.set('workTillDelayedMinutes', data.workTillDelayedMinutes)
+  }
 })
 
 
