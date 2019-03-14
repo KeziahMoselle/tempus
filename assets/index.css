@@ -258,6 +258,17 @@ header button {
   padding: 16px;
 }
 
+.changelog {
+  margin-top: 48px;
+  width: fit-content;
+  padding: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.changelog h2 {
+  text-align: left;
+}
+
 
 /**
  *
