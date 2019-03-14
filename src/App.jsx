@@ -169,8 +169,6 @@ class App extends Component {
     const seconds = date.getSeconds() // i.e 16 (sec)
     const secondsOfWork = (60 - minutes + this.state.workTillDelayedMinutes) * 60 - seconds
 
-    console.log(secondsOfWork / 60)
-
     // Get old values to restore them later
     const { total, numberOfCycle } = this.state
 
@@ -189,7 +187,6 @@ class App extends Component {
   }
 
   updateNextHour = (value) => {
-    console.log(value)
     const date = new Date()
 
     date.setHours(date.getHours() + 1)
@@ -200,8 +197,6 @@ class App extends Component {
       minute: '2-digit',
       hour12: true
     })
-
-    console.log(nextHour)
 
     this.setState({
       nextHour: nextHour

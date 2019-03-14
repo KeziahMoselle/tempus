@@ -426,12 +426,8 @@ function createTray () {
       label: 'Enable drag window (restart)',
       click (event) {
         config.set('allowDrag', event.checked)
-
-        if (event.checked) {
-          trayWindow.setMovable(true)
-        } else {
-          trayWindow.setMovable(false)
-        }
+        app.relaunch()
+        app.quit()
       }
     },
     { type: 'separator' },
