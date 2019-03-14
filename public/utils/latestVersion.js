@@ -17,7 +17,7 @@ async function latestVersionAvailable () {
   
       notification.show()
   
-      notification.on('click', () => shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${name}`))
+      notification.on('click', () => shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${version}`))
       
       return
     } else {
