@@ -21,7 +21,8 @@ class App extends Component {
       oldTotal: null, // Old value for total seconds
       oldCycle: null // Old value for cycle
     },
-    finishedWelcome: false
+    finishedWelcome: false,
+    allowDrag: false
   }
 
   componentDidMount () {
@@ -43,7 +44,8 @@ class App extends Component {
         totalPause: data.pause,
         sessionStreak: data.sessionStreak,
         numberOfCycle: data.numberOfCycle,
-        loadedConfig: true
+        loadedConfig: true,
+        allowDrag: data.isDraggable
       })
     })
   
@@ -318,7 +320,7 @@ class App extends Component {
       return (
         <div className="container">
 
-          <div className="titlebar">
+          <div className={`titlebar ${this.state.allowDrag ? 'is-draggable' : null}`}>
             <div className={`streak ${this.state.sessionStreak > 0 ? 'in-a-row' : ''}`}>
               <p>
                 <span role="img" aria-label="fire streak">🔥</span>

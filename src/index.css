@@ -132,6 +132,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .titlebar .streak {
+  -webkit-app-region: no-drag;
   padding: 6px 14px;
   font-weight: 600;
   font-size: 0.6em;
@@ -151,8 +152,13 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .titlebar .controls {
+  -webkit-app-region: no-drag;
   background-color: transparent;
   border-bottom-left-radius: 4px;
+}
+
+.titlebar.is-draggable {
+  -webkit-app-region: drag;
 }
 
 .titlebar i {

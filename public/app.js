@@ -132,7 +132,8 @@ ipcMain.on('handshake', () => {
     work: config.get('work'),
     pause: config.get('pause'),
     sessionStreak: todayStreak,
-    numberOfCycle: config.get('numberOfCycle')
+    numberOfCycle: config.get('numberOfCycle'),
+    isDraggable: config.get('allowDrag')
   })
 })
 
@@ -318,7 +319,7 @@ function createWindow () {
     width: 400,
     height: 550,
     resizable: false,
-    movable: false,
+    movable: config.get('allowDrag'),
     fullscreenable: false,
     alwaysOnTop: true,
     icon: icons.idle,
@@ -423,6 +424,20 @@ function createTray () {
       label: 'Auto show window on finish',
       click (event) {
         config.set('autoShowOnFinish', event.checked)
+      }
+    },
+    {
+      type: 'checkbox',
+      checked: config.get('allowDrag'),
+      label: 'Enable drag window (restart)',
+      click (event) {
+        config.set('allowDrag', event.checked)
+
+        if (event.checked) {
+          trayWindow.setMovable(true)
+        } else {
+          trayWindow.setMovable(false)
+        }
       }
     },
     { type: 'separator' },
