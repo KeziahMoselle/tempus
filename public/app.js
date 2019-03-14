@@ -40,16 +40,7 @@ app.on('ready', () => {
   createWindow()
 
   if (process.platform === 'darwin') {
-    if (latestVersionAvailable()) {
-      const notification = new Notification({
-        title: 'Tempus',
-        body: 'Click to download the new version on the Website !'
-      })
-
-      notification.show()
-
-      notification.on('click', () => shell.openExternal('https://tempus.keziahmoselle.fr/'))
-    }
+    latestVersionAvailable()
   } else {
     autoUpdater.checkForUpdatesAndNotify()
   }
