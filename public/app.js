@@ -371,6 +371,7 @@ function createWindow () {
 function createTray () {
   tray = new Tray(icons.idle)
   tray.setToolTip('Tempus, click to open')
+
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show/Hide...',
@@ -454,10 +455,19 @@ function createTray () {
       accelerator: 'CmdOrCtrl+Q'
     }
   ])
-  tray.setContextMenu(contextMenu)
+
 
   tray.on('click', () => toggleWindow())
-  tray.on('right-click', () => tray.popUpContextMenu())
+
+  if (process.platform === 'darwin') {
+    tray.on('right-click', () => {
+      tray.popUpContextMenu(contextMenu)
+      console.log('Right clicked')
+    })
+  } else {
+    tray.setContextMenu(contextMenu)
+    tray.on('right-click', () => tray.popUpContextMenu())
+  }
 }
 
 
