@@ -43,7 +43,6 @@ app.on('ready', () => {
     if (latestVersionAvailable()) {
       const notification = new Notification({
         title: 'Tempus',
-        icon: process.platform === 'win32' ? icons.idle : null,
         body: 'Click to download the new version on GitHub !'
       })
 
