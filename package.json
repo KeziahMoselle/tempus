@@ -20,6 +20,7 @@
     "auto-launch": "^5.0.5",
     "chart.js": "^2.7.3",
     "electron-is-dev": "^1.0.1",
+    "electron-log": "^3.0.1",
     "electron-positioner": "^4.1.0",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
