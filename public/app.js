@@ -157,13 +157,15 @@ ipcMain.on('updateConfig', (event, data) => {
   const pause = config.get('pause')
   const numberOfCycle = config.get('numberOfCycle')
   const workTillDelayedMinutes = config.get('workTillDelayedMinutes')
+  const format = config.get('format')
 
-  if (work !== data.work) config.set('work', data.work)
-  if (pause !== data.pause) config.set('pause', data.pause)
-  if (numberOfCycle !== data.numberOfCycle) config.set('numberOfCycle', data.numberOfCycle)
+  if (data.work && (work !== data.work)) config.set('work', data.work)
+  if (data.pause && (pause !== data.pause)) config.set('pause', data.pause)
+  if (data.numberOfCycle && (numberOfCycle !== data.numberOfCycle)) config.set('numberOfCycle', data.numberOfCycle)
   if (data.workTillDelayedMinutes || data.workTillDelayedMinutes === 0) {
     if (workTillDelayedMinutes !== data.workTillDelayedMinutes) config.set('workTillDelayedMinutes', data.workTillDelayedMinutes)
   }
+  if (data.format && (format !== data.format)) config.set('format', data.format)
 })
 
 
@@ -228,6 +230,12 @@ ipcMain.on('getHeatmapChartData', () => {
   }))
 
   trayWindow.webContents.send('getHeatmapChartData', payload)
+})
+
+/* Data for counter */
+
+ipcMain.on('getCounterData', () => {
+  trayWindow.webContents.send('getCounterData', config.get('format'))
 })
 
 

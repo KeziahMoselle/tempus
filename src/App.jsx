@@ -377,7 +377,10 @@ class App extends Component {
 
           <Counter {...this.state} />
 
-          <h6 onClick={this.workTillNearestHour} className={`sub-action ${this.state.state}`}>
+          <h6
+            onClick={this.workTillNearestHour}
+            className={`sub-action ${this.state.state}`}
+            style={{ marginTop: '300px' }}>
             Or work till {this.state.nextHour}.
           </h6>
 

@@ -8,6 +8,7 @@ const config = new Store({
     work: 1500, // 25 minutes in sec
     pause: 300, // 5 minutes in sec
     numberOfCycle: 0, // Disable cycle by default
+    format: 'percentage', // The counter format
     workTillDelayedMinutes: 0, // Delay for 'Work till'
     lastTimeUpdated: {
       ISODate: null, // The current date in ISO Format

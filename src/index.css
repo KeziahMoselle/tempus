@@ -73,6 +73,10 @@ body {
   font-family: 'Major Mono Display';
 }
 
+h1 {
+  z-index: 1;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
   padding: 0;
@@ -121,7 +125,7 @@ h1, h2, h3, h4, h5, h6, p {
  */
 
 .titlebar {
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   top: 0;
   right: 0;
@@ -194,6 +198,7 @@ h1, h2, h3, h4, h5, h6, p {
   border-radius: 50%;
   margin-bottom: 56px;
   transition: border 0.2s ease;
+  z-index: 1;
 }
 
 .counter.counting {
@@ -212,6 +217,7 @@ h1, h2, h3, h4, h5, h6, p {
   font-family: 'Major Mono Display';
   font-size: 1.8em;
   margin: 0;
+  cursor: pointer;
 }
 
 .counter.counting ~ .sub-action {
@@ -220,7 +226,6 @@ h1, h2, h3, h4, h5, h6, p {
 
 .sub-action {
   color: rgba(255, 255, 255, 0.3);
-  margin-top: 300px;
   font-size: 16px;
   cursor: pointer;
   transition: padding 0.2s,
@@ -235,6 +240,11 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 8px 12px;
   border-radius: 17px;
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sub-action.active {
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 17px;
 }
 
 .sub-action.counting, .sub-action.pausing {
