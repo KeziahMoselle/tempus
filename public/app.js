@@ -21,6 +21,8 @@ const { autoUpdater } = require('electron-updater')
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
+const log = require('electron-log')
+
 const latestVersionAvailable = require('./utils/latestVersion')
 
 const { config, data, updateData } = require('./store')
@@ -42,26 +44,20 @@ app.on('ready', () => {
   createWindow()
 
   
-  /**
-   * Global Shortcut : Toggle Window
-   */
+  // Global Shortcut : Toggle Window
   const shortcutToggleWindow = globalShortcut.register('Super+Alt+Up', () => {
     toggleWindow()
   })
-
   if (!shortcutToggleWindow) {
-    console.log('Unable to register: Super+Alt+Up')
+    log.warn('Unable to register: Super+Alt+Up')
   }
 
-  /**
-   * Global Shortcut : Toggle Counting/Stop
-   */
+  // Global Shortcut : Toggle Counting/Stop
   const shortcutToggleState = globalShortcut.register('Super+Alt+Down', () => {
     trayWindow.webContents.send('start')
   })
-
   if (!shortcutToggleState) {
-    console.log('Unable to register: Super+Alt+Down')
+    log.warn('Unable to register: Super+Alt+Down')
   }
 
   // Check for latest releases
