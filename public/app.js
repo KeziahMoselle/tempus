@@ -132,13 +132,7 @@ ipcMain.on('handshake', () => {
   // Get streak if it exists
   if (storeData[currentDayIndex]) { 
     todayStreak = storeData[currentDayIndex].streak
-  } 
-  
-  // Add yesterday streak if it exists
-  if (storeData[currentDayIndex - 1]) {
-    todayStreak += storeData[currentDayIndex - 1].streak
   }
-
 
   trayWindow.webContents.send('handshake', {
     work: config.get('work'),
