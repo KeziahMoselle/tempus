@@ -14,7 +14,8 @@ const {
   Tray,
   app,
   ipcMain,
-  shell
+  shell,
+  globalShortcut
 } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const Positioner = require('electron-positioner')
@@ -36,9 +37,34 @@ app.setAppUserModelId('com.electron.tempus')
 /* Create the application */
 
 app.on('ready', () => {
+  // Create the application
   createTray()
   createWindow()
 
+  
+  /**
+   * Global Shortcut : Toggle Window
+   */
+  const shortcutToggleWindow = globalShortcut.register('Super+Alt+Up', () => {
+    toggleWindow()
+  })
+
+  if (!shortcutToggleWindow) {
+    console.log('Unable to register: Super+Alt+Up')
+  }
+
+  /**
+   * Global Shortcut : Toggle Counting/Stop
+   */
+  const shortcutToggleState = globalShortcut.register('Super+Alt+Down', () => {
+    trayWindow.webContents.send('start')
+  })
+
+  if (!shortcutToggleState) {
+    console.log('Unable to register: Super+Alt+Down')
+  }
+
+  // Check for latest releases
   if (process.platform === 'darwin') {
     latestVersionAvailable()
   } else {

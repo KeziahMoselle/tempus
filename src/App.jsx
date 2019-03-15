@@ -34,8 +34,19 @@ class App extends Component {
     }
 
     // Listeners from the Tray menu
-    window.ipcRenderer.on('start', this.start)
-    window.ipcRenderer.on('stop', this.stop)
+    window.ipcRenderer.on('start', () => {
+      if (this.state.state === '') {
+        this.start()
+      } else {
+        this.stop()
+      }
+    })
+
+    window.ipcRenderer.on('stop', () => {
+      if (this.state.state) {
+        this.stop()
+      }
+    })
     // Send `handshake` event to receive new value from the store
     window.ipcRenderer.send('handshake')
     // Receive new values from the store
