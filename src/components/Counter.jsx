@@ -69,7 +69,7 @@ export default ({
         position: 'absolute',
         marginLeft: toggleFormat ? '140px' : '0',
         opacity: toggleFormat ? '1' : '0',
-        zIndex: '0',
+        zIndex: '2',
         marginTop: '10px',
         transition: 'transform 0.3s, opacity 0.3s, margin-left 0.3s'
       }}>
