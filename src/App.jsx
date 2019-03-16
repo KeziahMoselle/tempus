@@ -344,9 +344,7 @@ class App extends Component {
    *  Show a confirmation dialog before quit the app
    */
   quit = () => {
-    if (window.confirm('Do you really want to quit ?')) {
-      window.ipcRenderer.send('win-close')
-    }
+    window.ipcRenderer.send('win-close')
   }
 
   finishedWelcome = () => {
@@ -370,6 +368,7 @@ class App extends Component {
             </div>
 
             <div className="controls">
+              <i onClick={() => window.ipcRenderer.send('win-settings')} className="material-icons">settings</i>
               <i onClick={() => window.ipcRenderer.send('win-minimize')} className="material-icons">remove</i>
               <i onClick={this.quit} className="material-icons danger">close</i>
             </div>

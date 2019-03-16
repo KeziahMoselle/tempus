@@ -9,6 +9,7 @@ const path = require('path')
 
 const {
   BrowserWindow,
+  dialog,
   Menu,
   Notification,
   Tray,
@@ -323,7 +324,11 @@ ipcMain.on('win-minimize', () => {
   }
 })
 
-ipcMain.on('win-close', () => app.quit())
+ipcMain.on('win-close', () => {
+  if (showConfirmationBox('Do you really want to quit ?') === 0) {
+    app.quit()
+  }
+})
 
 
 /**
@@ -430,9 +435,11 @@ function createTray () {
       checked: config.get('allowDrag'),
       label: 'Enable drag window (restart)',
       click (event) {
-        config.set('allowDrag', event.checked)
-        app.relaunch()
-        app.quit()
+        if (showConfirmationBox('Do you want to restart to apply changes ?') === 0) {
+          config.set('allowDrag', event.checked)
+          app.relaunch()
+          app.quit()
+        }
       }
     }
   ]
@@ -510,6 +517,10 @@ function createTray () {
     tray.setContextMenu(contextMenu)
     tray.on('right-click', () => tray.popUpContextMenu())
   }
+
+  ipcMain.on('win-settings', () => {
+    tray.popUpContextMenu(Menu.buildFromTemplate(settings))
+  })
 }
 
 
@@ -540,4 +551,14 @@ function showNotification (body) {
       body: body
     }).show()
   }
+}
+
+function showConfirmationBox (message) {
+  const dialogOptions = {
+    type: 'info',
+    buttons: ['Confirm', 'Cancel'],
+    message
+  }
+
+  return dialog.showMessageBox(dialogOptions)
 }
