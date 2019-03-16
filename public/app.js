@@ -505,8 +505,7 @@ function createTray () {
       {
         label: 'Settings',
         submenu: [...settings]
-      },
-      menuTemplate[7]
+      }
     ])
     Menu.setApplicationMenu(appMenu)
 
