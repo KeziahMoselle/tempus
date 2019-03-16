@@ -17,13 +17,10 @@ const {
   shell,
   globalShortcut
 } = require('electron')
-const { autoUpdater } = require('electron-updater')
 const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
 const log = require('electron-log')
-
-const latestVersionAvailable = require('./utils/latestVersion')
 
 const { config, data, updateData } = require('./store')
 const icons = require('./icons')
@@ -62,8 +59,10 @@ app.on('ready', () => {
 
   // Check for latest releases
   if (process.platform === 'darwin') {
+    const latestVersionAvailable = require('./utils/latestVersion')
     latestVersionAvailable()
   } else {
+    const { autoUpdater } = require('electron-updater')
     autoUpdater.checkForUpdatesAndNotify()
   }
 })
