@@ -477,7 +477,6 @@ function createTray () {
   if (process.platform === 'darwin') {
     tray.on('right-click', () => {
       tray.popUpContextMenu(contextMenu)
-      console.log('Right clicked')
     })
   } else {
     tray.setContextMenu(contextMenu)
