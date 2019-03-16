@@ -255,7 +255,7 @@ h1, h2, h3, h4, h5, h6, p {
  */
 
 footer {
-  z-index: 2;
+  z-index: 4;
   height: 56px;
   width: 100%;
   position: absolute;
