@@ -391,28 +391,8 @@ function createTray () {
   tray = new Tray(icons.idle)
   tray.setToolTip('Tempus, click to open')
 
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show/Hide...',
-      click () {
-        toggleWindow()
-      },
-      accelerator: 'CmdOrCtrl+O'
-    },
-    { type: 'separator' },
-    {
-      label: '▶ Start',
-      click () {
-        trayWindow.webContents.send('start')
-      }
-    },
-    {
-      label: '■ Stop',
-      click () {
-        trayWindow.webContents.send('stop')
-      }
-    },
-    { type: 'separator' },
+
+  const settings = [
     {
       type: 'checkbox',
       checked: config.get('showNotifications'),
@@ -454,6 +434,33 @@ function createTray () {
         app.relaunch()
         app.quit()
       }
+    }
+  ]
+  const menuTemplate = [
+    {
+      label: 'Show/Hide...',
+      click () {
+        toggleWindow()
+      },
+      accelerator: 'CmdOrCtrl+O'
+    },
+    { type: 'separator' },
+    {
+      label: '▶ Start',
+      click () {
+        trayWindow.webContents.send('start')
+      }
+    },
+    {
+      label: '■ Stop',
+      click () {
+        trayWindow.webContents.send('stop')
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Settings',
+      submenu: [...settings]
     },
     { type: 'separator' },
     {
@@ -469,12 +476,33 @@ function createTray () {
       },
       accelerator: 'CmdOrCtrl+Q'
     }
-  ])
-
+  ]
+  const contextMenu = Menu.buildFromTemplate(menuTemplate)
 
   tray.on('click', () => toggleWindow())
 
   if (process.platform === 'darwin') {
+    const appMenu = Menu.buildFromTemplate([
+      {
+        label: 'Tempus',
+        submenu: [
+          menuTemplate[0],
+          menuTemplate[1],
+          menuTemplate[2],
+          menuTemplate[3],
+          menuTemplate[4],
+          menuTemplate[6],
+          menuTemplate[8]
+        ]
+      },
+      {
+        label: 'Settings',
+        submenu: [...settings]
+      },
+      menuTemplate[7]
+    ])
+    Menu.setApplicationMenu(appMenu)
+
     tray.on('right-click', () => {
       tray.popUpContextMenu(contextMenu)
     })
