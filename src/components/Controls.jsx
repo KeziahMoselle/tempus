@@ -68,7 +68,7 @@ export default ({
         <button
           onClick={() => switchComponent('Statistics')}
           className={component === 'Statistics' ? 'active': ''}>
-          <i className="material-icons">{ component !== 'Statistics' ? 'view_agenda' : 'close' }</i>
+          <i className="material-icons">{ component !== 'Statistics' ? 'bar_chart' : 'close' }</i>
         </button>
 
         <button
