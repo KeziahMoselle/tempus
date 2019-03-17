@@ -60,10 +60,12 @@ app.on('ready', () => {
 
   // Check for latest releases
   if (process.platform === 'darwin') {
-    const latestVersionAvailable = require('./utils/latestVersion')
-    latestVersionAvailable()
+    const notifyLatestVersion = require('./utils/notifyLatestVersion')
+    notifyLatestVersion()
   } else {
     const { autoUpdater } = require('electron-updater')
+    const getLatestVersion = require('./utils/getLatestVersion')
+    getLatestVersion()
     autoUpdater.checkForUpdatesAndNotify()
   }
 })
@@ -396,6 +398,9 @@ function createTray () {
   tray = new Tray(icons.idle)
   tray.setToolTip('Tempus, click to open')
 
+  const currentVersion = config.get('version.current')
+  const latestVersion = config.get('version.latest')
+  const newVersionAvailable = currentVersion !== latestVersion
 
   const settings = [
     {
@@ -470,6 +475,14 @@ function createTray () {
       submenu: [...settings]
     },
     { type: 'separator' },
+    {
+      label: newVersionAvailable ? `v${currentVersion} (latest: ${latestVersion})` : `v${currentVersion} (up-to-date)`,
+      sublabel: newVersionAvailable ? 'Click to download latest version' : undefined,
+      enabled: newVersionAvailable ? true : false,
+      click () {
+        shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`)
+      }
+    },
     {
       label: 'Feedback && Support...',
       click () {
