@@ -134,8 +134,12 @@ class App extends Component {
         window.ipcRenderer.send('finished')
         window.ipcRenderer.send('updateData', this.state.total / 60)
 
+        new Audio('./assets/audio/notification-long.wav').play()
+
         return this.stop()
       }
+
+      new Audio('./assets/audio/notification.wav').play()
       
       /* Streak */
       window.ipcRenderer.send('updateData', this.state.total / 60)
@@ -158,9 +162,9 @@ class App extends Component {
    * Switch to the `countInterval`
    */
   incrementPause = () => {
+    // Max value for `state.countPause`
     if (this.state.countPause >= this.state.totalPause) {
-      // Max value for `state.countPause`
-      // Switch into the `countInterval`
+      new Audio('./assets/audio/notification.wav').play()
       this.stop()
       return this.start(true) // True to display the work notification
     }
