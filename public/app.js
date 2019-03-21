@@ -474,6 +474,15 @@ function createTray () {
       label: 'Settings',
       submenu: [...settings]
     },
+    {
+      label: 'Actions',
+      submenu: [
+        {
+          label: 'Export to CSV',
+          click () { require('./utils/toCSV') }
+        }
+      ]
+    },
     { type: 'separator' },
     {
       label: newVersionAvailable ? `v${currentVersion} (latest: ${latestVersion})` : `v${currentVersion} (up-to-date)`,
