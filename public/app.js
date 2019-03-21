@@ -495,6 +495,10 @@ function createTray () {
 
             if (action === 0) {
               data.set('data', [])
+              dialog.showMessageBox({
+                type: 'info',
+                message: 'Your data has been deleted.'
+              })
             }
           }
         }
