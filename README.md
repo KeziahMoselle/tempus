@@ -27,6 +27,10 @@
     <img alt="Last commit" src="https://img.shields.io/github/last-commit/KeziahMoselle/tempus/master.svg?style=flat-square">
   </a>
   
+  <a href="https://github.com/KeziahMoselle/tempus/releases">
+    <img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/KeziahMoselle/tempus/total.svg?style=flat-square">
+  </a>
+  
 </p>
 
 <p align="center">
