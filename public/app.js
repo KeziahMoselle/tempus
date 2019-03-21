@@ -479,7 +479,10 @@ function createTray () {
       submenu: [
         {
           label: 'Export to CSV',
-          click () { require('./utils/toCSV') }
+          click () {
+            const exportAsCsv = require('./utils/toCSV')
+            exportAsCsv()
+          }
         }
       ]
     },
