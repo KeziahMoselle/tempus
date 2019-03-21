@@ -483,6 +483,24 @@ function createTray () {
             const exportAsCsv = require('./utils/toCSV')
             exportAsCsv()
           }
+        },
+        {
+          label: 'Delete data',
+          click () {
+            const action = dialog.showMessageBox({
+              type: 'warning',
+              message: 'This action will delete all your statistics. Are you sure ?',
+              buttons: ['Delete', 'Cancel']
+            })
+
+            if (action === 0) {
+              data.set('data', [])
+              dialog.showMessageBox({
+                type: 'info',
+                message: 'Your data has been deleted.'
+              })
+            }
+          }
         }
       ]
     },
