@@ -6,32 +6,37 @@ const { data } = require('../store')
 
 const downloadPath = path.join(app.getPath('downloads'), 'tempus.csv')
 
-function exportAsCsv () {
+async function exportAsCsv () {
   const csvData = toCSV(data.get('data'), ['day', 'value', 'streak'])
 
-  fs.writeFile(downloadPath, csvData)
-    .then(() => {
-      const action = dialog.showMessageBox({
-        type: 'info',
-        message: `Exported at ${downloadPath}`,
-        buttons: ['Open Directory', 'Ok']
-      })
-      if (action === 0) {
-        shell.openExternal(app.getPath('downloads'))
-      }
+  try {
+    // Write the file
+    await fs.writeFile(downloadPath, csvData)
+    // Show the dialog information box
+    const action = dialog.showMessageBox({
+      type: 'info',
+      message: `Exported at ${downloadPath}`,
+      buttons: ['Open Directory', 'Ok']
     })
-    .catch(error => {
-      const action = dialog.showMessageBox({
-        type: 'error',
-        message: `${error}`,
-        buttons: ['Open an issue', 'Ok']
-      })
-      if (action === 0) {
-        const url = new URL(`https://github.com/KeziahMoselle/tempus/issues/new?body=${error}`).toString()
-        shell.openExternal(url)
-      }
-      log.warn(error)
+    // 'Open Directory' Opens the 'Downloads' dir
+    if (action === 0) {
+      shell.openExternal(app.getPath('downloads'))
+    }
+  } catch (error) {
+    // Show an error box
+    const action = dialog.showMessageBox({
+      type: 'error',
+      message: `${error}`,
+      buttons: ['Open an issue', 'Ok']
     })
+    // 'Open an issue' redirects to a new Github issue
+    if (action === 0) {
+      const url = new URL(`https://github.com/KeziahMoselle/tempus/issues/new?body=${error}`).toString()
+      // Open the link
+      shell.openExternal(url)
+    }
+    log.warn(error)
+  }
 }
 
 
