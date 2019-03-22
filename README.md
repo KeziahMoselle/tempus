@@ -129,6 +129,7 @@ Click on the arrows to get more informations about these features
     |-- build               <-- The React build
     |-- dist                <-- Binaries will be generated here
     |-- public
+    |   |-- utils           <-- Utility functions
     |   |-- app.js          <-- Electron main process
     |   |-- icons.js
     |   |-- index.html
