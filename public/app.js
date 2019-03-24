@@ -35,39 +35,11 @@ const autoLauncher = new AutoLaunch({ name: 'tempus' })
 app.setAppUserModelId('com.electron.tempus')
 
 /* Create the application */
-
 app.on('ready', () => {
-  // Create the application
   createTray()
   createWindow()
-
-  
-  // Global Shortcut : Toggle Window
-  const shortcutToggleWindow = globalShortcut.register('Super+Alt+Up', () => {
-    toggleWindow()
-  })
-  if (!shortcutToggleWindow) {
-    log.warn('Unable to register: Super+Alt+Up')
-  }
-
-  // Global Shortcut : Toggle Counting/Stop
-  const shortcutToggleState = globalShortcut.register('Super+Alt+Down', () => {
-    trayWindow.webContents.send('start')
-  })
-  if (!shortcutToggleState) {
-    log.warn('Unable to register: Super+Alt+Down')
-  }
-
-  // Check for latest releases
-  if (process.platform === 'darwin') {
-    const notifyLatestVersion = require('./utils/notifyLatestVersion')
-    notifyLatestVersion()
-  } else {
-    const { autoUpdater } = require('electron-updater')
-    const getLatestVersion = require('./utils/getLatestVersion')
-    getLatestVersion()
-    autoUpdater.checkForUpdatesAndNotify()
-  }
+  checkForUpdates()
+  registerGlobalShortcuts()
 })
 
 /* Change icon on idle */
@@ -397,10 +369,35 @@ function createWindow () {
 function createTray () {
   tray = new Tray(icons.idle)
   tray.setToolTip('Tempus, click to open')
+  tray.on('click', () => toggleWindow())
+  updateContextMenu()
+}
 
-  const currentVersion = config.get('version.current')
-  const latestVersion = config.get('version.latest')
-  const newVersionAvailable = currentVersion !== latestVersion
+function updateContextMenu (options) {
+  let versionItem
+
+  if (options && options.version) {
+    const currentVersion = config.get('version.current')
+    const latestVersion = config.get('version.latest')
+    const newVersionAvailable = currentVersion !== latestVersion
+    
+    versionItem = {
+      label: newVersionAvailable ? `v${currentVersion} (latest: ${latestVersion})` : `v${currentVersion} (up-to-date)`,
+      sublabel: newVersionAvailable ? 'Click to download latest version' : undefined,
+      enabled: newVersionAvailable ? true : false,
+      click () {
+        shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`)
+      }
+    }
+  } else {
+    versionItem = {
+      label: '',
+      enabled: false,
+      click () {
+        shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`)
+      }
+    }
+  }
 
   const settings = [
     {
@@ -505,14 +502,7 @@ function createTray () {
       ]
     },
     { type: 'separator' },
-    {
-      label: newVersionAvailable ? `v${currentVersion} (latest: ${latestVersion})` : `v${currentVersion} (up-to-date)`,
-      sublabel: newVersionAvailable ? 'Click to download latest version' : undefined,
-      enabled: newVersionAvailable ? true : false,
-      click () {
-        shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`)
-      }
-    },
+    versionItem,
     {
       label: 'Feedback && Support...',
       click () {
@@ -528,8 +518,6 @@ function createTray () {
     }
   ]
   const contextMenu = Menu.buildFromTemplate(menuTemplate)
-
-  tray.on('click', () => toggleWindow())
 
   if (process.platform === 'darwin') {
     const appMenu = Menu.buildFromTemplate([
@@ -564,7 +552,6 @@ function createTray () {
     tray.popUpContextMenu(Menu.buildFromTemplate(settings))
   })
 }
-
 
 function toggleWindow () {
   if (trayWindow.isVisible()) {
@@ -603,4 +590,38 @@ function showConfirmationBox (message) {
   }
 
   return dialog.showMessageBox(dialogOptions)
+}
+
+async function checkForUpdates () {
+  if (process.platform === 'darwin') {
+    const notifyLatestVersion = require('./utils/notifyLatestVersion')
+    notifyLatestVersion()
+  } else {
+    const { autoUpdater } = require('electron-updater')
+    const getLatestVersion = require('./utils/getLatestVersion')
+    await getLatestVersion()
+    autoUpdater.checkForUpdatesAndNotify()
+  }
+
+  updateContextMenu({
+    version: true
+  })
+}
+
+function registerGlobalShortcuts ()  {
+  // Global Shortcut : Toggle Window
+  const shortcutToggleWindow = globalShortcut.register('Super+Alt+Up', () => {
+    toggleWindow()
+  })
+  if (!shortcutToggleWindow) {
+    log.warn('Unable to register: Super+Alt+Up')
+  }
+
+  // Global Shortcut : Toggle Counting/Stop
+  const shortcutToggleState = globalShortcut.register('Super+Alt+Down', () => {
+    trayWindow.webContents.send('start')
+  })
+  if (!shortcutToggleState) {
+    log.warn('Unable to register: Super+Alt+Down')
+  }
 }
