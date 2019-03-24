@@ -391,11 +391,8 @@ function updateContextMenu (options) {
     }
   } else {
     versionItem = {
-      label: '',
-      enabled: false,
-      click () {
-        shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`)
-      }
+      label: 'Fetching latest release...',
+      enabled: false
     }
   }
 
