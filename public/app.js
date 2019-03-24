@@ -442,6 +442,35 @@ function updateContextMenu (options) {
       }
     }
   ]
+
+  const actions = [
+    {
+      label: 'Export to CSV',
+      click () {
+        const exportAsCsv = require('./utils/toCSV')
+        exportAsCsv()
+      }
+    },
+    {
+      label: 'Delete data',
+      click () {
+        const action = dialog.showMessageBox({
+          type: 'warning',
+          message: 'This action will delete all your statistics. Are you sure ?',
+          buttons: ['Delete', 'Cancel']
+        })
+
+        if (action === 0) {
+          data.set('data', [])
+          dialog.showMessageBox({
+            type: 'info',
+            message: 'Your data has been deleted.'
+          })
+        }
+      }
+    }
+  ]
+
   const menuTemplate = [
     {
       label: 'Show/Hide...',
@@ -470,33 +499,7 @@ function updateContextMenu (options) {
     },
     {
       label: 'Actions',
-      submenu: [
-        {
-          label: 'Export to CSV',
-          click () {
-            const exportAsCsv = require('./utils/toCSV')
-            exportAsCsv()
-          }
-        },
-        {
-          label: 'Delete data',
-          click () {
-            const action = dialog.showMessageBox({
-              type: 'warning',
-              message: 'This action will delete all your statistics. Are you sure ?',
-              buttons: ['Delete', 'Cancel']
-            })
-
-            if (action === 0) {
-              data.set('data', [])
-              dialog.showMessageBox({
-                type: 'info',
-                message: 'Your data has been deleted.'
-              })
-            }
-          }
-        }
-      ]
+      submenu: [...actions]
     },
     { type: 'separator' },
     versionItem,
@@ -526,13 +529,18 @@ function updateContextMenu (options) {
           menuTemplate[2],
           menuTemplate[3],
           menuTemplate[4],
-          menuTemplate[6],
-          menuTemplate[8]
+          menuTemplate[8],
+          menuTemplate[9],
+          menuTemplate[10]
         ]
       },
       {
         label: 'Settings',
         submenu: [...settings]
+      },
+      {
+        label: 'Actions',
+        submenu: [...actions]
       }
     ])
     Menu.setApplicationMenu(appMenu)
@@ -595,7 +603,7 @@ async function checkForUpdates () {
 
   if (process.platform === 'darwin') {
     const notifyLatestVersion = require('./utils/notifyLatestVersion')
-    const { currentVersion, latestVersion } = notifyLatestVersion()
+    const { currentVersion, latestVersion } = await notifyLatestVersion()
     currentVer = currentVersion
     latestVer = latestVersion
   } else {
