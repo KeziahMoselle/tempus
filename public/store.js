@@ -19,11 +19,7 @@ const config = new Store({
     autoShowOnFinish: false, // Show the window when the pomodoro is finished
     showNotifications: true,
     allowDrag: false, // Is the tray window draggable ?
-    goals: [],
-    version: { // App version
-      current: null, // Current version (package.json)
-      latest: null // Latest on GitHub release
-    }
+    goals: []
   }
 })
 

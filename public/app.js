@@ -377,8 +377,8 @@ function updateContextMenu (options) {
   let versionItem
 
   if (options && options.version) {
-    const currentVersion = config.get('version.current')
-    const latestVersion = config.get('version.latest')
+    const currentVersion = options.version.currentVersion
+    const latestVersion = options.version.latestVersion
     const newVersionAvailable = currentVersion !== latestVersion
     
     versionItem = {
@@ -590,18 +590,28 @@ function showConfirmationBox (message) {
 }
 
 async function checkForUpdates () {
+  let currentVer
+  let latestVer
+
   if (process.platform === 'darwin') {
     const notifyLatestVersion = require('./utils/notifyLatestVersion')
-    notifyLatestVersion()
+    const { currentVersion, latestVersion } = notifyLatestVersion()
+    currentVer = currentVersion
+    latestVer = latestVersion
   } else {
     const { autoUpdater } = require('electron-updater')
     const getLatestVersion = require('./utils/getLatestVersion')
-    await getLatestVersion()
+    const { currentVersion, latestVersion } = await getLatestVersion()
+    currentVer = currentVersion
+    latestVer = latestVersion
     autoUpdater.checkForUpdatesAndNotify()
   }
 
   updateContextMenu({
-    version: true
+    version: {
+      currentVersion: currentVer,
+      latestVersion: latestVer
+    }
   })
 }
 
