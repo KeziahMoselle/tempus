@@ -41,6 +41,16 @@
     "wait-on": "^3.2.0"
   },
   "build": {
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        }
+      ],
+      "maintainer": "Keziah Moselle",
+      "icon": "./assets/"
+    },
     "appId": "com.electron.tempus",
     "productName": "Tempus",
     "extends": null,
