@@ -16,7 +16,7 @@
   </a>
     
   <a href="https://travis-ci.org/KeziahMoselle/tempus">
-    <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/tempus.svg?label=build%3Amac&style=flat-square">
+    <img alt="MacOS Release Badge" src="https://img.shields.io/travis/KeziahMoselle/tempus.svg?label=build%3Amac/linux&style=flat-square">
   </a>
   
   <a href="https://github.com/KeziahMoselle/tempus/releases/latest">
