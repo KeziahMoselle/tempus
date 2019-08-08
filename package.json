@@ -48,7 +48,8 @@
           "arch": ["x64"]
         }
       ],
-      "maintainer": "Keziah Moselle"
+      "maintainer": "Keziah Moselle",
+      "icon": "./assets/"
     },
     "appId": "com.electron.tempus",
     "productName": "Tempus",
