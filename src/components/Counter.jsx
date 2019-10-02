@@ -28,14 +28,14 @@ export default ({
     percentage = 0
   }
 
-  function setPercentage () {
+  function setPercentage() {
     setFormat('percentage')
     window.ipcRenderer.send('updateConfig', {
       format: 'percentage'
     })
   }
 
-  function setNumeric () {
+  function setNumeric() {
     setFormat('numeric')
     window.ipcRenderer.send('updateConfig', {
       format: 'numeric'
@@ -46,23 +46,23 @@ export default ({
 
   return (
     <Fragment>
-      <div className={`counter ${state}`} style={{borderWidth: borderWidth + 'px'}}></div>
-      { state &&
+      <div className={`counter ${state}`} style={{ borderWidth: borderWidth + 'px' }}></div>
+      {state &&
         <h1
           className="percentage"
           onClick={() => setToggleFormat(!toggleFormat)}>
           {`${
             format === 'percentage' ?
               `${percentage}%`
-              : `${formatValue(seconds, total)}m`
-          }`}
+              : `${formatValue(seconds, total)}`
+            }`}
         </h1>
       }
-      { !state &&
+      {!state &&
         <h1
           className="percentage"
           onClick={() => setToggleFormat(!toggleFormat)}>
-          { Math.floor(total / 60) }m
+          {Math.floor(total / 60)}m
         </h1>
       }
       <div style={{
@@ -99,4 +99,9 @@ export default ({
 }
 
 const toPercentage = (seconds, total) => parseInt(Math.round((seconds / total * 100).toFixed(0)), 10)
-const formatValue = (seconds, total) => (seconds / 60).toFixed(1)
+const formatValue = (seconds, total) => {
+
+  return (seconds > 60 ?
+    (seconds / 60).toFixed(0) + ":" + (seconds % 60).toString().padStart(2, '0') + "m" :
+    seconds + "s")
+}
