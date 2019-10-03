@@ -110,11 +110,11 @@ Click on the arrows to get more informations about these features
 
 1. Clone the repository
 ```sh
-> git clone https://github.com/KeziahMoselle/pomodoro.git
+> git clone https://github.com/KeziahMoselle/tempus.git
 ```
 2. Install dependencies :
 ```sh
-> cd pomodoro && npm install
+> cd tempus && npm install
 ```
 3. Run the app in `development` mode
 ```sh
@@ -124,7 +124,7 @@ Click on the arrows to get more informations about these features
 ### Project tree
 
 ```
-|-- pomodoro
+|-- tempus
     |-- assets              <-- Assets for the app
     |-- build               <-- The React build
     |-- dist                <-- Binaries will be generated here
