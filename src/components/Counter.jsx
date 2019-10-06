@@ -6,7 +6,6 @@ export default ({
   totalPause, countPause
 }) => {
   const [format, setFormat] = useState('percentage')
-  const [toggleFormat, setToggleFormat] = useState(false)
 
   useEffect(() => {
     window.ipcRenderer.send('getCounterData')
@@ -42,57 +41,40 @@ export default ({
     })
   }
 
+  function calculateSwapIconSpacing() {
+    let secondaryTextWidth = 0
+    if (typeof(document.getElementsByClassName("counter-display-secondary")[0]) !== "undefined") {
+      secondaryTextWidth = document.getElementsByClassName("counter-display-secondary")[0].clientWidth
+    }
+    return ((window.innerWidth / 2) + (secondaryTextWidth / 2)) + 40
+  }
+
   const borderWidth = (percentage * 2.78) + 56 // 334px to fill (2.78 + 0.56)
 
   return (
     <Fragment>
       <div className={`counter ${state}`} style={{ borderWidth: borderWidth + 'px' }}></div>
-      {state &&
-        <h1
-          className="percentage"
-          onClick={() => setToggleFormat(!toggleFormat)}>
+      <div onClick={() => format === 'percentage' ? setNumeric() : setPercentage()}>
+        <div
+          className={`counter-display counter-display-${format === 'percentage' ? 'main' : 'secondary'}`}>
+          {percentage}%
+        </div>
+        <div
+          className={`counter-display counter-display-${format === 'numeric' ? 'main' : 'secondary'}`}>
           {`${
-            format === 'percentage' ?
-              `${percentage}%`
+            typeof(seconds) === 'undefined' ?
+              `${Math.floor(total / 60)}m`
               : `${formatValue(seconds, total)}`
             }`}
-        </h1>
-      }
-      {!state &&
-        <h1
-          className="percentage"
-          onClick={() => setToggleFormat(!toggleFormat)}>
-          {Math.floor(total / 60)}m
-        </h1>
-      }
-      <div style={{
-        position: 'absolute',
-        marginLeft: toggleFormat ? '140px' : '0',
-        opacity: toggleFormat ? '1' : '0',
-        zIndex: '2',
-        marginTop: '10px',
-        transition: 'transform 0.3s, opacity 0.3s, margin-left 0.3s'
-      }}>
-        <p
-          className={`sub-action ${format === 'percentage' ? 'active' : null}`}
-          onClick={() => toggleFormat ? setPercentage() : null}
+        </div>
+        <div
+          className="counter-display counter-display-swap"
           style={{
-            padding: '8px',
-            width: '32px',
-            textAlign: 'center'
+            left: `${calculateSwapIconSpacing()}px`,
+            transition: 'left 0.5s'
           }}>
-          %
-        </p>
-        <p
-          className={`sub-action ${format === 'numeric' ? 'active' : null}`}
-          onClick={() => toggleFormat ? setNumeric() : null}
-          style={{
-            padding: '8px',
-            width: '32px',
-            textAlign: 'center'
-          }}>
-          num
-        </p>
+          <i className="material-icons">swap_vert</i>
+        </div>
       </div>
     </Fragment>
   )

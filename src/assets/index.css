@@ -199,16 +199,33 @@ h1, h2, h3, h4, h5, h6, p {
   border-color: #14B07B;
 }
 
-.percentage {
+.counter-display {
   z-index: 3;
   position: absolute;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Major Mono Display';
-  font-size: 1.8em;
   margin: 0;
   cursor: pointer;
+  transition: top 0.5s,
+              font-size 0.5s,
+              color 0.5s;
+}
+
+.counter-display-main {
+  top: 50%;
+  font-size: 1.8em
+}
+
+.counter-display-secondary,
+.counter-display-swap {
+  top: 60%;
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.counter-display-swap:hover {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .counter.counting ~ .sub-action {
