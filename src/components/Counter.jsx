@@ -84,6 +84,6 @@ const toPercentage = (seconds, total) => parseInt(Math.round((seconds / total * 
 const formatValue = (seconds, total) => {
 
   return (seconds > 60 ?
-    (seconds / 60).toFixed(0) + ":" + (seconds % 60).toString().padStart(2, '0') + "m" :
+    Math.floor(seconds / 60).toFixed(0) + ":" + (seconds % 60).toString().padStart(2, '0') + "m" :
     seconds + "s")
 }
