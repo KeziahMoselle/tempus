@@ -16,10 +16,10 @@ export default () => {
   startDate.setMonth(startDate.getMonth() - 1, 1)
   const endDate = new Date()
   endDate.setMonth(endDate.getMonth() + 3, 1)
-  
+
   return (
     <>
-      { data &&
+      {data && (
         <>
           <CalendarHeatmap
             startDate={startDate}
@@ -32,22 +32,27 @@ export default () => {
               if (value.streak <= 3) classes = `color-${value.streak}`
               if (value.streak >= 4) classes = 'color-max'
 
-              const today = new Date().toISOString().split('T')[0].toString()
+              const today = new Date()
+                .toISOString()
+                .split('T')[0]
+                .toString()
               if (value.date.toString() === today) classes += ' today'
               return classes
             }}
             tooltipDataAttrs={value => {
               if (!value.date) return { 'data-tip': 'No streak' }
-              return { 'data-tip': `${new Date(value.date).toDateString()} : ${value.value} min (Streak: ${value.streak})` }
+              return {
+                'data-tip': `${new Date(value.date).toDateString()} : ${
+                  value.value
+                } min (Streak: ${value.streak})`
+              }
             }}
           />
           <ReactTooltip />
         </>
-      }
+      )}
 
-      { !data &&
-        <h6 className="center">Loading...</h6>
-      }
+      {!data && <h6 className="center">Loading...</h6>}
     </>
   )
 }

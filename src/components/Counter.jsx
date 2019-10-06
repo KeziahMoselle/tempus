@@ -1,10 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
-export default ({
-  state,
-  total, count,
-  totalPause, countPause
-}) => {
+export default ({ state, total, count, totalPause, countPause }) => {
   const [format, setFormat] = useState('percentage')
 
   useEffect(() => {
@@ -43,29 +39,43 @@ export default ({
 
   function calculateSwapIconSpacing() {
     let secondaryTextWidth = 0
-    if (typeof(document.getElementsByClassName("counter-display-secondary")[0]) !== "undefined") {
-      secondaryTextWidth = document.getElementsByClassName("counter-display-secondary")[0].clientWidth
+    if (
+      typeof document.getElementsByClassName('counter-display-secondary')[0] !==
+      'undefined'
+    ) {
+      secondaryTextWidth = document.getElementsByClassName(
+        'counter-display-secondary'
+      )[0].clientWidth
     }
-    return ((window.innerWidth / 2) + (secondaryTextWidth / 2)) + 40
+    return window.innerWidth / 2 + secondaryTextWidth / 2 + 40
   }
 
-  const borderWidth = (percentage * 2.78) + 56 // 334px to fill (2.78 + 0.56)
+  const borderWidth = percentage * 2.78 + 56 // 334px to fill (2.78 + 0.56)
 
   return (
     <Fragment>
-      <div className={`counter ${state}`} style={{ borderWidth: borderWidth + 'px' }}></div>
-      <div onClick={() => format === 'percentage' ? setNumeric() : setPercentage()}>
+      <div
+        className={`counter ${state}`}
+        style={{ borderWidth: borderWidth + 'px' }}></div>
+      <div
+        onClick={() =>
+          format === 'percentage' ? setNumeric() : setPercentage()
+        }>
         <div
-          className={`counter-display counter-display-${format === 'percentage' ? 'main' : 'secondary'}`}>
+          className={`counter-display counter-display-${
+            format === 'percentage' ? 'main' : 'secondary'
+          }`}>
           {percentage}%
         </div>
         <div
-          className={`counter-display counter-display-${format === 'numeric' ? 'main' : 'secondary'}`}>
+          className={`counter-display counter-display-${
+            format === 'numeric' ? 'main' : 'secondary'
+          }`}>
           {`${
-            typeof(seconds) === 'undefined' ?
-              `${Math.floor(total / 60)}m`
+            typeof seconds === 'undefined'
+              ? `${Math.floor(total / 60)}m`
               : `${formatValue(seconds, total)}`
-            }`}
+          }`}
         </div>
         <div
           className="counter-display counter-display-swap"
@@ -80,10 +90,13 @@ export default ({
   )
 }
 
-const toPercentage = (seconds, total) => parseInt(Math.round((seconds / total * 100).toFixed(0)), 10)
+const toPercentage = (seconds, total) =>
+  parseInt(Math.round(((seconds / total) * 100).toFixed(0)), 10)
 const formatValue = (seconds, total) => {
-
-  return (seconds > 60 ?
-    Math.floor(seconds / 60).toFixed(0) + ":" + (seconds % 60).toString().padStart(2, '0') + "m" :
-    seconds + "s")
+  return seconds > 60
+    ? Math.floor(seconds / 60).toFixed(0) +
+        ':' +
+        (seconds % 60).toString().padStart(2, '0') +
+        'm'
+    : seconds + 's'
 }

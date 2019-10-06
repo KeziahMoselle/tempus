@@ -1,8 +1,10 @@
 import React from 'react'
 
-function Progress ({ steps, currentStep }) {
+function Progress({ steps, currentStep }) {
   return (
-    <h6 className="progress">{currentStep} / {steps}</h6>
+    <h6 className="progress">
+      {currentStep} / {steps}
+    </h6>
   )
 }
 

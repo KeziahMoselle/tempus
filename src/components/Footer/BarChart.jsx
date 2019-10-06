@@ -11,14 +11,16 @@ export default () => {
       new Chart('bar-chart', {
         type: 'bar',
         data: {
-          datasets: [{
-            label: 'Minutes of work',
-            data: payload,
-            backgroundColor: '#A1D6FF',
-            hoverBackgroundColor: '#87CBFF',
-            borderColor: '#6EC0FF',
-            borderWidth: 2
-          }]
+          datasets: [
+            {
+              label: 'Minutes of work',
+              data: payload,
+              backgroundColor: '#A1D6FF',
+              hoverBackgroundColor: '#87CBFF',
+              borderColor: '#6EC0FF',
+              borderWidth: 2
+            }
+          ]
         },
         options: {
           legend: { display: false },
@@ -27,17 +29,21 @@ export default () => {
             text: 'Minutes of work in the last 7 days'
           },
           scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                unit: 'day'
+            xAxes: [
+              {
+                type: 'time',
+                time: {
+                  unit: 'day'
+                }
               }
-            }],
-            yAxes: [{
-              ticks: {
-                beginAtZero:true
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
               }
-            }]
+            ]
           }
         }
       })
@@ -46,14 +52,9 @@ export default () => {
 
   return (
     <>
-      { isLoaded &&
-        <canvas id="bar-chart"></canvas>
-      }
+      {isLoaded && <canvas id="bar-chart"></canvas>}
 
-      { !isLoaded &&
-        <h6>Loading ...</h6>
-      }
+      {!isLoaded && <h6>Loading ...</h6>}
     </>
   )
-
 }
