@@ -156,6 +156,16 @@ The binaries will be created in the `dist` folder.
 * [Electron](https://electronjs.org/) - framework for creating native applications with web technologies
 * [React](https://reactjs.org) - A JavaScript library for building user interfaces
 
+## Contributors
+
+Thank you ❤️
+
+<a href="https://github.com/KeziahMoselle"><img src="https://avatars3.githubusercontent.com/u/9168097?v=4" title="KeziahMoselle" width="80" height="80"></a>
+<a href="https://github.com/stuajnht"><img src="https://avatars0.githubusercontent.com/u/13683986?v=4" title="stuajnht" width="80" height="80"></a>
+<a href="https://github.com/ConorGrocock"><img src="https://avatars3.githubusercontent.com/u/15091494?v=4" title="ConorGrocock" width="80" height="80"></a>
+<a href="https://github.com/rllola"><img src="https://avatars3.githubusercontent.com/u/1772945?v=4" title="rllola" width="80" height="80"></a>
+<a href="https://github.com/raphaelts3"><img src="https://avatars1.githubusercontent.com/u/3309716?v=4" title="raphaelts3" width="80" height="80"></a>
+
 
 ## License
 
