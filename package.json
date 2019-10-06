@@ -25,6 +25,9 @@
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
     "got": "^9.6.0",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
     "react-calendar-heatmap": "^1.8.0",
     "react-tooltip": "^3.9.2"
   },
@@ -73,6 +76,17 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
