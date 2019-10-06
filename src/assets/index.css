@@ -31,12 +31,23 @@
   font-feature-settings: 'liga';
 }
 
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
 
-html, body, #root, .container {
+html,
+body,
+#root,
+.container {
   height: 100%;
 }
 
@@ -68,7 +79,13 @@ body {
   font-family: 'Major Mono Display';
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
   padding: 0;
 }
@@ -80,20 +97,19 @@ h1, h2, h3, h4, h5, h6, p {
   color: #b8bec5;
 }
 
-
 /**
  *
  * FLEX
  *
  */
- 
- .flex {
-   display: flex;
- }
 
- .space-between {
-   justify-content: space-between;
- }
+.flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
 
 .center {
   display: flex;
@@ -107,7 +123,6 @@ h1, h2, h3, h4, h5, h6, p {
 .valign {
   align-items: center;
 }
-
 
 /**
  *
@@ -168,9 +183,8 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .titlebar i.danger:hover {
-  background-color: #FF5F56;
+  background-color: #ff5f56;
 }
-
 
 /**
  *
@@ -178,13 +192,12 @@ h1, h2, h3, h4, h5, h6, p {
  *
  */
 
-
 .counter {
   position: absolute;
   bottom: -107px;
   height: 0;
   width: 0;
-  border: 0 solid #2F88FF;
+  border: 0 solid #2f88ff;
   border-radius: 50%;
   margin-bottom: 56px;
   transition: border 0.2s ease;
@@ -192,11 +205,11 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .counter.counting {
-  border-color: #2F88FF;
+  border-color: #2f88ff;
 }
 
 .counter.pausing {
-  border-color: #14B07B;
+  border-color: #14b07b;
 }
 
 .counter-display {
@@ -207,14 +220,12 @@ h1, h2, h3, h4, h5, h6, p {
   font-family: 'Major Mono Display';
   margin: 0;
   cursor: pointer;
-  transition: top 0.5s,
-              font-size 0.5s,
-              color 0.5s;
+  transition: top 0.5s, font-size 0.5s, color 0.5s;
 }
 
 .counter-display-main {
   top: 50%;
-  font-size: 1.8em
+  font-size: 1.8em;
 }
 
 .counter-display-secondary,
@@ -236,11 +247,8 @@ h1, h2, h3, h4, h5, h6, p {
   color: rgba(255, 255, 255, 0.3);
   font-size: 16px;
   cursor: pointer;
-  transition: padding 0.2s,
-              border-radius 0.2s,
-              background-color 0.2s,
-              color 0.2s,
-              opacity 0.2s;
+  transition: padding 0.2s, border-radius 0.2s, background-color 0.2s,
+    color 0.2s, opacity 0.2s;
 }
 
 .sub-action:hover {
@@ -255,10 +263,10 @@ h1, h2, h3, h4, h5, h6, p {
   border-radius: 17px;
 }
 
-.sub-action.counting, .sub-action.pausing {
+.sub-action.counting,
+.sub-action.pausing {
   opacity: 0;
 }
-
 
 /**
  *
@@ -279,7 +287,6 @@ footer.extended {
   height: 90%;
 }
 
-
 /* FOOTER HEADER */
 
 .footer-header {
@@ -299,22 +306,19 @@ footer.extended {
   width: 56px;
 }
 
-
 /* FOOTER CONTENT */
-
 
 .footer-content {
   height: 90%;
   width: 100%;
   color: black;
   background-color: rgba(255, 255, 255, 0.98);
-  box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .footer-content button {
   border-radius: 6px;
 }
-
 
 /* EDIT TIMER */
 
@@ -346,7 +350,7 @@ footer.extended {
   color: rgb(51, 51, 51);
 }
 
-.timer-container input[type="number"] {
+.timer-container input[type='number'] {
   height: 36px;
   width: 50px;
   padding-left: 10px;
@@ -362,7 +366,7 @@ footer.extended {
   align-items: center;
 }
 
-.timer-container input[type="number"] + .suffix {
+.timer-container input[type='number'] + .suffix {
   height: 38px;
   width: 100%;
   padding: 0 6px;
@@ -383,7 +387,6 @@ footer.extended {
 .timer-container .card {
   margin-bottom: 26px;
 }
-
 
 /**
  *
@@ -423,7 +426,6 @@ footer.extended {
   margin: 0 6px;
 }
 
-
 /**
  *
  * GOALS
@@ -457,11 +459,11 @@ footer.extended {
 }
 
 .goals .card.success {
-  border-left: 6px solid #14B07B;
+  border-left: 6px solid #14b07b;
 }
 
 .goals .card.in-progress {
-  border-left: 6px solid #FFBB23;
+  border-left: 6px solid #ffbb23;
 }
 
 .goals .card span {
@@ -469,11 +471,11 @@ footer.extended {
 }
 
 .goals .card span.success {
-  color: #14B07B;
+  color: #14b07b;
 }
 
 .goals .card span.in-progress {
-  color: #FFBB23;
+  color: #ffbb23;
 }
 
 .goals .card:not(.goals-add) button.circle {
@@ -503,7 +505,7 @@ footer.extended {
 }
 
 .goals .card:not(.goals-add) button.circle:hover {
-  color: #FF5F56;
+  color: #ff5f56;
 }
 
 .goals .circle.add {
@@ -522,11 +524,10 @@ footer.extended {
   filter: brightness(70%);
 }
 
-
 /* GOALS ADD INPUT */
 
 .goals-add {
-  border-left: 6px solid #2F88FF !important;
+  border-left: 6px solid #2f88ff !important;
   height: 26px;
 }
 
@@ -540,12 +541,13 @@ footer.extended {
   margin: 0 6px;
 }
 
-.goals-add input[type="number"] {
+.goals-add input[type='number'] {
   width: 50px;
   text-align: center;
 }
 
-.goals-add input, select {
+.goals-add input,
+select {
   font-size: 0.6em;
   border: none;
   border-bottom: 1px solid black;
@@ -554,7 +556,6 @@ footer.extended {
 .goals-add select {
   padding-bottom: 3px;
 }
-
 
 /* NO GOALS */
 
@@ -601,17 +602,15 @@ footer.extended {
   border-radius: 6px;
 }
 
-.card-item span[role="img"] {
+.card-item span[role='img'] {
   margin-right: 8px;
 }
-
 
 /**
  *
  * BUTTONS
  *
  */
-
 
 button {
   display: flex;
@@ -656,21 +655,19 @@ button:focus {
   color: black;
   border-radius: 50%;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.14),
-              0 3px 1px -2px rgba(0,0,0,0.12),
-              0 1px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12),
+    0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 button.counting {
-  background-color: #2F88FF;
+  background-color: #2f88ff;
   color: white;
 }
 
 button.pausing {
-  background-color: #14B07B;
+  background-color: #14b07b;
   color: white;
 }
-
 
 /**
  *
@@ -683,7 +680,7 @@ button.pausing {
 }
 
 .selected {
-  border: 1px solid black; 
+  border: 1px solid black;
 }
 
 .hide {

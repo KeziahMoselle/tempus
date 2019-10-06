@@ -4,7 +4,6 @@ import Controls from './components/Controls'
 import Welcome from './components/Welcome/index'
 
 class App extends Component {
-
   state = {
     state: '', // Can be '', 'counting' or 'pausing'
     total: 1500, // Total of seconds for the counting interval
@@ -17,7 +16,8 @@ class App extends Component {
     loadedConfig: false, // Is the config has been fetched
     nextHour: null,
     workTillDelayedMinutes: 0, // Delayed minutes for 'Work till' (Allow working until 1.)
-    shouldResetValues: { // Used for `workTillNearestHour()`
+    shouldResetValues: {
+      // Used for `workTillNearestHour()`
       shouldReset: false, // Should we revert the old values ?
       oldTotal: null, // Old value for total seconds
       oldCycle: null // Old value for cycle
@@ -26,7 +26,7 @@ class App extends Component {
     allowDrag: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (localStorage.getItem('finishedWelcome')) {
       this.setState({
         finishedWelcome: true
@@ -66,13 +66,12 @@ class App extends Component {
     })
   }
 
-
   /**
    * Launch the counter
    * Creates the `countInterval` variable
    * Send `counting` event to the main process
    */
-  start = (displayWorkNotification) => {
+  start = displayWorkNotification => {
     if (this.state.state === 'counting') return // If already counting return
     this.countInterval = setInterval(this.increment, 1000)
     this.setState({
@@ -82,26 +81,25 @@ class App extends Component {
     // Update icon at 25%
     this.timeout25 = setTimeout(() => {
       window.ipcRenderer.send('updateTrayIcon', 'one')
-    }, (this.state.total * 0.25) * 1000)
+    }, this.state.total * 0.25 * 1000)
 
     // Update icon at 50%
     this.timeout50 = setTimeout(() => {
       window.ipcRenderer.send('updateTrayIcon', 'two')
-    }, (this.state.total * 0.50) * 1000)
+    }, this.state.total * 0.5 * 1000)
 
     // Update icon at 75%
     this.timeout75 = setTimeout(() => {
       window.ipcRenderer.send('updateTrayIcon', 'three')
-    }, (this.state.total * 0.75) * 1000)
+    }, this.state.total * 0.75 * 1000)
 
     // Update icon at 90%
     this.timeout90 = setTimeout(() => {
       window.ipcRenderer.send('updateTrayIcon', 'four')
-    }, (this.state.total * 0.90) * 1000)
+    }, this.state.total * 0.9 * 1000)
 
     window.ipcRenderer.send('counting', displayWorkNotification)
   }
-  
 
   /**
    * Triggered every 1s when `state.state` = counting
@@ -120,7 +118,10 @@ class App extends Component {
 
       /* Cycles */
       // The maximum number of cycle has been reached
-      if (this.state.numberOfCycle > 0 && (this.state.countCycle >= this.state.numberOfCycle)) {
+      if (
+        this.state.numberOfCycle > 0 &&
+        this.state.countCycle >= this.state.numberOfCycle
+      ) {
         this.setState({
           countCycle: 0
         })
@@ -140,13 +141,13 @@ class App extends Component {
       }
 
       new Audio('./assets/audio/notification.wav').play()
-      
+
       /* Streak */
       window.ipcRenderer.send('updateData', this.state.total / 60)
       /* Set pause state */
       window.ipcRenderer.send('pausing')
       /* Begin to count pause */
-      return this.pauseInterval = setInterval(this.incrementPause, 1000)
+      return (this.pauseInterval = setInterval(this.incrementPause, 1000))
     }
 
     // Continue to increment the count variable
@@ -154,7 +155,6 @@ class App extends Component {
       count: prevState.count + 1
     }))
   }
-
 
   /**
    * Triggered every 1s when `state.isPause` = true
@@ -173,8 +173,6 @@ class App extends Component {
     }))
   }
 
-
-  
   /**
    *  Work till the nearest hour
    */
@@ -182,7 +180,8 @@ class App extends Component {
     const date = new Date()
     const minutes = date.getMinutes() // i.e 32 (min)
     const seconds = date.getSeconds() // i.e 16 (sec)
-    const secondsOfWork = (60 - minutes + this.state.workTillDelayedMinutes) * 60 - seconds
+    const secondsOfWork =
+      (60 - minutes + this.state.workTillDelayedMinutes) * 60 - seconds
 
     // Get old values to restore them later
     const { total, numberOfCycle } = this.state
@@ -201,11 +200,11 @@ class App extends Component {
     this.start()
   }
 
-  updateNextHour = (value) => {
+  updateNextHour = value => {
     const date = new Date()
 
     date.setHours(date.getHours() + 1)
-    
+
     let minutesValue
     if (value === undefined) {
       minutesValue = this.state.workTillDelayedMinutes
@@ -227,7 +226,10 @@ class App extends Component {
     const [, minutes] = new Date().toLocaleTimeString().split(':') // i.e 32
 
     // Run again the next hour to update the UI
-    this.updateNextHourInterval = setInterval(this.updateNextHour, 1000 * 60 * (60 - minutes))
+    this.updateNextHourInterval = setInterval(
+      this.updateNextHour,
+      1000 * 60 * (60 - minutes)
+    )
   }
 
   /**
@@ -250,7 +252,7 @@ class App extends Component {
    * Clear the state
    * Send `idle` event to the main process
    */
-  stop = (isManual) => {
+  stop = isManual => {
     clearInterval(this.countInterval)
     clearInterval(this.pauseInterval)
 
@@ -267,7 +269,7 @@ class App extends Component {
 
     if (isManual && this.state.shouldResetValues.shouldReset) {
       this.revertValues()
-      
+
       // Display the notification 'You finished the pomodoro'
       // If it's manual -> don't show
       window.ipcRenderer.send('finished', isManual)
@@ -294,12 +296,11 @@ class App extends Component {
     })
   }
 
-  
   /**
    *  Set a new value for work time
    */
-  setWork = (minutes) => {
-    const seconds = parseInt(minutes)*60
+  setWork = minutes => {
+    const seconds = parseInt(minutes) * 60
     if (!seconds) return
     this.setState({
       total: seconds
@@ -309,19 +310,18 @@ class App extends Component {
   /**
    *  Set a new value for pause time
    */
-  setPause = (minutes) => {
-    const seconds = parseInt(minutes)*60
+  setPause = minutes => {
+    const seconds = parseInt(minutes) * 60
     if (!seconds) return
     this.setState({
       totalPause: seconds
     })
   }
 
-  
   /**
    *  Set a new value for numberOfCycle
    */
-  setNumberOfCycle = (newValue) => {
+  setNumberOfCycle = newValue => {
     if (newValue < 0) return
     this.setState({
       numberOfCycle: parseInt(newValue, 10)
@@ -331,7 +331,7 @@ class App extends Component {
   /**
    *  Set a new value for workTillDelayedMinutes
    */
-  setWorkTillDelayedMinutes = (newValue) => {
+  setWorkTillDelayedMinutes = newValue => {
     if (newValue < 0) return
     if (newValue > 59) return
 
@@ -362,19 +362,36 @@ class App extends Component {
     if (this.state.finishedWelcome) {
       return (
         <div className="container">
-
-          <div className={`titlebar ${this.state.allowDrag ? 'is-draggable' : null}`}>
-            <div className={`streak ${this.state.sessionStreak > 0 ? 'in-a-row' : ''}`}>
+          <div
+            className={`titlebar ${
+              this.state.allowDrag ? 'is-draggable' : null
+            }`}>
+            <div
+              className={`streak ${
+                this.state.sessionStreak > 0 ? 'in-a-row' : ''
+              }`}>
               <p>
-                <span role="img" aria-label="fire streak">🔥</span>
-                { this.state.sessionStreak }
+                <span role="img" aria-label="fire streak">
+                  🔥
+                </span>
+                {this.state.sessionStreak}
               </p>
             </div>
 
             <div className="controls">
-              <i onClick={() => window.ipcRenderer.send('win-settings')} className="material-icons">settings</i>
-              <i onClick={() => window.ipcRenderer.send('win-minimize')} className="material-icons">remove</i>
-              <i onClick={this.quit} className="material-icons danger">close</i>
+              <i
+                onClick={() => window.ipcRenderer.send('win-settings')}
+                className="material-icons">
+                settings
+              </i>
+              <i
+                onClick={() => window.ipcRenderer.send('win-minimize')}
+                className="material-icons">
+                remove
+              </i>
+              <i onClick={this.quit} className="material-icons danger">
+                close
+              </i>
             </div>
           </div>
 
@@ -404,7 +421,6 @@ class App extends Component {
             workTillDelayedMinutes={this.state.workTillDelayedMinutes}
             setWorkTillDelayedMinutes={this.setWorkTillDelayedMinutes}
           />
-          
         </div>
       )
     } else {

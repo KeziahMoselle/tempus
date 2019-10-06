@@ -1,15 +1,21 @@
 import React from 'react'
 
-export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCycle, numberOfCycle, setIsTimerChanged,
+export default ({
+  setWork,
+  setPause,
+  resetTime,
+  total,
+  totalPause,
+  setNumberOfCycle,
+  numberOfCycle,
+  setIsTimerChanged,
   workTillDelayedMinutes,
   setWorkTillDelayedMinutes
 }) => (
   <div className="timer-container">
     <header>
       <h3>Preferences</h3>
-      <button onClick={resetTime}>
-        Reset
-      </button>
+      <button onClick={resetTime}>Reset</button>
     </header>
 
     <div className="card">
@@ -19,7 +25,7 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="work">Work time</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => {
+            onChange={event => {
               setWork(event.target.value)
               setIsTimerChanged(true)
             }}
@@ -37,7 +43,7 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="pause">Break time</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => {
+            onChange={event => {
               setPause(event.target.value)
               setIsTimerChanged(true)
             }}
@@ -59,7 +65,7 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="cycle">Repeat</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => {
+            onChange={event => {
               setNumberOfCycle(event.target.value)
               setIsTimerChanged(true)
             }}
@@ -81,7 +87,7 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         <label htmlFor="cycle">Add a delay</label>
         <div className="has-suffix">
           <input
-            onChange={(event) => {
+            onChange={event => {
               setWorkTillDelayedMinutes(event.target.value)
               setIsTimerChanged(true)
             }}
@@ -95,6 +101,5 @@ export default ({ setWork, setPause, resetTime, total, totalPause, setNumberOfCy
         </div>
       </div>
     </div>
-    
   </div>
 )

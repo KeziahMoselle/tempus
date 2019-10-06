@@ -4,13 +4,19 @@ import Statistics from './Footer/Statistics'
 
 export default ({
   state,
-  total, totalPause,
-  start, stop,
-  setWork, setPause, resetTime,
+  total,
+  totalPause,
+  start,
+  stop,
+  setWork,
+  setPause,
+  resetTime,
   sessionStreak,
-  setNumberOfCycle, numberOfCycle,
+  setNumberOfCycle,
+  numberOfCycle,
   loadedConfig,
-  setWorkTillDelayedMinutes, workTillDelayedMinutes
+  setWorkTillDelayedMinutes,
+  workTillDelayedMinutes
 }) => {
   // Is the footer full height or not ? (classname)
   const [isExtended, setIsExtended] = useState('')
@@ -19,7 +25,7 @@ export default ({
   // If a timer state has been changed
   const [isTimerChanged, setIsTimerChanged] = useState(false)
 
-  function switchComponent (name) {
+  function switchComponent(name) {
     setIsExtended('extended')
     if (name !== component) {
       setComponent(name)
@@ -28,8 +34,8 @@ export default ({
       setIsExtended('')
     }
   }
-  
-  function saveAndStart () {
+
+  function saveAndStart() {
     window.ipcRenderer.send('updateConfig', {
       work: total,
       pause: totalPause,
@@ -40,7 +46,6 @@ export default ({
     start()
   }
 
-  
   /**
    *  Save the new values to the config store
    *  Only when :
@@ -62,33 +67,32 @@ export default ({
 
   return (
     <footer className={isExtended}>
-
       <div className="footer-header">
-
         <button
           onClick={() => switchComponent('Statistics')}
-          className={component === 'Statistics' ? 'active': ''}>
-          <i className="material-icons">{ component !== 'Statistics' ? 'bar_chart' : 'close' }</i>
+          className={component === 'Statistics' ? 'active' : ''}>
+          <i className="material-icons">
+            {component !== 'Statistics' ? 'bar_chart' : 'close'}
+          </i>
         </button>
 
         <button
-          onClick={() => !state ? saveAndStart() : stop(true)}
+          onClick={() => (!state ? saveAndStart() : stop(true))}
           className={`overlap ${state}`}>
-          <i className="material-icons">{ !state ? 'play_arrow' : 'stop' }</i>
+          <i className="material-icons">{!state ? 'play_arrow' : 'stop'}</i>
         </button>
 
         <button
           onClick={() => switchComponent('EditTimer')}
           className={component === 'EditTimer' ? 'active' : ''}>
-          <i className="material-icons">{ component !== 'EditTimer' ? 'timer' : 'close' }</i>
+          <i className="material-icons">
+            {component !== 'EditTimer' ? 'timer' : 'close'}
+          </i>
         </button>
-
       </div>
 
-
       <div className="footer-content">
-
-        { component === 'EditTimer' &&
+        {component === 'EditTimer' && (
           <EditTimer
             setWork={setWork}
             setPause={setPause}
@@ -101,14 +105,12 @@ export default ({
             workTillDelayedMinutes={workTillDelayedMinutes}
             setWorkTillDelayedMinutes={setWorkTillDelayedMinutes}
           />
-        }
+        )}
 
-        { component === 'Statistics' &&
+        {component === 'Statistics' && (
           <Statistics sessionStreak={sessionStreak} />
-        }
-
+        )}
       </div>
-
     </footer>
   )
 }

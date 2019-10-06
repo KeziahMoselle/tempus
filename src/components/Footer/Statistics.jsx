@@ -14,7 +14,7 @@ export default ({ sessionStreak }) => {
     todayMinutes: null
   })
   const [chartType, setChartType] = useState('bar')
-  
+
   /**
    * Get data from the store
    */
@@ -30,47 +30,53 @@ export default ({ sessionStreak }) => {
       })
     })
   }, [])
-  
+
   return (
     <div className="statistics-container">
-
       <div className="cards">
         <div className="card">
           <h3>Today</h3>
           <p className="card-item">
-            <span role="img" aria-label="fire streak">🔥</span>
-            { data.todayStreak }
+            <span role="img" aria-label="fire streak">
+              🔥
+            </span>
+            {data.todayStreak}
           </p>
 
           <p className="card-item">
-            <span role="img" aria-label="fire streak">⏱️</span>
-            { data.todayMinutes }m
+            <span role="img" aria-label="fire streak">
+              ⏱️
+            </span>
+            {data.todayMinutes}m
           </p>
         </div>
 
         <div className="card">
           <h3>Total</h3>
           <p className="card-item">
-            <span role="img" aria-label="fire streak">🔥</span>
-            { data.totalStreak }
+            <span role="img" aria-label="fire streak">
+              🔥
+            </span>
+            {data.totalStreak}
           </p>
 
           <p className="card-item">
-            <span role="img" aria-label="fire streak">⏱️</span>
-            { data.totalHoursOfWork }h
+            <span role="img" aria-label="fire streak">
+              ⏱️
+            </span>
+            {data.totalHoursOfWork}h
           </p>
         </div>
       </div>
 
       <div className="chart-container">
-
         <div className="center">
           <button
             onClick={() => setChartType('bar')}
             className={chartType === 'bar' ? 'selected' : ''}>
             Week
           </button>
-          
+
           <button
             onClick={() => setChartType('heatmap')}
             className={chartType === 'heatmap' ? 'selected' : ''}>
@@ -84,19 +90,12 @@ export default ({ sessionStreak }) => {
           </button>
         </div>
 
-        { chartType === 'bar' &&
-          <BarChart />
-        }
+        {chartType === 'bar' && <BarChart />}
 
-        { chartType === 'heatmap' &&
-          <HeatmapChart />
-        }
+        {chartType === 'heatmap' && <HeatmapChart />}
 
-        { chartType === 'Goals' &&
-          <Goals />
-        }
+        {chartType === 'Goals' && <Goals />}
       </div>
-
     </div>
   )
 }
