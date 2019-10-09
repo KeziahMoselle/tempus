@@ -298,6 +298,16 @@ ipcMain.on('win-minimize', () => {
   }
 })
 
+ipcMain.on('win-compact', () => {
+  trayWindow.setBounds({height: 100})
+  positioner.move(getTrayPosition(), tray.getBounds())
+})
+
+ipcMain.on('win-restore', () => {
+  trayWindow.setBounds({height: 550})
+  positioner.move(getTrayPosition(), tray.getBounds())
+})
+
 ipcMain.on('win-close', () => {
   if (showConfirmationBox('Do you really want to quit ?') === 0) {
     app.quit()
@@ -342,15 +352,7 @@ function createWindow () {
   }
 
   positioner = new Positioner(trayWindow)
-  let trayPosition
-  if (process.platform === 'win32') {
-    trayPosition = 'trayBottomCenter'
-  } else if (process.platform === 'darwin') {
-    trayPosition = 'trayCenter'
-  } else {
-    trayPosition = 'trayRight'
-  }
-  positioner.move(trayPosition, tray.getBounds())
+  positioner.move(getTrayPosition(), tray.getBounds())
 
   if (isDev) {
     const {
@@ -364,6 +366,16 @@ function createWindow () {
   }
 
   trayWindow.on('ready-to-show', () => trayWindow.show())
+}
+
+function getTrayPosition () {
+  if (process.platform === 'win32') {
+    return 'trayBottomCenter'
+  } else if (process.platform === 'darwin') {
+    return 'trayCenter'
+  } else {
+    return 'trayRight'
+  }
 }
 
 function createTray () {

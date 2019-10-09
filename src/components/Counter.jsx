@@ -1,6 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
-export default ({ state, total, count, totalPause, countPause }) => {
+export default ({
+  state,
+  total,
+  count,
+  totalPause,
+  countPause,
+  windowStyle
+}) => {
   const [format, setFormat] = useState('percentage')
 
   useEffect(() => {
@@ -50,13 +57,20 @@ export default ({ state, total, count, totalPause, countPause }) => {
     return window.innerWidth / 2 + secondaryTextWidth / 2 + 40
   }
 
-  const borderWidth = percentage * 2.78 + 56 // 334px to fill (2.78 + 0.56)
+  const borderWidth = (percentage, style) => {
+    if (style === 'compacted') {
+      return percentage * 1.8 + 28 // 208px to fill (1.8 + 0.28)
+    }
+    return percentage * 2.78 + 56 // 334px to fill (2.78 + 0.56)
+  }
 
   return (
     <Fragment>
       <div
         className={`counter ${state}`}
-        style={{ borderWidth: borderWidth + 'px' }}></div>
+        style={{
+          borderWidth: borderWidth(percentage, windowStyle) + 'px'
+        }}></div>
       <div
         onClick={() =>
           format === 'percentage' ? setNumeric() : setPercentage()
@@ -78,7 +92,7 @@ export default ({ state, total, count, totalPause, countPause }) => {
           }`}
         </div>
         <div
-          className="counter-display counter-display-swap"
+          className="counter-display counter-display-swap hidden-on-compacted"
           style={{
             left: `${calculateSwapIconSpacing()}px`,
             transition: 'left 0.5s'

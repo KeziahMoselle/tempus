@@ -220,7 +220,7 @@ p {
   font-family: 'Major Mono Display';
   margin: 0;
   cursor: pointer;
-  transition: top 0.5s, font-size 0.5s, color 0.5s;
+  transition: top 0.5s, font-size 0.5s, color 0.5s, left 0.5s;
 }
 
 .counter-display-main {
@@ -685,4 +685,59 @@ button.pausing {
 
 .hide {
   display: none !important;
+}
+
+/**
+ *
+ * WINDOW STYLES
+ *
+ */
+
+.window-compacted .hidden-on-compacted,
+.window-restored .hidden-on-restored {
+  visibility: hidden;
+}
+
+.window-compacted .remove-on-compacted,
+.window-restored .remove-on-restored {
+  display: none;
+}
+
+.window-compacted .titlebar {
+  z-index: 5;
+}
+
+.window-compacted .counter {
+  bottom: initial;
+  top: calc(50% + 6px);
+  transform: translateY(-50%);
+}
+
+.window-compacted .counter-display {
+  z-index: 6;
+}
+
+.window-compacted .counter-display-main {
+  left: 22%;
+  top: 54%;
+  font-size: 1em;
+}
+
+.window-compacted .counter-display-secondary {
+  left: 78%;
+  top: 56%;
+  font-size: 0.8em;
+}
+
+.window-compacted footer {
+  height: 0%;
+  transition: height 0s;
+}
+
+.window-compacted .footer-header {
+  background-color: transparent;
+}
+
+.window-compacted .footer-header .overlap {
+  top: -72px;
 }

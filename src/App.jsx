@@ -23,7 +23,8 @@ class App extends Component {
       oldCycle: null // Old value for cycle
     },
     finishedWelcome: false,
-    allowDrag: false
+    allowDrag: false,
+    windowStyle: 'restored' // Can be 'compacted' or 'restored'
   }
 
   componentDidMount() {
@@ -345,6 +346,23 @@ class App extends Component {
   }
 
   /**
+   *  Set the style of the window
+   */
+  winCompact = () => {
+    window.ipcRenderer.send('win-compact')
+    this.setState({
+      windowStyle: 'compacted'
+    })
+  }
+
+  winRestore = () => {
+    window.ipcRenderer.send('win-restore')
+    this.setState({
+      windowStyle: 'restored'
+    })
+  }
+
+  /**
    *  Show a confirmation dialog before quit the app
    */
   quit = () => {
@@ -361,13 +379,13 @@ class App extends Component {
   render() {
     if (this.state.finishedWelcome) {
       return (
-        <div className="container">
+        <div className={`container window-${this.state.windowStyle}`}>
           <div
             className={`titlebar ${
               this.state.allowDrag ? 'is-draggable' : null
             }`}>
             <div
-              className={`streak ${
+              className={`streak hidden-on-compacted ${
                 this.state.sessionStreak > 0 ? 'in-a-row' : ''
               }`}>
               <p>
@@ -381,13 +399,23 @@ class App extends Component {
             <div className="controls">
               <i
                 onClick={() => window.ipcRenderer.send('win-settings')}
-                className="material-icons">
+                className="material-icons hidden-on-compacted">
                 settings
               </i>
               <i
                 onClick={() => window.ipcRenderer.send('win-minimize')}
                 className="material-icons">
                 remove
+              </i>
+              <i
+                onClick={this.winRestore}
+                className="material-icons remove-on-restored">
+                call_made
+              </i>
+              <i
+                onClick={this.winCompact}
+                className="material-icons remove-on-compacted">
+                call_received
               </i>
               <i onClick={this.quit} className="material-icons danger">
                 close
@@ -399,7 +427,7 @@ class App extends Component {
 
           <h6
             onClick={this.workTillNearestHour}
-            className={`sub-action ${this.state.state}`}
+            className={`sub-action hidden-on-compacted ${this.state.state}`}
             style={{ marginTop: '300px' }}>
             Or work till {this.state.nextHour}.
           </h6>
