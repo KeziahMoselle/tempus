@@ -594,6 +594,9 @@ select {
   position: absolute;
   top: -13px;
   font-size: 0.7em;
+  background-color: white;
+  padding: 0 2px;
+  margin: 0 -2px;
 }
 
 .card-item {
