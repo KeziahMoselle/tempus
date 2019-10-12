@@ -105,6 +105,7 @@ Click on the arrows to get more informations about these features
 
 ### Prerequisites
 * Have [Node.js](https://nodejs.org/en/)  installed (> 8)
+* Have [Yarn](https://yarnpkg.com/en/) installed
 
 ### Steps
 
@@ -114,11 +115,11 @@ Click on the arrows to get more informations about these features
 ```
 2. Install dependencies :
 ```sh
-> cd tempus && npm install
+> cd tempus && yarn
 ```
 3. Run the app in `development` mode
 ```sh
-> npm run dev
+> yarn dev
 ```
 
 ### Project tree
@@ -147,7 +148,7 @@ Click on the arrows to get more informations about these features
 ## How to build ?
 
 ```sh
-> npm run build
+> yarn build
 ```
 The binaries will be created in the `dist` folder.
 
