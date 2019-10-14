@@ -113,7 +113,9 @@ Click on the arrows to get more informations about these features
 ```sh
 > git clone https://github.com/KeziahMoselle/tempus.git
 ```
-2. Install dependencies :
+2. Create a new branch (i.e: feat-new-feature)
+
+3. Install dependencies :
 ```sh
 > cd tempus && yarn
 ```
@@ -121,6 +123,10 @@ Click on the arrows to get more informations about these features
 ```sh
 > yarn dev
 ```
+
+### Tests
+
+See [Test Cases](./TESTCASES.md)
 
 ### Project tree
 
@@ -166,6 +172,7 @@ Thank you ❤️
 <a href="https://github.com/ConorGrocock"><img src="https://avatars3.githubusercontent.com/u/15091494?v=4" title="ConorGrocock" width="80" height="80"></a>
 <a href="https://github.com/rllola"><img src="https://avatars3.githubusercontent.com/u/1772945?v=4" title="rllola" width="80" height="80"></a>
 <a href="https://github.com/raphaelts3"><img src="https://avatars1.githubusercontent.com/u/3309716?v=4" title="raphaelts3" width="80" height="80"></a>
+<a href="https://github.com/bartius-nigel"><img src="https://avatars1.githubusercontent.com/u/33005791?s=460&v=4" title="bartius-nigel" width="80" height="80"></a>
 
 
 ## License
