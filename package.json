@@ -12,9 +12,10 @@
     "build": "npm run react-build && build -c.extraMetadata.main=build/app.js",
     "release": "npm run react-build && build -c.extraMetadata.main=build/app.js --publish always",
     "format": "prettier src/**/*.{js,jsx,json} --write",
+    "test:electron": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 &&  npm run test\"",
+    "test": "jest",
     "react-start": "cross-env BROWSER=none react-scripts start",
     "react-build": "react-scripts build",
-    "react-test": "react-scripts test",
     "react-eject": "react-scripts eject"
   },
   "dependencies": {
@@ -41,6 +42,7 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "^2.1.5",
+    "spectron": "^8.0.0",
     "typescript": "^3.3.3333",
     "wait-on": "^3.2.0"
   },
