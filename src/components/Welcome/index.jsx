@@ -41,7 +41,7 @@ function Welcome({ finishedWelcome, quit }) {
 
     <div className="center column valign">
       <h6>Want to work 27 min ? You can.</h6>
-      <img src="./assets/welcome/1.png" alt="preview"></img>
+      <img src="./assets/welcome/1.png" alt="preview 1"></img>
     </div>,
 
     <div className="center column valign">
@@ -49,14 +49,14 @@ function Welcome({ finishedWelcome, quit }) {
       <p>
         <b>Note:</b> It will revert your settings after the timer.
       </p>
-      <img src="./assets/welcome/2.png" alt="preview"></img>
+      <img src="./assets/welcome/2.png" alt="preview 2"></img>
     </div>,
 
     <div className="center column valign">
       <h6>
         Want to work at least 1 hour a day ? You can create goals for that.
       </h6>
-      <img src="./assets/welcome/3.png" alt="preview"></img>
+      <img src="./assets/welcome/3.png" alt="preview 3"></img>
     </div>,
 
     <div className="center column valign">
@@ -66,17 +66,17 @@ function Welcome({ finishedWelcome, quit }) {
         </span>{' '}
         It counts how many times you finished a pomodoro.
       </h6>
-      <img src="./assets/welcome/4.png" alt="preview"></img>
+      <img src="./assets/welcome/4.png" alt="preview 4"></img>
     </div>,
 
     <div className="center column valign">
       <h6>It gives you insights about your productivity.</h6>
-      <img src="./assets/welcome/5.gif" alt="preview"></img>
+      <img src="./assets/welcome/5.gif" alt="preview 5"></img>
     </div>,
 
     <div className="center column valign">
       <h6>If set, it will automatically stop the pomodoro after `x` times.</h6>
-      <img src="./assets/welcome/6.png" alt="preview"></img>
+      <img src="./assets/welcome/6.png" alt="preview 6"></img>
     </div>,
 
     <div className="center column valign">
