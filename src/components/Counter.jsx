@@ -11,9 +11,9 @@ export default ({
   const [format, setFormat] = useState('percentage')
 
   useEffect(() => {
-    ipcRenderer.send('getCounterData')
+    window.ipcRenderer.send('getCounterData')
 
-    ipcRenderer.once('getCounterData', (event, data) => {
+    window.ipcRenderer.once('getCounterData', (event, data) => {
       setFormat(data)
     })
   }, [])
@@ -32,14 +32,14 @@ export default ({
 
   function setPercentage() {
     setFormat('percentage')
-    ipcRenderer.send('updateConfig', {
+    window.ipcRenderer.send('updateConfig', {
       format: 'percentage'
     })
   }
 
   function setNumeric() {
     setFormat('numeric')
-    ipcRenderer.send('updateConfig', {
+    window.ipcRenderer.send('updateConfig', {
       format: 'numeric'
     })
   }

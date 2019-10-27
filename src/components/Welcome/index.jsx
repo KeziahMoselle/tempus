@@ -112,7 +112,7 @@ function Welcome({ finishedWelcome, quit }) {
 
         <div className="controls">
           <i
-            onClick={() => ipcRenderer.send('win-minimize')}
+            onClick={() => window.ipcRenderer.send('win-minimize')}
             className="material-icons">
             remove
           </i>

@@ -9,19 +9,19 @@ function Goals() {
   const [isShow, setIsShow] = useState(false)
 
   useEffect(() => {
-    ipcRenderer.send('getGoalsData')
+    window.ipcRenderer.send('getGoalsData')
 
-    ipcRenderer.on('getGoalsData', (event, payload) => {
+    window.ipcRenderer.on('getGoalsData', (event, payload) => {
       setGoals(payload.reverse())
     })
 
-    ipcRenderer.on('refreshGoals', () => {
-      ipcRenderer.send('getGoalsData')
+    window.ipcRenderer.on('refreshGoals', () => {
+      window.ipcRenderer.send('getGoalsData')
     })
 
     return () => {
-      ipcRenderer.removeAllListeners('getGoalsData')
-      ipcRenderer.removeAllListeners('refreshGoals')
+      window.ipcRenderer.removeAllListeners('getGoalsData')
+      window.ipcRenderer.removeAllListeners('refreshGoals')
     }
   }, [])
 
@@ -33,7 +33,7 @@ function Goals() {
     })
     if (isCreated !== -1) return
 
-    ipcRenderer.send('addGoal', {
+    window.ipcRenderer.send('addGoal', {
       value: hour * 60,
       type
     })
@@ -43,7 +43,7 @@ function Goals() {
   }
 
   function removeGoal(type, value) {
-    ipcRenderer.send('removeGoal', {
+    window.ipcRenderer.send('removeGoal', {
       type,
       value
     })

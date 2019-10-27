@@ -6,8 +6,8 @@ export default () => {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    ipcRenderer.send('getHeatmapChartData')
-    ipcRenderer.once('getHeatmapChartData', (event, payload) => {
+    window.ipcRenderer.send('getHeatmapChartData')
+    window.ipcRenderer.once('getHeatmapChartData', (event, payload) => {
       setData(payload)
     })
   }, [])

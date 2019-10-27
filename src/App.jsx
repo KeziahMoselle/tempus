@@ -35,7 +35,7 @@ class App extends Component {
     }
 
     // Listeners from the Tray menu
-    ipcRenderer.on('start', () => {
+    window.ipcRenderer.on('start', () => {
       if (this.state.state === '') {
         this.start()
       } else {
@@ -43,15 +43,15 @@ class App extends Component {
       }
     })
 
-    ipcRenderer.on('stop', () => {
+    window.ipcRenderer.on('stop', () => {
       if (this.state.state) {
         this.stop()
       }
     })
     // Send `handshake` event to receive new value from the store
-    ipcRenderer.send('handshake')
+    window.ipcRenderer.send('handshake')
     // Receive new values from the store
-    ipcRenderer.once('handshake', (event, data) => {
+    window.ipcRenderer.once('handshake', (event, data) => {
       this.setState({
         total: data.work,
         totalPause: data.pause,
@@ -81,25 +81,25 @@ class App extends Component {
 
     // Update icon at 25%
     this.timeout25 = setTimeout(() => {
-      ipcRenderer.send('updateTrayIcon', 'one')
+      window.ipcRenderer.send('updateTrayIcon', 'one')
     }, this.state.total * 0.25 * 1000)
 
     // Update icon at 50%
     this.timeout50 = setTimeout(() => {
-      ipcRenderer.send('updateTrayIcon', 'two')
+      window.ipcRenderer.send('updateTrayIcon', 'two')
     }, this.state.total * 0.5 * 1000)
 
     // Update icon at 75%
     this.timeout75 = setTimeout(() => {
-      ipcRenderer.send('updateTrayIcon', 'three')
+      window.ipcRenderer.send('updateTrayIcon', 'three')
     }, this.state.total * 0.75 * 1000)
 
     // Update icon at 90%
     this.timeout90 = setTimeout(() => {
-      ipcRenderer.send('updateTrayIcon', 'four')
+      window.ipcRenderer.send('updateTrayIcon', 'four')
     }, this.state.total * 0.9 * 1000)
 
-    ipcRenderer.send('counting', displayWorkNotification)
+    window.ipcRenderer.send('counting', displayWorkNotification)
   }
 
   /**
@@ -133,8 +133,8 @@ class App extends Component {
         }
 
         // Display the notification 'You finished the pomodoro'
-        ipcRenderer.send('finished')
-        ipcRenderer.send('updateData', this.state.total / 60)
+        window.ipcRenderer.send('finished')
+        window.ipcRenderer.send('updateData', this.state.total / 60)
 
         new Audio('./assets/audio/notification-long.wav').play()
 
@@ -144,9 +144,9 @@ class App extends Component {
       new Audio('./assets/audio/notification.wav').play()
 
       /* Streak */
-      ipcRenderer.send('updateData', this.state.total / 60)
+      window.ipcRenderer.send('updateData', this.state.total / 60)
       /* Set pause state */
-      ipcRenderer.send('pausing')
+      window.ipcRenderer.send('pausing')
       /* Begin to count pause */
       return (this.pauseInterval = setInterval(this.incrementPause, 1000))
     }
@@ -273,15 +273,15 @@ class App extends Component {
 
       // Display the notification 'You finished the pomodoro'
       // If it's manual -> don't show
-      ipcRenderer.send('finished', isManual)
+      window.ipcRenderer.send('finished', isManual)
     }
 
     if (isManual) {
       // Cancel the pausing timeout 'You must work during...'
-      ipcRenderer.send('pausing', isManual)
+      window.ipcRenderer.send('pausing', isManual)
     }
 
-    ipcRenderer.send('idle')
+    window.ipcRenderer.send('idle')
   }
 
   resetTime = () => {
@@ -290,7 +290,7 @@ class App extends Component {
       totalPause: 300,
       numberOfCycle: 0
     })
-    ipcRenderer.send('updateConfig', {
+    window.ipcRenderer.send('updateConfig', {
       work: 1500,
       pause: 300,
       numberOfCycle: 0
@@ -349,14 +349,14 @@ class App extends Component {
    *  Set the style of the window
    */
   winCompact = () => {
-    ipcRenderer.send('win-compact')
+    window.ipcRenderer.send('win-compact')
     this.setState({
       windowStyle: 'compacted'
     })
   }
 
   winRestore = () => {
-    ipcRenderer.send('win-restore')
+    window.ipcRenderer.send('win-restore')
     this.setState({
       windowStyle: 'restored'
     })
@@ -366,7 +366,7 @@ class App extends Component {
    *  Show a confirmation dialog before quit the app
    */
   quit = () => {
-    ipcRenderer.send('win-close')
+    window.ipcRenderer.send('win-close')
   }
 
   finishedWelcome = () => {
@@ -398,12 +398,12 @@ class App extends Component {
 
             <div className="controls">
               <i
-                onClick={() => ipcRenderer.send('win-settings')}
+                onClick={() => window.ipcRenderer.send('win-settings')}
                 className="material-icons hidden-on-compacted">
                 settings
               </i>
               <i
-                onClick={() => ipcRenderer.send('win-minimize')}
+                onClick={() => window.ipcRenderer.send('win-minimize')}
                 className="material-icons">
                 remove
               </i>
