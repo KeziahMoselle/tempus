@@ -240,6 +240,7 @@ header button {
 }
 
 .gif-box {
+  position: relative;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -256,6 +257,16 @@ header button {
   height: auto;
   width: 280px;
   padding: 16px;
+}
+
+.gif-box .overlap-image {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .gif-box .overlap-image {
+    position: unset;
+  }
 }
 
 .changelog {
