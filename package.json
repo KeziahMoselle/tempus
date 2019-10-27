@@ -35,13 +35,14 @@
     "react-tooltip": "^3.9.2"
   },
   "devDependencies": {
+    "@testing-library/react": "^9.3.0",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "electron": "^4.0.7",
     "electron-builder": "^20.38.5",
     "electron-devtools-installer": "^2.2.4",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-scripts": "^2.1.5",
     "spectron": "^8.0.0",
     "typescript": "^3.3.3333",
