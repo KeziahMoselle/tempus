@@ -5,8 +5,8 @@ export default () => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    window.ipcRenderer.send('getBarChartData')
-    window.ipcRenderer.once('getBarChartData', (event, payload) => {
+    ipcRenderer.send('getBarChartData')
+    ipcRenderer.once('getBarChartData', (event, payload) => {
       setIsLoaded(true)
       new Chart('bar-chart', {
         type: 'bar',

@@ -14,6 +14,7 @@
     "format": "prettier src/**/*.{js,jsx,json} --write",
     "test:electron": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 &&  npm run test\"",
     "test": "jest",
+    "test:app": "react-scripts test",
     "react-start": "cross-env BROWSER=none react-scripts start",
     "react-build": "react-scripts build",
     "react-eject": "react-scripts eject"

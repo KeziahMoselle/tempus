@@ -36,7 +36,7 @@ export default ({
   }
 
   function saveAndStart() {
-    window.ipcRenderer.send('updateConfig', {
+    ipcRenderer.send('updateConfig', {
       work: total,
       pause: totalPause,
       numberOfCycle: numberOfCycle
@@ -55,7 +55,7 @@ export default ({
    */
   useEffect(() => {
     if (component !== 'EditTimer' && loadedConfig && isTimerChanged) {
-      window.ipcRenderer.send('updateConfig', {
+      ipcRenderer.send('updateConfig', {
         work: total,
         pause: totalPause,
         numberOfCycle: numberOfCycle,

@@ -20,8 +20,8 @@ export default ({ sessionStreak }) => {
    */
 
   useEffect(() => {
-    window.ipcRenderer.send('getData')
-    window.ipcRenderer.once('getData', (event, payload) => {
+    ipcRenderer.send('getData')
+    ipcRenderer.once('getData', (event, payload) => {
       setData({
         totalHoursOfWork: payload.totalHoursOfWork,
         totalStreak: payload.totalStreak,
