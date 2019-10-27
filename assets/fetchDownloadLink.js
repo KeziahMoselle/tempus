@@ -9,26 +9,32 @@ fetch('https://api.github.com/repos/KeziahMoselle/tempus/releases/latest')
   function updateDownloadLinks (assets) {
     let windowsLink
     let macosLink
+    let linuxLink
 
     assets.forEach(asset => {
       if (asset.browser_download_url.endsWith('dmg')) {
         macosLink = asset.browser_download_url
       } else if (asset.browser_download_url.endsWith('exe')) {
         windowsLink = asset.browser_download_url
-      }
+      } else if (asset.browser_download_url.endsWith('deb')) {
+        linuxLink = asset.browser_download_url
+      } 
     })
 
-    const windowsAnchor = document.getElementsByClassName('win-link')
-    const macosAnchor = document.getElementsByClassName('mac-link')
+    const windowsAnchors = document.getElementsByClassName('win-link')
+    const macosAnchors = document.getElementsByClassName('mac-link')
+    const linuxAnchors = document.getElementsByClassName('linux-link')
 
-    for (let i = 0; i < windowsAnchor.length; i++) {
-      const element = windowsAnchor[i]
-      element.href = windowsLink
+    for (const anchor of windowsAnchors) {
+      anchor.href = windowsLink
     }
 
-    for (let i = 0; i < macosAnchor.length; i++) {
-      const element = macosAnchor[i]
-      element.href = macosLink
+    for (const anchor of macosAnchors) {
+      anchor.href = macosLink
+    }
+
+    for (const anchor of linuxAnchors) {
+      anchor.href = linuxLink
     }
   }
 
