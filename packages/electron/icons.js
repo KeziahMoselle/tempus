@@ -5,12 +5,18 @@ process.platform === 'win32'
   ? extension = 'ico' // .ico on Win32
   : extension = 'png' // .png on Darwin
 
+console.log(getPath('icon.ico'))
+
+function getPath(icon) {
+  return path.join(__dirname, 'assets', 'icons', icon)
+}
+
 module.exports = {
-  idle: path.join(__dirname, 'assets', 'icons', `idle.${extension}`),
-  pausing: path.join(__dirname, 'assets', 'icons', `pausing.${extension}`),
-  counting: path.join(__dirname, 'assets', 'icons', 'state', `zero.${extension}`),
-  one: path.join(__dirname, 'assets', 'icons', 'state', `one.${extension}`),
-  two: path.join(__dirname, 'assets', 'icons', 'state', `two.${extension}`),
-  three: path.join(__dirname, 'assets', 'icons', 'state', `three.${extension}`),
-  four: path.join(__dirname, 'assets', 'icons', 'state', `four.${extension}`),
+  idle: getPath(`idle.${extension}`),
+  pausing: getPath(`pausing.${extension}`),
+  counting: getPath(`zero.${extension}`),
+  one: getPath(`one.${extension}`),
+  two: getPath(`two.${extension}`),
+  three: getPath(`three.${extension}`),
+  four: getPath(`four.${extension}`),
 }

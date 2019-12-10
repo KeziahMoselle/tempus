@@ -7,34 +7,18 @@
   "homepage": "./",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
-    "build": "npm run react-build && build -c.extraMetadata.main=build/app.js",
-    "release": "npm run react-build && build -c.extraMetadata.main=build/app.js --publish always",
-    "format": "prettier packages/**/*.{js,jsx,json} --write",
-    "test:app": "react-scripts test",
-    "react-start": "cross-env BROWSER=none react-scripts start",
-    "react-build": "react-scripts build",
-    "react-eject": "react-scripts eject"
-  },
-  "dependencies": {
-    "chart.js": "^2.7.3",
-    "husky": "^3.0.8",
-    "lint-staged": "^9.4.1",
-    "prettier": "^1.18.2",
-    "react-calendar-heatmap": "^1.8.0",
-    "react-tooltip": "^3.9.2"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^9.3.0",
-    "cross-env": "^5.2.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "^2.1.5"
+    "web": "yarn workspace @tempus/app start",
+    "electron": "yarn workspace @tempus/electron start"
   },
   "workspaces": {
     "packages": [
       "packages/*"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.1",
+    "cross-env": "^5.2.0",
+    "wait-on": "^3.3.0"
   },
   "husky": {
     "hooks": {
