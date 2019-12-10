@@ -1,0 +1,7 @@
+{
+  "name": "@tempus/core",
+  "description": "Functions",
+  "version": "1.7.0",
+  "private": true,
+  "main": "index.js"
+}

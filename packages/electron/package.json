@@ -13,6 +13,7 @@
     "release": "npm run build && build -c.extraMetadata.main=build/app.js --publish always"
   },
   "dependencies": {
+    "@tempus/core": "^1.7.0",
     "auto-launch": "^5.0.5",
     "electron-is-dev": "^1.0.1",
     "electron-log": "^3.0.1",

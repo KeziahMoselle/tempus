@@ -7,16 +7,20 @@ process.platform === 'win32'
 
 console.log(getPath('icon.ico'))
 
-function getPath(icon) {
+function getPath(icon, state) {
+  if (state) {
+    return path.join(__dirname, 'assets', 'icons', 'state', icon)
+  }
+
   return path.join(__dirname, 'assets', 'icons', icon)
 }
 
 module.exports = {
   idle: getPath(`idle.${extension}`),
   pausing: getPath(`pausing.${extension}`),
-  counting: getPath(`zero.${extension}`),
-  one: getPath(`one.${extension}`),
-  two: getPath(`two.${extension}`),
-  three: getPath(`three.${extension}`),
-  four: getPath(`four.${extension}`),
+  counting: getPath(`zero.${extension}`, true),
+  one: getPath(`one.${extension}`, true),
+  two: getPath(`two.${extension}`, true),
+  three: getPath(`three.${extension}`, true),
+  four: getPath(`four.${extension}`, true),
 }

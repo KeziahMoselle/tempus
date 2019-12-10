@@ -22,6 +22,7 @@ const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
 const log = require('electron-log')
+const { getLatestVersion, notifyLatestVersion, toCSV } = require('@tempus/core')
 
 const { config, data, updateData } = require('./store')
 const icons = require('./icons')
@@ -459,8 +460,7 @@ function updateContextMenu (options) {
     {
       label: 'Export to CSV',
       click () {
-        const exportAsCsv = require('./utils/toCSV')
-        exportAsCsv()
+        toCSV()
       }
     },
     {
@@ -614,13 +614,11 @@ async function checkForUpdates () {
   let latestVer
 
   if (process.platform === 'darwin') {
-    const notifyLatestVersion = require('./utils/notifyLatestVersion')
     const { currentVersion, latestVersion } = await notifyLatestVersion()
     currentVer = currentVersion
     latestVer = latestVersion
   } else {
     const { autoUpdater } = require('electron-updater')
-    const getLatestVersion = require('./utils/getLatestVersion')
     const { currentVersion, latestVersion } = await getLatestVersion()
     currentVer = currentVersion
     latestVer = latestVersion

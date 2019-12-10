@@ -2,7 +2,7 @@ const fs = require('fs').promises
 const path = require('path')
 const { app, dialog, shell } = require('electron')
 const log = require('electron-log')
-const { data } = require('../store')
+const { data } = require('../../electron/store')
 
 const downloadPath = path.join(app.getPath('downloads'), 'tempus.csv')
 
