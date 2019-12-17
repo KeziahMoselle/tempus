@@ -12,7 +12,9 @@
     "test:app": "yarn workspace @tempus/app test",
     "electron": "yarn workspace @tempus/electron start",
     "build:electron": "yarn workspace @tempus/electron build",
-    "test:electron": "yarn workspace @tempus/electron test"
+    "test:electron": "yarn workspace @tempus/electron test",
+    "release": "yarn workspace @tempus/electron release",
+    "format": "prettier packages/**/*.{js,jsx,json} --write"
   },
   "workspaces": {
     "packages": [
@@ -22,6 +24,9 @@
   "devDependencies": {
     "concurrently": "^5.0.1",
     "cross-env": "^5.2.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
     "wait-on": "^3.3.0"
   },
   "husky": {
@@ -30,7 +35,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json}": [
+    "packages/**/*.{js,jsx,json}": [
       "prettier --write",
       "git add"
     ]

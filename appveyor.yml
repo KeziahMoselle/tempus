@@ -14,7 +14,4 @@ install:
 build_script:
  - yarn release
 
-artifacts:
-  - path: .\dist\*.exe
-
 test: off
