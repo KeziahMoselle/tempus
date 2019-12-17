@@ -2,10 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App.jsx'
 import { ipc } from '@tempus/core'
+import isElectron from './utils/isElectron'
 
-// Override ipcRenderer
-// This will be replaced by @tempus/core
-window.ipcRenderer = ipc
+if (!isElectron()) {
+  window.ipcRenderer = ipc
+}
 
 ReactDOM.render(
   <React.StrictMode>
