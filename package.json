@@ -9,8 +9,10 @@
   "scripts": {
     "web": "yarn workspace @tempus/app start",
     "build:web": "yarn workspace @tempus/app build",
+    "test:app": "yarn workspace @tempus/app test",
     "electron": "yarn workspace @tempus/electron start",
-    "build:electron": "yarn workspace @tempus/electron build"
+    "build:electron": "yarn workspace @tempus/electron build",
+    "test:electron": "yarn workspace @tempus/electron test"
   },
   "workspaces": {
     "packages": [
