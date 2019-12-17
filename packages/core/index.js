@@ -1,8 +1,5 @@
+const Ipc = require('./ipc')
+
 module.exports = {
-  ipc: {
-    on: () => {},
-    once: () => {},
-    send: () => {},
-    removeAllListeners: () => {}
-  }
+  Ipc
 }
