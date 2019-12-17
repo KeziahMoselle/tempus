@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './assets/index.css'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
 import Welcome from './components/Welcome/index'

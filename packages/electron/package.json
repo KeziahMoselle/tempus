@@ -9,8 +9,9 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"yarn workspace @tempus/app start:electron\" \"wait-on http://localhost:3000 && electron app.js\"",
-    "build": "yarn workspace @tempus/app build && build -c.extraMetadata.main=build/app.js",
-    "release": "npm run build && build -c.extraMetadata.main=build/app.js --publish always"
+    "prebuild": "yarn workspace @tempus/app build && copyfiles -u 2 \"../app/build/**/*\" ./",
+    "build": "build",
+    "release": "npm run prebuild && build --publish always"
   },
   "dependencies": {
     "@tempus/core": "^1.7.0",
@@ -23,6 +24,7 @@
     "got": "^9.6.0"
   },
   "devDependencies": {
+    "copyfiles": "^2.1.1",
     "electron": "^4.0.7",
     "electron-builder": "^20.38.5",
     "electron-devtools-installer": "^2.2.4",
@@ -51,15 +53,15 @@
         "repo": "tempus"
       }
     ],
-    "files": [
-      "build/**/*"
-    ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "./assets"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
-  }
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ]
 }

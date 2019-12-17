@@ -22,7 +22,9 @@ const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
 const log = require('electron-log')
-const { getLatestVersion, notifyLatestVersion, toCSV } = require('@tempus/core')
+const getLatestVersion = require('./utils/getLatestVersion')
+const notifyLatestVersion = require('./utils/notifyLatestVersion')
+const toCSV = require('./utils/toCSV')
 
 const { config, data, updateData } = require('./store')
 const icons = require('./icons')
@@ -348,7 +350,7 @@ function createWindow () {
     trayWindow.loadURL(url.format({
       protocol: 'file',
       slashes: true,
-      pathname: path.join(__dirname, 'index.html')
+      pathname: path.join(__dirname, 'build', 'index.html')
     }))
   }
 

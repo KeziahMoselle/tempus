@@ -5,8 +5,6 @@ process.platform === 'win32'
   ? extension = 'ico' // .ico on Win32
   : extension = 'png' // .png on Darwin
 
-console.log(getPath('icon.ico'))
-
 function getPath(icon, state) {
   if (state) {
     return path.join(__dirname, 'assets', 'icons', 'state', icon)
