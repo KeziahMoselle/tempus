@@ -8,7 +8,9 @@
   "license": "MIT",
   "scripts": {
     "web": "yarn workspace @tempus/app start",
-    "electron": "yarn workspace @tempus/electron start"
+    "build:web": "yarn workspace @tempus/app build",
+    "electron": "yarn workspace @tempus/electron start",
+    "build:electron": "yarn workspace @tempus/electron build"
   },
   "workspaces": {
     "packages": [

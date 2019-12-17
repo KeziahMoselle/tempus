@@ -1,3 +1,8 @@
 module.exports = {
-  ipc: () => {}
+  ipc: {
+    on: () => {},
+    once: () => {},
+    send: () => {},
+    removeAllListeners: () => {}
+  }
 }
