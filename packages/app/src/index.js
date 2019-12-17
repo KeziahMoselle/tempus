@@ -4,7 +4,7 @@ import App from './App.jsx'
 import { ipc } from '@tempus/core'
 import isElectron from './utils/isElectron'
 
-if (!isElectron()) {
+if (!isElectron) {
   window.ipcRenderer = ipc
 }
 
