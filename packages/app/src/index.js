@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App.jsx'
-import { ipc } from '@tempus/core'
+import { Ipc } from '@tempus/core'
 import isElectron from './utils/isElectron'
 
 if (!isElectron) {
-  window.ipcRenderer = ipc
+  window.ipcRenderer = new Ipc()
+  console.log(window.ipcRenderer)
 }
 
 ReactDOM.render(
