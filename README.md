@@ -135,6 +135,7 @@ $ yarn electron
 ### Build
 
 To build the app (without Electron) you will need to run :
+
 The `/build` directory is in `packages/app/build`
 
 ```sh
@@ -142,6 +143,7 @@ $ yarn build:app
 ```
 
 To build the app with Electron you will need to run :
+
 The `/build` directory is in `packages/electron/dist`
 
 ```sh
@@ -164,6 +166,52 @@ See [Test Cases (need to implement)](./TESTCASES.md)
 
 ### Project tree
 
+```
+|-- .gitignore
+|-- .prettierignore
+|-- .travis.yml
+|-- appveyor.yml
+|-- LICENSE
+|-- package.json
+|-- prettier.config.js
+|-- README.md
+|-- TESTCASES.md
+|-- yarn.lock
+|-- .github
+|-- packages
+    |-- app
+    |   |-- package.json
+    |   |-- build
+    |   |-- public
+    |   |   |-- favicon.ico
+    |   |   |-- index.html
+    |   |   |-- assets
+    |   |-- src
+    |       |-- App.jsx
+    |       |-- index.js
+    |       |-- assets
+    |       |-- components
+    |       |-- tests
+    |       |-- utils
+    |-- core
+    |   |-- index.js
+    |   |-- package.json
+    |   |-- ipc
+    |-- electron
+        |-- app.js
+        |-- icons.js
+        |-- package.json
+        |-- preload.js
+        |-- store.js
+        |-- assets
+        |-- dist
+        |-- tests
+        |   |-- App.test.js
+        |-- utils
+            |-- getLatestVersion.js
+            |-- notifyLatestVersion.js
+            |-- toCSV.js
+```
 
 ## Built With
 
