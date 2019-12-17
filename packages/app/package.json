@@ -1,0 +1,28 @@
+{
+  "name": "@tempus/app",
+  "version": "1.7.0",
+  "private": true,
+  "homepage": "./",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "start:electron": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "dependencies": {
+    "@tempus/core": "^1.7.0",
+    "chart.js": "^2.7.3",
+    "react-calendar-heatmap": "^1.8.0",
+    "react-tooltip": "^3.9.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^9.3.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.3.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ]
+}

@@ -2,7 +2,7 @@ const { Notification, shell } = require('electron')
 
 const getLatestVersion = require('./getLatestVersion')
 
-async function latestVersionAvailable () {
+async function latestVersionAvailable() {
   const { latestVersion, currentVersion } = await getLatestVersion()
 
   if (latestVersion !== currentVersion) {
@@ -13,7 +13,11 @@ async function latestVersionAvailable () {
 
     notification.show()
 
-    notification.on('click', () => shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`))
+    notification.on('click', () =>
+      shell.openExternal(
+        `https://tempus.keziahmoselle.fr/?from=${currentVersion}`
+      )
+    )
   }
 
   return {

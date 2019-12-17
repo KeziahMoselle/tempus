@@ -1,0 +1,65 @@
+{
+  "name": "@tempus/electron",
+  "description": " A simple yet featureful pomodoro in the tray/menubar",
+  "version": "1.7.0",
+  "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
+  "private": true,
+  "main": "app.js",
+  "homepage": "./",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"yarn workspace @tempus/app start:electron\" \"wait-on http://localhost:3000 && electron app.js\"",
+    "prebuild": "yarn workspace @tempus/app build && copyfiles -u 2 \"../app/build/**/*\" ./",
+    "build": "build",
+    "release": "npm run prebuild && build --publish always",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@tempus/core": "^1.7.0",
+    "auto-launch": "^5.0.5",
+    "electron-is-dev": "^1.0.1",
+    "electron-log": "^3.0.1",
+    "electron-positioner": "^4.1.0",
+    "electron-store": "^2.0.0",
+    "electron-updater": "^4.0.6",
+    "got": "^9.6.0"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.1.1",
+    "electron": "^4.0.7",
+    "electron-builder": "^20.38.5",
+    "electron-devtools-installer": "^2.2.4",
+    "spectron": "^8.0.0"
+  },
+  "build": {
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "maintainer": "Keziah Moselle",
+      "icon": "./assets/"
+    },
+    "appId": "com.electron.tempus",
+    "productName": "Tempus",
+    "extends": null,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "KeziahMoselle",
+        "repo": "tempus"
+      }
+    ],
+    "directories": {
+      "buildResources": "./assets"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

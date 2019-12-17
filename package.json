@@ -4,83 +4,30 @@
   "version": "1.7.0",
   "author": "Keziah Moselle (https://github.com/KeziahMoselle)",
   "private": true,
-  "main": "./public/app.js",
   "homepage": "./",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
-    "build": "npm run react-build && build -c.extraMetadata.main=build/app.js",
-    "release": "npm run react-build && build -c.extraMetadata.main=build/app.js --publish always",
-    "format": "prettier src/**/*.{js,jsx,json} --write",
-    "test:electron": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 &&  npm run test\"",
-    "test": "jest",
-    "test:app": "react-scripts test",
-    "react-start": "cross-env BROWSER=none react-scripts start",
-    "react-build": "react-scripts build",
-    "react-eject": "react-scripts eject"
+    "web": "yarn workspace @tempus/app start",
+    "build:web": "yarn workspace @tempus/app build",
+    "test:app": "yarn workspace @tempus/app test",
+    "electron": "yarn workspace @tempus/electron start",
+    "build:electron": "yarn workspace @tempus/electron build",
+    "test:electron": "yarn workspace @tempus/electron test",
+    "release": "yarn workspace @tempus/electron release",
+    "format": "prettier packages/**/*.{js,jsx,json} --write"
   },
-  "dependencies": {
-    "auto-launch": "^5.0.5",
-    "chart.js": "^2.7.3",
-    "electron-is-dev": "^1.0.1",
-    "electron-log": "^3.0.1",
-    "electron-positioner": "^4.1.0",
-    "electron-store": "^2.0.0",
-    "electron-updater": "^4.0.6",
-    "got": "^9.6.0",
-    "husky": "^3.0.8",
-    "lint-staged": "^9.4.1",
-    "prettier": "^1.18.2",
-    "react-calendar-heatmap": "^1.8.0",
-    "react-tooltip": "^3.9.2"
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "devDependencies": {
-    "@testing-library/react": "^9.3.0",
-    "concurrently": "^4.1.0",
+    "concurrently": "^5.0.1",
     "cross-env": "^5.2.0",
-    "electron": "^4.0.7",
-    "electron-builder": "^20.38.5",
-    "electron-devtools-installer": "^2.2.4",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "^2.1.5",
-    "spectron": "^8.0.0",
-    "typescript": "^3.3.3333",
-    "wait-on": "^3.2.0"
-  },
-  "build": {
-    "linux": {
-      "target": [
-        {
-          "target": "deb",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "maintainer": "Keziah Moselle",
-      "icon": "./assets/"
-    },
-    "appId": "com.electron.tempus",
-    "productName": "Tempus",
-    "extends": null,
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "KeziahMoselle",
-        "repo": "tempus"
-      }
-    ],
-    "files": [
-      "build/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "wait-on": "^3.3.0"
   },
   "husky": {
     "hooks": {
@@ -88,7 +35,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json}": [
+    "packages/**/*.{js,jsx,json}": [
       "prettier --write",
       "git add"
     ]
@@ -96,9 +43,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    "last 2 Chrome versions"
-  ],
   "keywords": [
     "pomodoro",
     "tray",

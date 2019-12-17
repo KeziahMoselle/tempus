@@ -1,10 +1,11 @@
 const got = require('got')
 const log = require('electron-log')
-const { version: currentVersion } = require('../../package.json')
+const { version: currentVersion } = require('../../../package.json')
 
-const githubReleaseUrl = 'https://api.github.com/repos/KeziahMoselle/tempus/releases/latest'
+const githubReleaseUrl =
+  'https://api.github.com/repos/KeziahMoselle/tempus/releases/latest'
 
-async function getLatestVersion () {
+async function getLatestVersion() {
   try {
     const { body } = await got(githubReleaseUrl)
     const { name: latestVersion } = JSON.parse(body)

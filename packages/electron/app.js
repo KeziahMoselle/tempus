@@ -22,6 +22,9 @@ const Positioner = require('electron-positioner')
 const isDev = require('electron-is-dev')
 const AutoLaunch = require('auto-launch')
 const log = require('electron-log')
+const getLatestVersion = require('./utils/getLatestVersion')
+const notifyLatestVersion = require('./utils/notifyLatestVersion')
+const toCSV = require('./utils/toCSV')
 
 const { config, data, updateData } = require('./store')
 const icons = require('./icons')
@@ -30,7 +33,6 @@ let tray
 let trayWindow
 let positioner
 const autoLauncher = new AutoLaunch({ name: 'tempus' })
-
 
 app.setAppUserModelId('com.electron.tempus')
 
@@ -76,7 +78,7 @@ ipcMain.on('pausing', (event, isManual) => {
   }
 })
 
-/* 
+/*
  * When the max number of cycle has been reached,
  * Show a notification
  */
@@ -91,10 +93,10 @@ ipcMain.on('finished', (event, isManual) => {
   }
 })
 
-/* 
-* When the React App is loaded
-* Update the default state of the React App with the config
-*/
+/*
+ * When the React App is loaded
+ * Update the default state of the React App with the config
+ */
 
 ipcMain.on('handshake', () => {
   const currentDayIndex = config.get('lastTimeUpdated.index')
@@ -104,7 +106,7 @@ ipcMain.on('handshake', () => {
   let todayStreak = 0
 
   // Get streak if it exists
-  if (storeData[currentDayIndex]) { 
+  if (storeData[currentDayIndex]) {
     todayStreak = storeData[currentDayIndex].streak
   }
 
@@ -127,15 +129,16 @@ ipcMain.on('updateConfig', (event, data) => {
   const workTillDelayedMinutes = config.get('workTillDelayedMinutes')
   const format = config.get('format')
 
-  if (data.work && (work !== data.work)) config.set('work', data.work)
-  if (data.pause && (pause !== data.pause)) config.set('pause', data.pause)
-  if (data.numberOfCycle && (numberOfCycle !== data.numberOfCycle)) config.set('numberOfCycle', data.numberOfCycle)
+  if (data.work && work !== data.work) config.set('work', data.work)
+  if (data.pause && pause !== data.pause) config.set('pause', data.pause)
+  if (data.numberOfCycle && numberOfCycle !== data.numberOfCycle)
+    config.set('numberOfCycle', data.numberOfCycle)
   if (data.workTillDelayedMinutes || data.workTillDelayedMinutes === 0) {
-    if (workTillDelayedMinutes !== data.workTillDelayedMinutes) config.set('workTillDelayedMinutes', data.workTillDelayedMinutes)
+    if (workTillDelayedMinutes !== data.workTillDelayedMinutes)
+      config.set('workTillDelayedMinutes', data.workTillDelayedMinutes)
   }
-  if (data.format && (format !== data.format)) config.set('format', data.format)
+  if (data.format && format !== data.format) config.set('format', data.format)
 })
-
 
 /**
  *
@@ -163,7 +166,8 @@ ipcMain.on('getData', () => {
   /* Streak */
   let todayStreak = 0 // default value
   let todayMinutes = 0 // default value
-  if (storeData[currentDayIndex]) { // Get streak if it exists
+  if (storeData[currentDayIndex]) {
+    // Get streak if it exists
     todayStreak = storeData[currentDayIndex].streak
     todayMinutes = Math.round(storeData[currentDayIndex].value)
   }
@@ -179,7 +183,8 @@ ipcMain.on('getData', () => {
 /* Data for the Bar chart */
 
 ipcMain.on('getBarChartData', () => {
-  const payload = data.get('data')
+  const payload = data
+    .get('data')
     .slice(-7)
     .map(object => ({
       t: new Date(object.day).toLocaleDateString('en-US'),
@@ -205,7 +210,6 @@ ipcMain.on('getHeatmapChartData', () => {
 ipcMain.on('getCounterData', () => {
   trayWindow.webContents.send('getCounterData', config.get('format'))
 })
-
 
 /* Data for Goals */
 
@@ -267,11 +271,11 @@ ipcMain.on('getGoalsData', () => {
       return accumulator + currentValue.value
     }, 0)
     // Compare the value of the goal and the minutes of work
-    
+
     // If superior -> The goal is achieved
     // If inferior -> The goal is not achieved
     let isSuccess
-    totalMinutes >= goal.value ? isSuccess = true : isSuccess = false
+    totalMinutes >= goal.value ? (isSuccess = true) : (isSuccess = false)
 
     payload.push({
       ...goal,
@@ -287,8 +291,6 @@ ipcMain.on('getGoalsData', () => {
 
 ipcMain.on('updateData', (event, timePassed) => updateData(timePassed))
 
-
-
 /* Window events */
 
 ipcMain.on('win-minimize', () => {
@@ -299,12 +301,12 @@ ipcMain.on('win-minimize', () => {
 })
 
 ipcMain.on('win-compact', () => {
-  trayWindow.setBounds({height: 100})
+  trayWindow.setBounds({ height: 100 })
   positioner.move(getTrayPosition(), tray.getBounds())
 })
 
 ipcMain.on('win-restore', () => {
-  trayWindow.setBounds({height: 550})
+  trayWindow.setBounds({ height: 550 })
   positioner.move(getTrayPosition(), tray.getBounds())
 })
 
@@ -314,14 +316,13 @@ ipcMain.on('win-close', () => {
   }
 })
 
-
 /**
  *
  * FUNCTIONS
  *
  */
 
-function createWindow () {
+function createWindow() {
   trayWindow = new BrowserWindow({
     width: 400,
     height: 550,
@@ -344,11 +345,13 @@ function createWindow () {
     trayWindow.loadURL('http://localhost:3000/')
   } else {
     // PRODUCTION Load the React build
-    trayWindow.loadURL(url.format({
-      protocol: 'file',
-      slashes: true,
-      pathname: path.join(__dirname, 'index.html')
-    }))
+    trayWindow.loadURL(
+      url.format({
+        protocol: 'file',
+        slashes: true,
+        pathname: path.join(__dirname, 'build', 'index.html')
+      })
+    )
   }
 
   positioner = new Positioner(trayWindow)
@@ -368,7 +371,7 @@ function createWindow () {
   trayWindow.on('ready-to-show', () => trayWindow.show())
 }
 
-function getTrayPosition () {
+function getTrayPosition() {
   if (process.platform === 'win32') {
     return 'trayBottomCenter'
   } else if (process.platform === 'darwin') {
@@ -378,27 +381,33 @@ function getTrayPosition () {
   }
 }
 
-function createTray () {
+function createTray() {
   tray = new Tray(icons.idle)
   tray.setToolTip('Tempus, click to open')
   tray.on('click', () => toggleWindow())
   updateContextMenu()
 }
 
-function updateContextMenu (options) {
+function updateContextMenu(options) {
   let versionItem
 
   if (options && options.version) {
     const currentVersion = options.version.currentVersion
     const latestVersion = options.version.latestVersion
     const newVersionAvailable = currentVersion !== latestVersion
-    
+
     versionItem = {
-      label: newVersionAvailable ? `v${currentVersion} (latest: ${latestVersion})` : `v${currentVersion} (up-to-date)`,
-      sublabel: newVersionAvailable ? 'Click to download latest version' : undefined,
+      label: newVersionAvailable
+        ? `v${currentVersion} (latest: ${latestVersion})`
+        : `v${currentVersion} (up-to-date)`,
+      sublabel: newVersionAvailable
+        ? 'Click to download latest version'
+        : undefined,
       enabled: newVersionAvailable ? true : false,
-      click () {
-        shell.openExternal(`https://tempus.keziahmoselle.fr/?from=${currentVersion}`)
+      click() {
+        shell.openExternal(
+          `https://tempus.keziahmoselle.fr/?from=${currentVersion}`
+        )
       }
     }
   } else {
@@ -413,7 +422,7 @@ function updateContextMenu (options) {
       type: 'checkbox',
       checked: config.get('showNotifications'),
       label: 'Enable notifications',
-      click (event) {
+      click(event) {
         config.set('showNotifications', event.checked)
       }
     },
@@ -421,7 +430,7 @@ function updateContextMenu (options) {
       type: 'checkbox',
       checked: config.get('autoLaunch'),
       label: 'Enable Launch At Login',
-      click (event) {
+      click(event) {
         toggleAutoLaunch(event.checked)
       }
     },
@@ -429,7 +438,7 @@ function updateContextMenu (options) {
       type: 'checkbox',
       checked: config.get('autoHide'),
       label: 'Auto hide window on start',
-      click (event) {
+      click(event) {
         config.set('autoHide', event.checked)
       }
     },
@@ -437,7 +446,7 @@ function updateContextMenu (options) {
       type: 'checkbox',
       checked: config.get('autoShowOnFinish'),
       label: 'Auto show window on finish',
-      click (event) {
+      click(event) {
         config.set('autoShowOnFinish', event.checked)
       }
     },
@@ -445,8 +454,10 @@ function updateContextMenu (options) {
       type: 'checkbox',
       checked: config.get('allowDrag'),
       label: 'Enable drag window (restart)',
-      click (event) {
-        if (showConfirmationBox('Do you want to restart to apply changes ?') === 0) {
+      click(event) {
+        if (
+          showConfirmationBox('Do you want to restart to apply changes ?') === 0
+        ) {
           config.set('allowDrag', event.checked)
           app.relaunch()
           app.quit()
@@ -458,17 +469,17 @@ function updateContextMenu (options) {
   const actions = [
     {
       label: 'Export to CSV',
-      click () {
-        const exportAsCsv = require('./utils/toCSV')
-        exportAsCsv()
+      click() {
+        toCSV()
       }
     },
     {
       label: 'Delete data',
-      click () {
+      click() {
         const action = dialog.showMessageBox({
           type: 'warning',
-          message: 'This action will delete all your statistics. Are you sure ?',
+          message:
+            'This action will delete all your statistics. Are you sure ?',
           buttons: ['Delete', 'Cancel']
         })
 
@@ -486,7 +497,7 @@ function updateContextMenu (options) {
   const menuTemplate = [
     {
       label: 'Show/Hide...',
-      click () {
+      click() {
         toggleWindow()
       },
       accelerator: 'CmdOrCtrl+O'
@@ -494,13 +505,13 @@ function updateContextMenu (options) {
     { type: 'separator' },
     {
       label: '▶ Start',
-      click () {
+      click() {
         trayWindow.webContents.send('start')
       }
     },
     {
       label: '■ Stop',
-      click () {
+      click() {
         trayWindow.webContents.send('stop')
       }
     },
@@ -517,13 +528,13 @@ function updateContextMenu (options) {
     versionItem,
     {
       label: 'Feedback && Support...',
-      click () {
+      click() {
         shell.openExternal('https://github.com/KeziahMoselle/tempus/issues/new')
       }
     },
     {
       label: 'Quit',
-      click () {
+      click() {
         app.quit()
       },
       accelerator: 'CmdOrCtrl+Q'
@@ -570,7 +581,7 @@ function updateContextMenu (options) {
   })
 }
 
-function toggleWindow () {
+function toggleWindow() {
   if (trayWindow.isVisible()) {
     trayWindow.hide()
     if (process.platform === 'darwin') {
@@ -584,12 +595,12 @@ function toggleWindow () {
   }
 }
 
-function toggleAutoLaunch (isEnabled) {
+function toggleAutoLaunch(isEnabled) {
   isEnabled ? autoLauncher.enable() : autoLauncher.disable()
   config.set('autoLaunch', isEnabled)
 }
 
-function showNotification (body) {
+function showNotification(body) {
   if (config.get('showNotifications')) {
     new Notification({
       title: 'Tempus',
@@ -599,7 +610,7 @@ function showNotification (body) {
   }
 }
 
-function showConfirmationBox (message) {
+function showConfirmationBox(message) {
   const dialogOptions = {
     type: 'info',
     buttons: ['Confirm', 'Cancel'],
@@ -609,18 +620,16 @@ function showConfirmationBox (message) {
   return dialog.showMessageBox(dialogOptions)
 }
 
-async function checkForUpdates () {
+async function checkForUpdates() {
   let currentVer
   let latestVer
 
   if (process.platform === 'darwin') {
-    const notifyLatestVersion = require('./utils/notifyLatestVersion')
     const { currentVersion, latestVersion } = await notifyLatestVersion()
     currentVer = currentVersion
     latestVer = latestVersion
   } else {
     const { autoUpdater } = require('electron-updater')
-    const getLatestVersion = require('./utils/getLatestVersion')
     const { currentVersion, latestVersion } = await getLatestVersion()
     currentVer = currentVersion
     latestVer = latestVersion
@@ -635,7 +644,7 @@ async function checkForUpdates () {
   })
 }
 
-function registerGlobalShortcuts ()  {
+function registerGlobalShortcuts() {
   // Global Shortcut : Toggle Window
   const shortcutToggleWindow = globalShortcut.register('Super+Alt+Up', () => {
     toggleWindow()

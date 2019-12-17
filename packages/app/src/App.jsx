@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import './assets/index.css'
+import Header from './components/Header'
 import Counter from './components/Counter'
 import Controls from './components/Controls'
 import Welcome from './components/Welcome/index'
@@ -380,48 +382,13 @@ class App extends Component {
     if (this.state.finishedWelcome) {
       return (
         <div className={`container window-${this.state.windowStyle}`}>
-          <div
-            className={`titlebar ${
-              this.state.allowDrag ? 'is-draggable' : null
-            }`}>
-            <div
-              className={`streak hidden-on-compacted ${
-                this.state.sessionStreak > 0 ? 'in-a-row' : ''
-              }`}>
-              <p>
-                <span role="img" aria-label="fire streak">
-                  🔥
-                </span>
-                {this.state.sessionStreak}
-              </p>
-            </div>
-
-            <div className="controls">
-              <i
-                onClick={() => window.ipcRenderer.send('win-settings')}
-                className="material-icons hidden-on-compacted">
-                settings
-              </i>
-              <i
-                onClick={() => window.ipcRenderer.send('win-minimize')}
-                className="material-icons">
-                remove
-              </i>
-              <i
-                onClick={this.winRestore}
-                className="material-icons remove-on-restored">
-                call_made
-              </i>
-              <i
-                onClick={this.winCompact}
-                className="material-icons remove-on-compacted">
-                call_received
-              </i>
-              <i onClick={this.quit} className="material-icons danger">
-                close
-              </i>
-            </div>
-          </div>
+          <Header
+            allowDrag={this.state.allowDrag}
+            sessionStreak={this.state.sessionStreak}
+            winRestore={this.winRestore}
+            winCompact={this.winCompact}
+            quit={this.quit}
+          />
 
           <Counter {...this.state} />
 

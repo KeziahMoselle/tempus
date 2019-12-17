@@ -105,58 +105,65 @@ Click on the arrows to get more informations about these features
 
 ### Prerequisites
 * Have [Node.js](https://nodejs.org/en/)  installed (> 8)
-* Have [Yarn](https://yarnpkg.com/en/) installed
+* Have [Yarn](https://yarnpkg.com/en/) installed (> 1.4.2)
 
 ### Steps
 
 1. Clone the repository
 ```sh
-> git clone https://github.com/KeziahMoselle/tempus.git
+$ git clone https://github.com/KeziahMoselle/tempus.git
 ```
 2. Create a new branch (i.e: feat-new-feature)
 
 3. Install dependencies :
 ```sh
-> cd tempus && yarn
+$ cd tempus && yarn
 ```
-3. Run the app in `development` mode
+
+4. Run the app
+
+In a browser :
 ```sh
-> yarn dev
+$ yarn web
+```
+
+In Electron :
+```sh
+$ yarn electron
+```
+
+### Build
+
+To build the app (without Electron) you will need to run :
+The `/build` directory is in `packages/app/build`
+
+```sh
+$ yarn build:app
+```
+
+To build the app with Electron you will need to run :
+The `/build` directory is in `packages/electron/dist`
+
+```sh
+$ yarn build:electron
 ```
 
 ### Tests
 
-See [Test Cases](./TESTCASES.md)
+Run tests for the application only :
+```sh
+$ yarn test:app
+```
+
+Run tests for the Electron app :
+```sh
+$ yarn test:electron
+```
+
+See [Test Cases (need to implement)](./TESTCASES.md)
 
 ### Project tree
 
-```
-|-- tempus
-    |-- assets              <-- Assets for the app
-    |-- build               <-- The React build
-    |-- dist                <-- Binaries will be generated here
-    |-- public
-    |   |-- utils           <-- Utility functions
-    |   |-- app.js          <-- Electron main process
-    |   |-- icons.js
-    |   |-- index.html
-    |   |-- preload.js      <-- Inject Node modules to the renderer process
-    |   |-- store.js        <-- Store
-    |   |-- icons
-    |-- src                 <-- React App
-        |-- App.jsx         <-- Main component
-        |-- index.css       <-- Main CSS
-        |-- index.js
-        |-- components
-        |-- fonts
-```
-
-## How to build ?
-
-```sh
-> yarn build
-```
-The binaries will be created in the `dist` folder.
 
 ## Built With
 

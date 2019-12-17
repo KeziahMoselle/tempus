@@ -1,7 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './assets/index.css'
 import App from './App.jsx'
+import { ipc } from '@tempus/core'
+import isElectron from './utils/isElectron'
+
+if (!isElectron) {
+  window.ipcRenderer = ipc
+}
 
 ReactDOM.render(
   <React.StrictMode>
