@@ -6,7 +6,7 @@ const { data } = require('../store')
 
 const downloadPath = path.join(app.getPath('downloads'), 'tempus.csv')
 
-async function exportAsCsv () {
+async function exportAsCsv() {
   const csvData = toCSV(data.get('data'), ['day', 'value', 'streak'])
 
   try {
@@ -31,7 +31,9 @@ async function exportAsCsv () {
     })
     // 'Open an issue' redirects to a new Github issue
     if (action === 0) {
-      const url = new URL(`https://github.com/KeziahMoselle/tempus/issues/new?body=${error}`).toString()
+      const url = new URL(
+        `https://github.com/KeziahMoselle/tempus/issues/new?body=${error}`
+      ).toString()
       // Open the link
       shell.openExternal(url)
     }
@@ -39,17 +41,17 @@ async function exportAsCsv () {
   }
 }
 
-
-  function toCSV (arr, columns) {
-    return [
-      columns.join(','),
-      ...arr.map(obj =>
-        columns.reduce(
-          (acc, key) => `${acc}${!acc.length ? '' : ','}"${!obj[key] ? '0' : obj[key]}"`,
-          ''
-        )
+function toCSV(arr, columns) {
+  return [
+    columns.join(','),
+    ...arr.map(obj =>
+      columns.reduce(
+        (acc, key) =>
+          `${acc}${!acc.length ? '' : ','}"${!obj[key] ? '0' : obj[key]}"`,
+        ''
       )
-    ].join('\n')
-  }
+    )
+  ].join('\n')
+}
 
-  module.exports = exportAsCsv
+module.exports = exportAsCsv

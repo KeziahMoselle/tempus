@@ -63,7 +63,15 @@ export default ({
       })
       setIsTimerChanged(false)
     }
-  }, [component, isTimerChanged, loadedConfig, numberOfCycle, total, totalPause, workTillDelayedMinutes])
+  }, [
+    component,
+    isTimerChanged,
+    loadedConfig,
+    numberOfCycle,
+    total,
+    totalPause,
+    workTillDelayedMinutes
+  ])
 
   return (
     <footer className={isExtended}>

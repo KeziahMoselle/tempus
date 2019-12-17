@@ -2,9 +2,7 @@ const Application = require('spectron').Application
 const electron = require('electron')
 const path = require('path')
 
-
 describe('Application', () => {
-
   const app = new Application({
     path: electron,
     args: [path.join(__dirname, '..', '..', 'public', 'app.js')]
@@ -15,5 +13,4 @@ describe('Application', () => {
     const isVisible = await app.browserWindow.isVisible()
     isVisible.toBe(true)
   })
-
 })

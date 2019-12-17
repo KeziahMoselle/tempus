@@ -1,19 +1,9 @@
 import React from 'react'
 import isElectron from '../../utils/isElectron'
 
-function Header ({
-  allowDrag,
-  sessionStreak,
-  winRestore,
-  winCompact,
-  quit
-}) {
-
+function Header({ allowDrag, sessionStreak, winRestore, winCompact, quit }) {
   return (
-    <div
-      className={`titlebar ${
-        allowDrag ? 'is-draggable' : null
-      }`}>
+    <div className={`titlebar ${allowDrag ? 'is-draggable' : null}`}>
       <div
         className={`streak hidden-on-compacted ${
           sessionStreak > 0 ? 'in-a-row' : ''
@@ -32,28 +22,24 @@ function Header ({
           className="material-icons hidden-on-compacted">
           settings
         </i>
-        { isElectron &&
+        {isElectron && (
           <i
             onClick={() => window.ipcRenderer.send('win-minimize')}
             className="material-icons">
             remove
           </i>
-        }
-        <i
-          onClick={winRestore}
-          className="material-icons remove-on-restored">
+        )}
+        <i onClick={winRestore} className="material-icons remove-on-restored">
           call_made
         </i>
-        <i
-          onClick={winCompact}
-          className="material-icons remove-on-compacted">
+        <i onClick={winCompact} className="material-icons remove-on-compacted">
           call_received
         </i>
-        { isElectron &&
+        {isElectron && (
           <i onClick={quit} className="material-icons danger">
             close
           </i>
-        }
+        )}
       </div>
     </div>
   )
