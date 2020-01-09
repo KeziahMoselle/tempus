@@ -53,7 +53,7 @@ class App extends Component {
     // Send `handshake` event to receive new value from the store
     window.ipcRenderer.send('handshake')
     // Receive new values from the store
-    window.ipcRenderer.once('handshake', (event, data) => {
+    window.ipcRenderer.once('handshake', data => {
       this.setState({
         total: data.work,
         totalPause: data.pause,

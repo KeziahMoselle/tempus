@@ -38,7 +38,9 @@ class IpcRenderer {
    * @param {*} channel
    * @param {*} data
    */
-  emit(channel, data) {
+  async emit(channel, data) {
+    await this.waitEventLoop()
+
     if (!this.channels[channel]) {
       return console.warn(`IpcRenderer: No listener on '${channel}'`)
     }
@@ -48,6 +50,10 @@ class IpcRenderer {
 
   removeAllListeners(channel) {
     console.log('Remove all listeners ', channel)
+  }
+
+  waitEventLoop() {
+    return Promise.resolve()
   }
 }
 
