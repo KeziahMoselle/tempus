@@ -6,8 +6,8 @@ const ipcRenderer = new IpcRenderer(ipcMain)
 
 ipcMain.on('handshake', event => {
   event.emit('handshake', {
-    work: 1,
-    pause: 1,
+    work: 60 * 25,
+    pause: 60 * 5,
     sessionStreak: 5,
     numberOfCycle: 0,
     isDraggable: false,
