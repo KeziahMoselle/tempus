@@ -53,7 +53,7 @@ class App extends Component {
     // Send `handshake` event to receive new value from the store
     window.ipcRenderer.send('handshake')
     // Receive new values from the store
-    window.ipcRenderer.once('handshake', data => {
+    window.ipcRenderer.once('handshake', (event, data) => {
       this.setState({
         total: data.work,
         totalPause: data.pause,
@@ -390,7 +390,14 @@ class App extends Component {
             quit={this.quit}
           />
 
-          <Counter {...this.state} />
+          <Counter
+            state={this.state.state}
+            total={this.state.total}
+            count={this.state.count}
+            totalPause={this.state.totalPause}
+            countPause={this.state.countPause}
+            windowStyle={this.state.windowStyle}
+          />
 
           <h6
             onClick={this.workTillNearestHour}

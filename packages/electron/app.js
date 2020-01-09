@@ -98,7 +98,7 @@ ipcMain.on('finished', (event, isManual) => {
  * Update the default state of the React App with the config
  */
 
-ipcMain.on('handshake', () => {
+ipcMain.on('handshake', event => {
   const currentDayIndex = config.get('lastTimeUpdated.index')
   const storeData = data.get('data')
 
@@ -110,7 +110,7 @@ ipcMain.on('handshake', () => {
     todayStreak = storeData[currentDayIndex].streak
   }
 
-  trayWindow.webContents.send('handshake', {
+  event.sender.send('handshake', {
     work: config.get('work'),
     pause: config.get('pause'),
     sessionStreak: todayStreak,
@@ -148,7 +148,7 @@ ipcMain.on('updateConfig', (event, data) => {
 
 /* Send data for charts */
 
-ipcMain.on('getData', () => {
+ipcMain.on('getData', event => {
   const currentDayIndex = config.get('lastTimeUpdated.index')
   const storeData = data.get('data')
 
@@ -172,7 +172,7 @@ ipcMain.on('getData', () => {
     todayMinutes = Math.round(storeData[currentDayIndex].value)
   }
 
-  trayWindow.webContents.send('getData', {
+  event.sender.send('getData', {
     totalHoursOfWork,
     totalStreak,
     todayStreak,
@@ -182,7 +182,7 @@ ipcMain.on('getData', () => {
 
 /* Data for the Bar chart */
 
-ipcMain.on('getBarChartData', () => {
+ipcMain.on('getBarChartData', event => {
   const payload = data
     .get('data')
     .slice(-7)
@@ -190,25 +190,25 @@ ipcMain.on('getBarChartData', () => {
       t: new Date(object.day).toLocaleDateString('en-US'),
       y: object.value
     }))
-  trayWindow.webContents.send('getBarChartData', payload)
+  event.sender.send('getBarChartData', payload)
 })
 
 /* Data for the Heatmap chart */
 
-ipcMain.on('getHeatmapChartData', () => {
+ipcMain.on('getHeatmapChartData', event => {
   const payload = data.get('data').map(object => ({
     date: object.day,
     value: object.value,
     streak: object.streak
   }))
 
-  trayWindow.webContents.send('getHeatmapChartData', payload)
+  event.sender.send('getHeatmapChartData', payload)
 })
 
 /* Data for counter */
 
-ipcMain.on('getCounterData', () => {
-  trayWindow.webContents.send('getCounterData', config.get('format'))
+ipcMain.on('getCounterData', event => {
+  event.sender.send('getCounterData', config.get('format'))
 })
 
 /* Data for Goals */
@@ -249,7 +249,7 @@ ipcMain.on('removeGoal', (event, { type, value }) => {
   event.sender.send('refreshGoals')
 })
 
-ipcMain.on('getGoalsData', () => {
+ipcMain.on('getGoalsData', event => {
   const goalsCreated = config.get('goals') // [ { type: 'day', value: 60 } ]
   const localData = data.get('data')
   const types = {
@@ -284,7 +284,7 @@ ipcMain.on('getGoalsData', () => {
     })
   })
 
-  trayWindow.webContents.send('getGoalsData', payload)
+  event.sender.send('getGoalsData', payload)
 })
 
 /* Store the streak and time */
