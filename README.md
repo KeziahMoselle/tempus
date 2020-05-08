@@ -167,50 +167,17 @@ See [Test Cases (need to implement)](./TESTCASES.md)
 ### Project tree
 
 ```
-|-- .gitignore
-|-- .prettierignore
-|-- .travis.yml
-|-- appveyor.yml
-|-- LICENSE
-|-- package.json
-|-- prettier.config.js
-|-- README.md
-|-- TESTCASES.md
-|-- yarn.lock
-|-- .github
 |-- packages
-    |-- app
-    |   |-- package.json
-    |   |-- build
-    |   |-- public
-    |   |   |-- favicon.ico
-    |   |   |-- index.html
-    |   |   |-- assets
-    |   |-- src
-    |       |-- App.jsx
-    |       |-- index.js
-    |       |-- assets
-    |       |-- components
-    |       |-- tests
-    |       |-- utils
-    |-- core
-    |   |-- index.js
-    |   |-- package.json
-    |   |-- ipc
+    |-- app		The React app
+    |   |-- build	The build of the React app
+    |   |-- public	.html and assets go here
+    |   |-- src		React components and assets for the components
+    |-- core		Modules being shared between the browser and Node
     |-- electron
-        |-- app.js
-        |-- icons.js
-        |-- package.json
-        |-- preload.js
-        |-- store.js
-        |-- assets
-        |-- dist
-        |-- tests
-        |   |-- App.test.js
-        |-- utils
-            |-- getLatestVersion.js
-            |-- notifyLatestVersion.js
-            |-- toCSV.js
+        |-- assets	Assets like tray icons
+        |-- dist	The build of the electron app
+        |-- tests	Tests
+        |-- utils	Utility functions
 ```
 
 ## Built With
