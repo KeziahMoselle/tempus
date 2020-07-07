@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.1.1",
-    "electron": "^4.0.7",
+    "electron": "^9.1.0",
     "electron-builder": "^20.38.5",
     "electron-devtools-installer": "^2.2.4",
     "spectron": "^8.0.0"
