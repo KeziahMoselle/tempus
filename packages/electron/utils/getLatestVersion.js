@@ -1,6 +1,6 @@
 const got = require('got')
 const log = require('electron-log')
-const { version: currentVersion } = require('../../../package.json')
+const { version: currentVersion } = require('../package.json')
 
 const githubReleaseUrl =
   'https://api.github.com/repos/KeziahMoselle/tempus/releases/latest'
