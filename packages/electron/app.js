@@ -310,8 +310,10 @@ ipcMain.on('win-restore', () => {
   positioner.move(getTrayPosition(), tray.getBounds())
 })
 
-ipcMain.on('win-close', () => {
-  if (showConfirmationBox('Do you really want to quit ?') === 0) {
+ipcMain.on('win-close', async () => {
+  const result = await showConfirmationBox('Do you really want to quit ?')
+
+  if (result.response === 0) {
     app.quit()
   }
 })
@@ -362,10 +364,16 @@ function createWindow() {
       default: installExtension,
       REACT_DEVELOPER_TOOLS
     } = require('electron-devtools-installer')
-    installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => console.log('Added extension : ', name))
-      .catch(error => console.log(error))
-    trayWindow.webContents.openDevTools()
+
+    app.whenReady()
+      .then(() => {
+        installExtension(REACT_DEVELOPER_TOOLS)
+          .then((name) => {
+            console.log(`Added Extension:  ${name}`)
+            trayWindow.webContents.openDevTools()
+          })
+          .catch((err) => console.log('An error occurred: ', err));
+      })
   }
 
   trayWindow.on('ready-to-show', () => trayWindow.show())
@@ -417,7 +425,7 @@ function updateContextMenu(options) {
     }
   }
 
-  const settings = [
+  const settings = () => ([
     {
       type: 'checkbox',
       checked: config.get('showNotifications'),
@@ -464,7 +472,7 @@ function updateContextMenu(options) {
         }
       }
     }
-  ]
+  ])
 
   const actions = [
     {
@@ -518,7 +526,7 @@ function updateContextMenu(options) {
     { type: 'separator' },
     {
       label: 'Settings',
-      submenu: [...settings]
+      submenu: settings()
     },
     {
       label: 'Actions',
@@ -559,7 +567,7 @@ function updateContextMenu(options) {
       },
       {
         label: 'Settings',
-        submenu: [...settings]
+        submenu: settings()
       },
       {
         label: 'Actions',
@@ -577,7 +585,7 @@ function updateContextMenu(options) {
   }
 
   ipcMain.on('win-settings', () => {
-    tray.popUpContextMenu(Menu.buildFromTemplate(settings))
+    tray.popUpContextMenu(Menu.buildFromTemplate(settings()))
   })
 }
 
@@ -610,7 +618,7 @@ function showNotification(body) {
   }
 }
 
-function showConfirmationBox(message) {
+async function showConfirmationBox(message) {
   const dialogOptions = {
     type: 'info',
     buttons: ['Confirm', 'Cancel'],

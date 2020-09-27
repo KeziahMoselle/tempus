@@ -15,21 +15,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "@tempus/core": "^1.7.0",
     "auto-launch": "^5.0.5",
-    "electron-is-dev": "^1.0.1",
-    "electron-log": "^3.0.1",
+    "electron-is-dev": "^1.2.0",
+    "electron-log": "^4.2.4",
     "electron-positioner": "^4.1.0",
-    "electron-store": "^2.0.0",
-    "electron-updater": "^4.0.6",
-    "got": "^9.6.0"
+    "electron-store": "^6.0.0",
+    "electron-updater": "^4.3.5",
+    "got": "^11.7.0"
   },
   "devDependencies": {
-    "copyfiles": "^2.1.1",
-    "electron": "^9.1.0",
-    "electron-builder": "^20.38.5",
-    "electron-devtools-installer": "^2.2.4",
-    "spectron": "^8.0.0"
+    "copyfiles": "^2.3.0",
+    "electron": "^10.1.2",
+    "electron-builder": "^22.8.1",
+    "electron-devtools-installer": "^3.1.1",
+    "spectron": "^12.0.0"
   },
   "build": {
     "linux": {
