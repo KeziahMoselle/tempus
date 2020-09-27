@@ -11,7 +11,7 @@
     "start": "concurrently \"yarn workspace @tempus/app start:electron\" \"wait-on http://localhost:3000 && electron app.js\"",
     "prebuild": "yarn workspace @tempus/app build && copyfiles -u 2 \"../app/build/**/*\" ./",
     "build": "electron-builder build",
-    "release": "npm run prebuild && build --publish always",
+    "release": "npm run prebuild && electron-builder build --publish always",
     "test": "jest"
   },
   "dependencies": {
